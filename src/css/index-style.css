@@ -14,8 +14,8 @@ html {
   background: linear-gradient(179.87deg, #230079 0.27%, #380062 46.44%, #7D0491 99.88%);
   background-repeat: no-repeat;
   background-size: cover;
+  overflow-x: hidden;
   width: 100vw;
-  height: 376.3rem;
 }
 
 a, ul {
@@ -401,7 +401,7 @@ a, ul {
   width: 101.3rem;
   height: 13.2rem;
   margin: 0 auto;
-  margin-top: 37rem;
+  margin-top: 15rem;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -421,6 +421,7 @@ a, ul {
   padding-top: 3rem;
   text-align: center;
   font-size: 1.3rem;
+  margin-bottom: 5rem;
 }
 .footer__logo {
   margin: 0 13.3rem 0 0;
