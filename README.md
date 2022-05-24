@@ -53,4 +53,4 @@ This is a chatting, meeting and dating website for the Geek Community. At the en
 <br />
 
 ----
-<div align="center">Link to the <a href="https://saphido.github.io/GetUrGeek/" target="_blank">github page</a></div>
+<div align="center">Link to the <a href="https://saphido.github.io/GetUrGeek-V2/" target="_blank">github page</a></div>
