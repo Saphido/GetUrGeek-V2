@@ -1,52 +1,69 @@
 /* Custom dropdown for lang button */
 
 .header {
-    &__main-nav {
+    width: 101.3rem;
+    height: 13.2rem;
+    margin: 0 auto;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+    border-bottom: 1px solid #4543A9;
+
+    &__logo {
+        margin: 0 13.3rem 0 0;
+        width: 11.5rem;
     }
-}
 
-.custom-sel {
-        
-    &__links {
-        text-decoration: none;
-        text-transform: uppercase;
-        margin: 0;
-        padding: 10px;
-        text-align: left;
-        font-family: Raleway;
-        color: #546e7a;
-        font-size: 15px;
-        font-weight: 700;
-        line-height: 24px;
-        display: block;
-        background-color: red;
+    &__nav {
 
-        &:hover {
-            text-decoration: none;
-            background-color: #EDF0F2;
-            color: #ffffff;
-        }
+        &__list {
 
-        &.selected {
-            background-color: transparent;
+            &__link {
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
+                gap: 2rem;
 
-            &:hover {
-                background-color: transparent;
+                margin-right: 13.5rem;
+            }
+
+            &__button {
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
+                gap: 2rem;
+
             }
         }
 
-        &.hidden {
-            display: none;
+        &__items {
+
+        }
+
+        &__links {
+            font-size: 2rem;
+            font-weight: 700;
+            text-align: center;
+        }
+
+        &__buttons {
+            width: 14.4rem;
+            height: 5.3rem;
+            background: #5518EC;
+            border-radius: 25px;
+            border: none;
+
+            color: white;
+            font-weight: 700;
+            font-size: 2rem;
+            text-align: center;
         }
     }
 
-    .show-sel {
-        background-color: #ffffff;
-        box-shadow: -5px 0px 65px 0px rgba(0, 0, 0, 0.18);
-    }
 
-    .custom-sel {
-        margin: 30px;
-        display: inline-block;
-    }
 }

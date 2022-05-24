@@ -5,10 +5,20 @@
 }
 
 html {
+    color: white;
+    font-family: $exo;
     font-size: 62.5%;
+
     background: linear-gradient(179.87deg, #230079 0.27%, #380062 46.44%, #7D0491 99.88%);
     background-repeat: no-repeat;
     background-size: cover;
+
     width: 100vw;
     height: 376.3rem;
+}
+
+a, ul {
+    text-decoration: none;
+    list-style: none;
+    color: white;
 }

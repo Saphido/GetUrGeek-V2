@@ -1,0 +1,60 @@
+.footer {
+    width: 101.3rem;
+    height: 13.2rem;
+    margin: 0 auto;
+    margin-top: 37rem;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+    border-bottom: 1px solid #4543A9;
+
+    &__copyright {
+        padding-top: 3rem;
+        text-align: center;
+        font-size: 1.3rem;
+    }
+
+
+    &__logo {
+        margin: 0 13.3rem 0 0;
+        width: 11.5rem;
+    }
+
+    &__nav {
+
+        &__list {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+
+            &__links {
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
+                gap: 2rem;
+
+                margin-right: 13.5rem;
+            }
+
+            &__social {
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
+                gap: 2rem;
+            }
+        }
+
+        &__links {
+            font-size: 2rem;
+            font-weight: 700;
+            text-align: center;
+        }
+    }
+}

@@ -1,0 +1,38 @@
+.features {
+    width: 113.6rem;
+    margin: 0 auto;
+    padding-top: 14.4rem;
+    text-align: center;
+
+    display: flex;
+    flex-direction: column;
+
+    &__title {
+        font-family: $chakra;
+        font-weight: 700;
+        font-size: 4.8rem;
+        text-align: center;
+    }
+
+    &__blockarea {
+        
+        &__blocks {
+            margin: 4rem 0;
+            width: 113.6rem;
+            height: 8.6rem;
+            background: rgba(217, 217, 217, 0.1);
+            border-radius: 25px;
+
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+
+            &__text {
+                font-family: $chakra;
+                font-weight: 700;
+                font-size: 3rem;
+            }
+        }
+    }
+}

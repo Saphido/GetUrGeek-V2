@@ -1,0 +1,56 @@
+.whatis {
+    width: 100vw;
+    height: 85.6rem;
+
+    background: url("/src/img/index/lights_background.png");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+
+    margin-top: 13.3rem;
+
+    &__title {
+        font-family: $chakra;
+        font-weight: 700;
+        line-height: 8.3rem;
+        font-size: 6.4rem;
+        text-align: center;
+        padding-bottom: 5rem;
+    }
+
+    &__text {
+        width: 52.9rem;
+        font-family: $chakra;
+        font-weight: 700;
+        line-height: 4rem;
+        font-size: 2.4rem;
+        text-align: center;
+        padding-bottom: 5rem;
+    }
+
+    &__button {
+        width: 20.9rem;
+        height: 6.3rem;
+
+        background-color: #5518EC;
+        border-radius: 25px;
+        border: none;
+
+        color: white;
+        font-weight: 700;
+        font-size: 2rem;
+        text-align: center;
+    }
+
+    &__image {
+        width: 54rem;
+
+        padding-top: 4.8rem;
+
+    }
+}
