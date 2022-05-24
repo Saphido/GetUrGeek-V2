@@ -101,7 +101,7 @@ a, ul {
 .whatis {
   width: 100vw;
   height: 85.6rem;
-  background: url("/src/img/index/lights_background.png");
+  background: url("../../src/img/index/lights_background.png");
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
