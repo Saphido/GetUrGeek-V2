@@ -86,6 +86,12 @@ a, ul {
   font-weight: 700;
   text-align: center;
 }
+.header__nav__links:hover {
+  opacity: 0.5;
+  cursor: pointer;
+  -webkit-transition: all 0.45s ease-in-out;
+  transition: all 0.45s ease-in-out;
+}
 .header__nav__buttons {
   width: 14.4rem;
   height: 5.3rem;
@@ -96,6 +102,25 @@ a, ul {
   font-weight: 700;
   font-size: 2rem;
   text-align: center;
+}
+.header__nav__buttons:hover {
+  -webkit-transition: all 0.45s ease-in-out;
+  transition: all 0.45s ease-in-out;
+  background: rgba(85, 24, 236, 0.5);
+  cursor: pointer;
+}
+.header__nav__buttons #circle {
+  width: 0%;
+  height: 0%;
+  opacity: 0;
+  line-height: 40px;
+  border-radius: 50%;
+  background: #BFC0C0;
+  position: absolute;
+  -webkit-transition: all 0.5s ease-Out;
+  transition: all 0.5s ease-Out;
+  top: 20px;
+  left: 70px;
 }
 
 .whatis {
@@ -147,6 +172,12 @@ a, ul {
   font-weight: 700;
   font-size: 2rem;
   text-align: center;
+}
+.whatis__button:hover {
+  -webkit-transition: all 0.45s ease-in-out;
+  transition: all 0.45s ease-in-out;
+  background: rgba(85, 24, 236, 0.5);
+  cursor: pointer;
 }
 .whatis__image {
   width: 54rem;
@@ -480,4 +511,10 @@ a, ul {
   font-size: 2rem;
   font-weight: 700;
   text-align: center;
+}
+.footer__nav__links:hover {
+  opacity: 0.5;
+  cursor: pointer;
+  -webkit-transition: all 0.45s ease-in-out;
+  transition: all 0.45s ease-in-out;
 }/*# sourceMappingURL=index-style.css.map */

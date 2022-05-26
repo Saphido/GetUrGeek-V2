@@ -37,18 +37,15 @@
                 justify-content: center;
                 align-items: center;
                 gap: 2rem;
-
             }
-        }
-
-        &__items {
-
         }
 
         &__links {
             font-size: 2rem;
             font-weight: 700;
             text-align: center;
+
+            @include hoverLinks;
         }
 
         &__buttons {
@@ -62,6 +59,21 @@
             font-weight: 700;
             font-size: 2rem;
             text-align: center;
+
+            @include hoverButton;
+
+            #circle {
+                width: 0%;
+                height: 0%;
+                opacity: 0;
+                line-height: 40px;
+                border-radius: 50%;
+                background: #BFC0C0;
+                position: absolute;
+                transition: all .5s ease-Out;
+                top: 20px;
+                left: 70px;
+              }
         }
     }
 
