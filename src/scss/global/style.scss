@@ -5,8 +5,15 @@
 
 @import "../../../src/scss/global/header";
 
+/* INDEX */
+@import "../../../src/scss/index/popup";
 @import "../../../src/scss/index/whatis";
 @import "../../../src/scss/index/carousel";
 @import "../../../src/scss/index/community";
 @import "../../../src/scss/index/features";
+
+/* LOGIN/REGISTER */
+@import "../../../src/scss/login/hero";
+@import "../../../src/scss/login/formular";
+
 @import "../../../src/scss/global/footer";

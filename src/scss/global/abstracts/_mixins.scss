@@ -3,13 +3,13 @@
     &:hover {
         opacity: 0.5;
         cursor: pointer;
-        transition: all .45s ease-in-out;
+        transition: all .15s ease-in-out;
     }
 }
 
 @mixin hoverButton {
     &:hover {
-        transition: all .45s ease-in-out;
+        transition: all .25s ease-in-out;
         background: rgba(85, 24, 236, 0.5);
         cursor: pointer;
     }
