@@ -3,6 +3,7 @@
 //-----------------------------------------------------------------------------------------------------------------
 /**
  *      Author : Julien Jacobs
+ *      Modified by : Julien Gatisseur :3
  */
 //-----------------------------------------------------------------------------------------------------------------
 
@@ -11,7 +12,7 @@
  * PDO, table, element[], nameForWhere[], valueForWhere[].
  * Pour les WHERE, ajouter "' ... '" S'il s'agit d'un string.
  */
-function selectInTable($pdo, $table, $elements, $wheresName, $wheresValue)
+function selectInTable($pdo, $table, $elements, $wheresName, $wheresValue, $LogicOperator)
 {
     $sql = 'SELECT ';
     for ($i = 0; $i < count($elements); $i++) {
@@ -26,13 +27,12 @@ function selectInTable($pdo, $table, $elements, $wheresName, $wheresValue)
         for ($i = 0; $i < count($wheresName); $i++) {
             $sql = $sql . $wheresName[$i] . ' = ' . $wheresValue[$i];
             if ($i < count($wheresName) - 1) {
-                $sql = $sql . ' AND ';
+                $sql = $sql . $LogicOperator . ' ';
             }
         }
     } else {
         $sql = $sql . ' WHERE 1';
     }
-    echo $sql;
     try {
         $stmt = $pdo->prepare($sql);
         $stmt->execute();

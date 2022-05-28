@@ -42,8 +42,8 @@ if(isset($_POST['register'])) {
     }
     else {
         try {
-            $select_stmt = selectInTable($pdo, 'user', ['username', 'email'], ['username', 'email'], ["'" .$_POST['username'] . "'", "'" .$_POST['email'] . "'"]);
-            $row=$select_stmt->fetch();
+            $req = selectInTable($pdo, 'user', ['username', 'email'], ['username', 'email'], ["'" .$_POST['username'] . "'", "'" .$_POST['email'] . "'"], 'OR');
+            $row=$req->fetch();
 
             if($row["username"] == $username) {
                 $errorMsg[]="Sorry, that username already exists"; // Check if username already exist
@@ -54,9 +54,10 @@ if(isset($_POST['register'])) {
             else if(!isset($errorMsg)) {
                 $new_password = password_hash($password, PASSWORD_DEFAULT); //Hash password for security
 
-                $insert_stmt = insertInTable($pdo, 'user', ['username', 'email', 'birthday', 'idgender', 'idcountry', 'zipcode', 'password'], [$username, $email, $birth, $gender, $zipcode, $password]);
-
-                $registerMsg= "Register Sucessfully";
+                $insert_stmt = insertInTable($pdo, 'user', ['username', 'email', 'birthday', 'idgender', 'idcountry', 'zipcode', 'password'], [$username, $email, $birth, $gender, $country, $zipcode, $new_password]);
+                
+                $registerMsg= "Register Sucessfully, redirecting...";
+                header("refresh:4; login.php");
             }
         }
         catch(PDOException $e) {
@@ -93,7 +94,7 @@ if(isset($_POST['register'])) {
         <?php
     }
     ?>
-    <form class="formular__form" method="POST" action="register.php">
+    <form class="formular__form" method="POST" action="register.php" Append="?submit=true">
         <p class="formular__form__text">Username *</p>
         <input class="formular__form__input" type="text" name="username" placeholder="Username" >
         <p class="formular__form__text">Email *</p>
@@ -105,7 +106,7 @@ if(isset($_POST['register'])) {
             <option value="" selected disabled hidden>Gender</option>
             <!-- GENERATING GENDER OPTION VIA DATABASE  (With ID's of each ones) -->
             <?php
-            $req = selectInTable($pdo, 'gender', ['id', 'gender_en'], [], []);
+            $req = selectInTable($pdo, 'gender', ['id', 'gender_en'], [], [], 'AND');
             while ($gender = $req->fetch()) {
                 echo '<option class="formular__form__input__options" value="' . $gender['id'] . '">' . $gender['gender_en'] . '</option>';
             }
@@ -118,7 +119,7 @@ if(isset($_POST['register'])) {
 
             <!-- GENERATING COUNTRY OPTION VIA DATABASE (With ID's of each ones) -->
             <?php
-            $req = selectInTable($pdo, 'pays', ['id', 'nom_en_gb'], [], []);
+            $req = selectInTable($pdo, 'pays', ['id', 'nom_en_gb'], [], [], 'AND');
             while ($pays = $req->fetch()) {
                 echo '<option class="formular__form__input__options" value="' . $pays['id'] . '">' . $pays['nom_en_gb'] . '</option>';
             }
