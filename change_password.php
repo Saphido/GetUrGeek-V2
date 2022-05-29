@@ -28,7 +28,9 @@ include 'src/include/header.php';
             try {
                     $new_password = password_hash($password, PASSWORD_DEFAULT); //Hash password for security
                     $update = updateInTable($pdo, 'user', ['password'], [$new_password], ['user_id'], [$_SESSION['user_id_reset_pass']]);
+                    $remove = deleteInTable($pdo, 'password_reset_request', ['user_id'], [$_SESSION['user_id_reset_pass']]);
                     $updateMsg= "Password changed sucessfully, redirecting...";
+                    header("refresh:3; login.php");
                     session_destroy();
             }
             catch(PDOException $e) {

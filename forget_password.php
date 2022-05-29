@@ -50,6 +50,31 @@ if (isset($_POST['reset'])) {
         $linkToSend = $verifyScript . '?uid=' . $userId . '&id=' . $passwordRequestId . '&t=' . $token;
 
         //Print out the email for the sake of this tutorial.
+                //Print out the email for the sake of this tutorial.
+
+
+
+/*                 $to = $_POST["email"];
+                $subject = "Reset password link - GetUrGeek";
+                 
+                $message = "<b>Here is your link to reset your password</b>";
+                $message .= $linkToSend;
+                 
+                $header = "From:abc@somedomain.com \r\n";
+                $header .= "Cc:afgh@somedomain.com \r\n";
+                $header .= "MIME-Version: 1.0\r\n";
+                $header .= "Content-type: text/html\r\n";
+                 
+                $retval = mail ($to,$subject,$message,$header);
+                 
+                if( $retval == true ) {
+                    $successMsg = "A mail with the link to reset your password has been send, please check your mailbox :)";
+                }else {
+                    $errorMsg = "An error as occured while sending the mail, please try again or contact the support";
+                } */
+
+
+                
         echo $linkToSend;
         $successMsg = "A mail with the link to reset your password has been send, please check your mailbox :)";
     }

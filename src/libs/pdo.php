@@ -3,12 +3,13 @@ session_start();
 /**
  * Infos connexion BD
  */
-$host    = '127.0.0.1';
+$host    = 'db-mysql-ams3-66868-do-user-11684170-0.b.db.ondigitalocean.com';
 $db      = 'geturgeek';
-$user    = 'root';
-$pass    = '';
+$user    = 'geturgeekadmin';
+$port    = '25060';
+$pass    = 'AVNS_sD3ENZ7XTZqj6OY';
 $charset = 'utf8mb4';
-$dsn     = "mysql:host=$host;dbname=$db;charset=$charset";
+$dsn     = "mysql:host=$host;port=$port;dbname=$db;charset=$charset";
 
 /**
  * Attributs de la BD
