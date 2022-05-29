@@ -54,7 +54,7 @@ if (isset($_POST['reset'])) {
 
 
 
-/*                 $to = $_POST["email"];
+                $to = $_POST["email"];
                 $subject = "Reset password link - GetUrGeek";
                  
                 $message = "<b>Here is your link to reset your password</b>";
@@ -65,17 +65,19 @@ if (isset($_POST['reset'])) {
                 $header .= "MIME-Version: 1.0\r\n";
                 $header .= "Content-type: text/html\r\n";
                  
-                $retval = mail ($to,$subject,$message,$header);
+                $retval = mail($to,$subject,$message,$header);
                  
                 if( $retval == true ) {
                     $successMsg = "A mail with the link to reset your password has been send, please check your mailbox :)";
                 }else {
                     $errorMsg = "An error as occured while sending the mail, please try again or contact the support";
-                } */
+                } 
 
 
-                
+
         echo $linkToSend;
+        echo "\n";
+        echo $_POST["email"];
         $successMsg = "A mail with the link to reset your password has been send, please check your mailbox :)";
     }
 }
