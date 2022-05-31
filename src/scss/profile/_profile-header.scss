@@ -1,0 +1,45 @@
+.profile-header {
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    padding-top: 5.3rem;
+    padding-bottom: 18.3rem;
+
+    background: url("../../../src/img/index/lights_background.png");
+    background-position: center;
+    background-size: cover;
+
+    &__block {
+        width: 64.8rem;
+        height: 49.4rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        &__image {
+            width: 35rem;
+            height: 35rem;
+            border-radius: 50%;
+            margin-bottom: 5rem;
+            border: 2px solid #FC7BFF;
+        }
+        
+        &__username {
+            font-family: $chakra;
+            font-weight: 700;
+            font-size: 4.4rem;
+            text-align: center;
+            color: #7EFF7B;
+        }
+
+        &__infos {
+            font-family: $chakra;
+            font-weight: 700;
+            font-size: 2.4rem;
+            text-align: center;
+            color: white;
+        }  
+    }
+}

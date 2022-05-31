@@ -1,9 +1,9 @@
 <?php
 include 'src/include/header.php';
 
-/*     if(isset($_SESSION["user_login"])) { //Check if user session is open, redirect to index.php
+    if(isset($_SESSION["user_login"])) { //Check if user session is open, redirect to index.php
         header("location: index.php");
-    } */
+    }
 
 if (isset($_POST['reset'])) {
     //Get the email that is being searched for.
@@ -62,8 +62,6 @@ if (isset($_POST['reset'])) {
                  
                 $header = "From:abc@somedomain.com \r\n";
                 $header .= "Cc:afgh@somedomain.com \r\n";
-                $header .= "MIME-Version: 1.0\r\n";
-                $header .= "Content-type: text/html\r\n";
                  
                 $retval = mail($to,$subject,$message,$header);
                  
@@ -71,7 +69,7 @@ if (isset($_POST['reset'])) {
                     $successMsg = "A mail with the link to reset your password has been send, please check your mailbox :)";
                 }else {
                     $errorMsg = "An error as occured while sending the mail, please try again or contact the support";
-                } 
+                }
 
 
 

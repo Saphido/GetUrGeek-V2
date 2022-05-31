@@ -1,7 +1,7 @@
 @mixin hoverLinks {
 
     &:hover {
-        opacity: 0.5;
+        color: #7EFF7B;
         cursor: pointer;
         transition: all .15s ease-in-out;
     }
@@ -10,7 +10,7 @@
 @mixin hoverButton {
     &:hover {
         transition: all .25s ease-in-out;
-        background: rgba(85, 24, 236, 0.5);
+        background: #7EFF7B;
         cursor: pointer;
     }
 }

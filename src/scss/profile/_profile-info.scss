@@ -1,0 +1,82 @@
+.profile-info {
+    width: 107.3rem;
+    height: auto;
+    padding-bottom: 70rem;
+
+    margin: 5rem auto;
+    clip-path: polygon(100% 0, 100% 100%, 50% 68%, 0 100%, 0 0);
+    background-color: rgba(255, 255, 255, 0.1);
+
+    &__nav {
+        width: 90rem;
+        margin: 0 auto;
+        padding: 5rem 0;
+        border-bottom: 1px solid #7F7DE7;
+
+        &__list {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            gap: 21.8rem;
+        }
+        
+        &__links {
+
+            font-weight: 700;
+            font-size: 3.2rem;
+            text-align: center;
+
+            &:hover {
+                cursor: pointer;
+                opacity: 0.5;
+            }
+
+        }
+    }
+    
+    #nav_global {
+        color: #7EFF7B;
+    }
+
+    &__global {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-top: 5rem;
+    }
+
+    &__skills {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        padding-top: 5rem;
+    }
+
+    &__gallery {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        padding-top: 5rem;
+    }
+
+    &__items {
+        padding-bottom: 3rem;
+    }
+
+    &__title {
+        font-family: $exo;
+        font-weight: 700;
+        font-size: 2.4rem;
+        text-align: center;
+        color: #7EFF7B;
+        text-transform: uppercase;
+        padding-bottom: 1.5rem;
+    }
+
+    &__text {
+        font-family: $exo;
+        font-weight: 700;
+        font-size: 2rem;
+        text-align: center;
+    }
+}

@@ -149,3 +149,13 @@ function generateHTML($typeBalise, $textInside, $attributeName, $attributeValue)
     $balise = $balise . '>' . $textInside . '</' . $typeBalise . '>';
     return $balise;
 }
+
+
+function valeursEntre($valeur, $min, $max){
+    for($i = 0; $i < sizeof($valeur); $i++){
+        if($valeur[$i]> $max || $valeur[$i]<$min){
+            return false;
+        }
+    }
+    return true;
+}

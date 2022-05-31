@@ -1,15 +1,24 @@
 <?php
 include 'src/include/header.php';
 
+if(isset($_SESSION["user_login"])) { //Check if user session is open, redirect to index.php
+    header("location: index.php");
+}
+
 if(isset($_POST['register'])) {
+    $query = @unserialize(file_get_contents('http://ip-api.com/php/')); //GET DATA FROM USER IP for Localisation
+
     $username = strip_tags($_POST['username']);
     $email = strip_tags($_POST['email']);
     $birth = strip_tags($_POST['birth']);
     $gender = strip_tags($_POST['gender']);
     $country = strip_tags($_POST['country']);
-    $zipcode = strip_tags($_POST['zipcode']);
+    $city = $query["city"];
+    $zipcode = $query["zip"];
     $password = strip_tags($_POST['password']);
     $password_confirm = strip_tags($_POST['password_confirm']);
+    $herefor = strip_tags($_POST['herefor']);
+    $lookingfor = strip_tags($_POST['lookingfor']);
 
     $uppercase = preg_match('@[A-Z]@', $password);
     $lowercase = preg_match('@[a-z]@', $password);
@@ -27,9 +36,6 @@ if(isset($_POST['register'])) {
     }
     else if(empty($birth)) {
         $errorMsg[]="Please select a birth date"; //check birth date not empty
-    }
-    else if(empty($zipcode)) {
-        $errorMsg[]="Please enter a zipcode"; //check zipcode not empty
     }
     else if(empty($password)) {
         $errorMsg[]="Please enter a password"; //check password not empty
@@ -54,7 +60,7 @@ if(isset($_POST['register'])) {
             else if(!isset($errorMsg)) {
                 $new_password = password_hash($password, PASSWORD_DEFAULT); //Hash password for security
 
-                $insert_stmt = insertInTable($pdo, 'user', ['username', 'email', 'birthday', 'idgender', 'idcountry', 'zipcode', 'password'], [$username, $email, $birth, $gender, $country, $zipcode, $new_password]);
+                $insert_stmt = insertInTable($pdo, 'user', ['username', 'email', 'birthday', 'idgender', 'idcountry', 'zipcode', 'city', 'password', 'id_here_for', 'id_looking_for'], [$username, $email, $birth, $gender, $country, $zipcode, $city, $new_password, $herefor, $lookingfor]);
                 
                 $registerMsg= "Register Sucessfully, redirecting...";
                 header("refresh:4; login.php");
@@ -103,12 +109,36 @@ if(isset($_POST['register'])) {
         <input class="formular__form__input" type="date" name="birth" placeholder="dd-mm-yyyy" placeholder="dd-mm-yyyy" >
         <p class="formular__form__text">Gender *</p>
         <select class="formular__form__input" id="select" name="gender" required>
-            <option value="" selected disabled hidden>Gender</option>
+            <option value="" selected disabled hidden>Gender...</option>
             <!-- GENERATING GENDER OPTION VIA DATABASE  (With ID's of each ones) -->
             <?php
             $req = selectInTable($pdo, 'gender', ['id', 'gender_en'], [], [], 'AND');
             while ($gender = $req->fetch()) {
                 echo '<option class="formular__form__input__options" value="' . $gender['id'] . '">' . $gender['gender_en'] . '</option>';
+            }
+
+            ?>
+        </select>
+        <p class="formular__form__text">Here for *</p>
+        <select class="formular__form__input" id="select" name="herefor" required>
+            <option value="" selected disabled hidden>I'm here for...</option>
+            <!-- GENERATING HEREFOR OPTION VIA DATABASE  (With ID's of each ones) -->
+            <?php
+            $req = selectInTable($pdo, 'herefor', ['id', 'herefor_en'], [], [], 'AND');
+            while ($herefor = $req->fetch()) {
+                echo '<option class="formular__form__input__options" value="' . $herefor['id'] . '">' . $herefor['herefor_en'] . '</option>';
+            }
+
+            ?>
+        </select>
+        <p class="formular__form__text">Interested by *</p>
+        <select class="formular__form__input" id="select" name="lookingfor" required>
+            <option value="" selected disabled hidden>I'm interested by...</option>
+            <!-- GENERATING LOOKINGFOR OPTION VIA DATABASE  (With ID's of each ones) -->
+            <?php
+            $req = selectInTable($pdo, 'lookingfor', ['id', 'lookingfor_en'], [], [], 'AND');
+            while ($lookingfor = $req->fetch()) {
+                echo '<option class="formular__form__input__options" value="' . $lookingfor['id'] . '">' . $lookingfor['lookingfor_en'] . '</option>';
             }
 
             ?>
@@ -125,8 +155,6 @@ if(isset($_POST['register'])) {
             }
             ?>
         </select>
-        <p class="formular__form__text">Zip code *</p>
-        <input class="formular__form__input" name="zipcode" type="number" placeholder="Zip code">
         <p class="formular__form__text">Password *</p>
         <input class="formular__form__input" type="password" name="password" placeholder="Password">
         <p class="formular__form__text">Confirm password *</p>

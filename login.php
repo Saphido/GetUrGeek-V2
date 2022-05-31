@@ -31,7 +31,7 @@ include 'src/include/header.php';
                             echo $row["user_id"];
                             echo $_SESSION["user_login"];
                             $loginMsg = "Successfully Login, redirecting...";
-                            header("refresh:4; welcome.php");
+                            header("refresh:3; index.php");
                         }
                         else {
                             $errorMsg[]="Wrong password";

@@ -8,7 +8,14 @@ include 'src/include/header.php'
             <p class="whatis__text">Simply, the first free chatting, meeting and dating site for the Geek community.
                 Let’s create your account and join us, it’s totally free and no subscription needed to message each others.
             </p>
+            <?php 
+            if(!isset($_SESSION["user_login"])) {
+            ?>
             <button class="whatis__button" onclick="window.location.href='register.php'">REGISTER NOW !</button>
+            <?php
+            }
+            ?>
+            
             <img class="whatis__image" alt="Girl and boy are speaking together in a gaming room" src="src/img/index/image_gamerRoom.png">
         </section>
 

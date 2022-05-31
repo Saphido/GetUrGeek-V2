@@ -19,6 +19,6 @@
     </footer>
     <p class="footer__copyright">COPYRIGHT © GETURGEEK | DESIGNED BY SAPHIDO & MLLEYUUMI. ALL RIGHTS RESERVED</p>
 </body>
-<script src="script.js"></script>
+<script src="src/js/carousel.js"></script>
 
 </html>

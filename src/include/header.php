@@ -30,8 +30,28 @@ include 'src/libs/pdo.php';
         </nav>
         <nav class="header__nav_button">
             <ul class="header__nav__list__button">
-                <li class="header__nav__items"><button class="header__nav__buttons" onclick="window.location.href='register.php'">REGISTER</button></li>
-                <li class="header__nav__items"><button class="header__nav__buttons " onclick="window.location.href='login.php'">LOGIN</button></li>
+                <?php
+                if (!isset($_SESSION["user_login"])) {
+                ?>
+                    <li class="header__nav__items"><button class="header__nav__buttons" onclick="window.location.href='register.php'">REGISTER</button></li>
+                    <li class="header__nav__items"><button class="header__nav__buttons " onclick="window.location.href='login.php'">LOGIN</button></li>
+                <?php
+                } else {
+                ?>
+                    <li class="header__nav__items"><a class="header__nav__links" href="index.php">MATCH</a></li>
+                    <li class="header__nav__items">
+                        <div class="dropdown">
+                            <p class="dropbtn">MY PROFILE <i class="drop-icon fa-solid fa-caret-down"></i></p>
+                            <div class="dropdown-content">
+                                <a href="profile.php">SEE PROFILE</a>
+                                <a href="edit_profile.php">EDIT PROFILE</a>
+                                <a href="logout.php">LOGOUT</a>
+                            </div>
+                        </div>
+                    </li>
+                <?php
+                }
+                ?>
             </ul>
         </nav>
     </header>
