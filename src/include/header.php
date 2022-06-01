@@ -39,6 +39,7 @@ include 'src/libs/pdo.php';
                 } else {
                 ?>
                     <li class="header__nav__items"><a class="header__nav__links" href="index.php">MATCH</a></li>
+                    <li class="header__nav__items"><a class="header__nav__links" href="test.php">TEST</a></li>
                     <li class="header__nav__items">
                         <div class="dropdown">
                             <p class="dropbtn">MY PROFILE <i class="drop-icon fa-solid fa-caret-down"></i></p>

@@ -12,7 +12,7 @@ $req = selectInTable(
         'username', 'email', 'birthday', 'idgender', 'idcountry', 'zipcode',
         'city', 'biography', 'id_here_for', 'id_looking_for', 'id_children',
         'id_drink', 'id_smoker', 'steam_username', 'battlenet_username', 'lol_username',
-        'psn_username', 'xbox_username', 'twitch_username', 'youtube_username',
+        'psn_username', 'xbox_username', 'twitch_username', 'youtube_username', 'discord_username',
         'videogame_affinity', 'rpg_affinity', 'anime_affinity', 'comics_affinity',
         'cosplay_affinity', 'series_affinity', 'movies_affinity', 'literature_affinity',
         'science_affinity', 'music_affinity'
@@ -46,31 +46,21 @@ $smoker = $req->fetch();
 
 if (isset($_POST['edit-profile'])) {
 
-    /*     $p_username = $_POST['username'];
-    $p_email = $_POST['email'];
-    $p_herefor = $_POST['herefor'];
-    $p_lookingfor = $_POST['lookingfor'];
-    $p_biography = $_POST['biography'];
-    $p_children = $_POST['children'];
-    $p_drink = $_POST['drink'];
-    $p_smoker = $_POST['smoker'];
-    $p_steam = $_POST['steam_username'];
-    $p_battlenet = $_POST['battlenet_username'];
-    $p_lol = $_POST['lol_username'];
-    $p_psn = $_POST['psn_username'];
-    $p_xbox = $_POST['xbox_username'];
-    $p_twitch = $_POST['twitch_username'];
-    $p_youtube = $_POST['youtube_username'];
-    $p_videogames = $_POST['videogame_affinity'];
-    $p_rpg = $_POST['rpg_affinity'];
-    $p_anime = $_POST['anime_affinity'];
-    $p_comics = $_POST['comics_affinity'];
-    $p_cosplay = $_POST['cosplay_affinity'];
-    $p_series = $_POST['series_affinity'];
-    $p_movies = $_POST['movies_affinity'];
-    $p_literature = $_POST['literature_affinity'];
-    $p_science = $_POST['science_affinity'];
-    $p_music = $_POST['music_affinity']; */
+    $filename = $_FILES["profile_picture"]["name"];
+    $tempname = $_FILES["profile_picture"]["tmp_name"];
+    $makefolder = "src/img/users-img/user_" . $_SESSION["user_login"] . "/";
+    $folder = "src/img/users-img/user_" . $_SESSION["user_login"] . "/" . $filename;
+    if (!is_dir($makefolder)) {
+        mkdir($makefolder, 0777, true);
+    }
+
+    // Now let's move the uploaded image into the folder: image
+    if (move_uploaded_file($tempname, $folder)) {
+        rename($folder, $makefolder . 'pp.png');
+        $msg = "Image uploaded successfully";
+    } else {
+        $msg = "Failed to upload image";
+    }
 
     if (empty($_POST['username'])) {
         $errorMsg[] = "Please enter an username"; //check username not empty
@@ -79,21 +69,23 @@ if (isset($_POST['edit-profile'])) {
     } else if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
         $errorMsg[] = "Please enter a valid email adress"; //check email valid
     } else {
-        if (!valeursEntre([
-            $_POST['videogame_affinity'],
-            $_POST['rpg_affinity'],
-            $_POST['anime_affinity'],
-            $_POST['comics_affinity'],
-            $_POST['cosplay_affinity'],
-            $_POST['series_affinity'],
-            $_POST['movies_affinity'],
-            $_POST['literature_affinity'],
-            $_POST['science_affinity'],
-            $_POST['music_affinity']],
+        if (!valeursEntre(
+            [
+                $_POST['videogame_affinity'],
+                $_POST['rpg_affinity'],
+                $_POST['anime_affinity'],
+                $_POST['comics_affinity'],
+                $_POST['cosplay_affinity'],
+                $_POST['series_affinity'],
+                $_POST['movies_affinity'],
+                $_POST['literature_affinity'],
+                $_POST['science_affinity'],
+                $_POST['music_affinity']
+            ],
             0,
             10
         )) {
-            $errorMsg[]= "Error in hobbies affinity value";
+            $errorMsg[] = "Error in hobbies affinity value";
         } else {
             try {
                 $req = updateInTable(
@@ -102,7 +94,7 @@ if (isset($_POST['edit-profile'])) {
                     [
                         'username', 'email', 'biography', 'id_here_for', 'id_looking_for', 'id_children',
                         'id_drink', 'id_smoker', 'steam_username', 'battlenet_username', 'lol_username',
-                        'psn_username', 'xbox_username', 'twitch_username', 'youtube_username',
+                        'psn_username', 'xbox_username', 'twitch_username', 'youtube_username', 'discord_username',
                         'videogame_affinity', 'rpg_affinity', 'anime_affinity', 'comics_affinity',
                         'cosplay_affinity', 'series_affinity', 'movies_affinity', 'literature_affinity',
                         'science_affinity', 'music_affinity'
@@ -110,7 +102,7 @@ if (isset($_POST['edit-profile'])) {
                     [
                         $_POST['username'], $_POST['email'], $_POST['biography'], $_POST['herefor'], $_POST['lookingfor'], $_POST['children'],
                         $_POST['drink'], $_POST['smoker'], $_POST['steam_username'], $_POST['battlenet_username'], $_POST['lol_username'],
-                        $_POST['psn_username'], $_POST['xbox_username'], $_POST['twitch_username'], $_POST['youtube_username'],
+                        $_POST['psn_username'], $_POST['xbox_username'], $_POST['twitch_username'], $_POST['youtube_username'], $_POST['discord_username'],
                         $_POST['videogame_affinity'], $_POST['rpg_affinity'], $_POST['anime_affinity'], $_POST['comics_affinity'],
                         $_POST['cosplay_affinity'], $_POST['series_affinity'], $_POST['movies_affinity'], $_POST['literature_affinity'],
                         $_POST['science_affinity'], $_POST['music_affinity']
@@ -119,8 +111,7 @@ if (isset($_POST['edit-profile'])) {
                     [$_SESSION["user_login"]]
                 );
 
-                $successMsg="Profile saved !";
-
+                $successMsg = "Profile saved !";
             } catch (PDOException $e) {
                 echo $e->getMessage();
             }
@@ -156,12 +147,13 @@ if (isset($_POST['edit-profile'])) {
     <?php
     }
     ?>
-    <form class="formular__form" method="POST" action="edit_profile.php" Append="?submit=true">
+    <form class="formular__form" method="POST" action="edit_profile.php" enctype="multipart/form-data" Append="?submit=true">
 
         <!-- GLOBAL INFORMATION -->
 
         <h3 class="formular__form__title">Global informations</h3>
-
+        <p class="formular__form__text">Profile Picture</p>
+        <input class="formular__form__input-file" type="file" id="file" name="profile_picture">
         <p class="formular__form__text">Username</p>
         <input class="formular__form__input" type="text" name="username" value=<?php echo $user['username']; ?>>
         <p class="formular__form__text">Email</p>
@@ -188,7 +180,7 @@ if (isset($_POST['edit-profile'])) {
         </select>
         <p class="formular__form__text">Interested by</p>
         <select class="formular__form__input" id="select" name="lookingfor">
-        <?php
+            <?php
             $req = selectInTable($pdo, 'lookingfor', ['id', 'lookingfor_en'], [], [], '');
 
             while ($lookingfor = $req->fetch()) {
@@ -200,13 +192,15 @@ if (isset($_POST['edit-profile'])) {
             }
             ?>
         </select>
-
         <p class="formular__form__text">Biography</p>
-        <input class="formular__form__input" type="text" name="biography" value="<?php echo $user['biography']; ?>">
-
+        <textarea class="formular__form__inputarea" id="biography" name="biography" value="" maxlength="255" placeholder="Biography"><?php echo $user['biography']; ?></textarea>
+        <div id="the-count">
+            <span id="current">0</span>
+            <span id="maximum">/ 255</span>
+        </div>
         <p class="formular__form__text">Children</p>
         <select class="formular__form__input" id="select" name="children">
-        <?php
+            <?php
             $req = selectInTable($pdo, 'children', ['id', 'children_en'], [], [], '');
 
             while ($children = $req->fetch()) {
@@ -221,7 +215,7 @@ if (isset($_POST['edit-profile'])) {
 
         <p class="formular__form__text">Alcohol</p>
         <select class="formular__form__input" id="select" name="drink">
-        <?php
+            <?php
             $req = selectInTable($pdo, 'drink', ['id', 'drink_en'], [], [], '');
 
             while ($drink = $req->fetch()) {
@@ -236,7 +230,7 @@ if (isset($_POST['edit-profile'])) {
 
         <p class="formular__form__text">Smoker</p>
         <select class="formular__form__input" id="select" name="smoker">
-        <?php
+            <?php
             $req = selectInTable($pdo, 'smoker', ['id', 'smoker_en'], [], [], '');
 
             while ($smoker = $req->fetch()) {
@@ -250,79 +244,81 @@ if (isset($_POST['edit-profile'])) {
         </select>
         <h3 class="formular__form__title">GAME TAGS*</h3>
         <p class="formular__form__text">Steam Profile</p>
-        <input class="formular__form__input" type="text" name="steam_username" value="" placeholder="URL to your profile">
+        <input class="formular__form__input" type="text" name="steam_username" value="<?php echo $user['steam_username']; ?>" placeholder="URL to your profile">
         <p class="formular__form__text">Battle.net</p>
-        <input class="formular__form__input" type="text" name="battlenet_username" value="" placeholder="Battle.net ID">
+        <input class="formular__form__input" type="text" name="battlenet_username" value="<?php echo $user['battlenet_username']; ?>" placeholder="Battle.net ID">
         <p class="formular__form__text">League of Legends</p>
-        <input class="formular__form__input" type="text" name="lol_username" value="" placeholder="LoL ID">
+        <input class="formular__form__input" type="text" name="lol_username" value="<?php echo $user['lol_username']; ?>" placeholder="LoL ID">
         <p class="formular__form__text">PSN</p>
-        <input class="formular__form__input" type="text" name="psn_username" value="" placeholder="PSN ID">
+        <input class="formular__form__input" type="text" name="psn_username" value="<?php echo $user['psn_username']; ?>" placeholder="PSN ID">
         <p class="formular__form__text">XBOX</p>
-        <input class="formular__form__input" type="text" name="xbox_username" value="" placeholder="XBOX ID">
+        <input class="formular__form__input" type="text" name="xbox_username" value="<?php echo $user['xbox_username']; ?>" placeholder="XBOX ID">
+        <p class="formular__form__text">Discord</p>
+        <input class="formular__form__input" type="text" name="discord_username" value="<?php echo $user['discord_username']; ?>" placeholder="Discord ID">
         <p class="formular__form__text">Twitch channel</p>
-        <input class="formular__form__input" type="text" name="twitch_username" value="" placeholder="Twitch username">
+        <input class="formular__form__input" type="text" name="twitch_username" value="<?php echo $user['twitch_username']; ?>" placeholder="Twitch username">
         <p class="formular__form__text">Youtube channel</p>
-        <input class="formular__form__input" type="text" name="youtube_username" value="" placeholder="Youtube username">
+        <input class="formular__form__input" type="text" name="youtube_username" value="<?php echo $user['youtube_username']; ?>" placeholder="Youtube username">
         <p class="formular__form__info">* if you have some suggestions to add in this list, just contact us</p>
         <h3 class="formular__form__title">Hobbies affinity</h3>
 
         <div class="formular__form__slider-block">
             <!-- SLIDER VIDEO GAME -->
-            <p class="formular__form__text">Video games <input class="formular__form__input-show" type="number" readonly name="videogame_affinity" id="value-VG" value="0"></p>
+            <p class="formular__form__text">Video games <input class="formular__form__input-show" type="number" readonly name="videogame_affinity" id="value-VG" value="<?php echo $user['videogame_affinity']; ?>"></p>
             <div id="slider-VG"></div>
         </div>
 
         <div class="formular__form__slider-block">
             <!-- SLIDER RPG/LARPG -->
-            <p class="formular__form__text">RPG/LARPG <input class="formular__form__input-show" type="number" readonly name="rpg_affinity" id="value-RPG" value="0"></p>
+            <p class="formular__form__text">RPG/LARPG <input class="formular__form__input-show" type="number" readonly name="rpg_affinity" id="value-RPG" value="<?php echo $user['rpg_affinity']; ?>"></p>
             <div id="slider-RPG"></div>
         </div>
 
         <div class="formular__form__slider-block">
             <!-- SLIDER Anime/Manga -->
-            <p class="formular__form__text">Anime/Manga <input class="formular__form__input-show" type="number" readonly name="anime_affinity" id="value-AM" value="0"></p>
+            <p class="formular__form__text">Anime/Manga <input class="formular__form__input-show" type="number" readonly name="anime_affinity" id="value-AM" value="<?php echo $user['anime_affinity']; ?>"></p>
             <div id="slider-AM"></div>
         </div>
 
         <div class="formular__form__slider-block">
             <!-- SLIDER Comics -->
-            <p class="formular__form__text">Comics <input class="formular__form__input-show" type="number" readonly name="comics_affinity" id="value-COM" value="0"></p>
+            <p class="formular__form__text">Comics <input class="formular__form__input-show" type="number" readonly name="comics_affinity" id="value-COM" value="<?php echo $user['comics_affinity']; ?>"></p>
             <div id="slider-COM"></div>
         </div>
 
         <div class="formular__form__slider-block">
             <!-- SLIDER Cosplay -->
-            <p class="formular__form__text">Cosplay <input class="formular__form__input-show" type="number" readonly name="cosplay_affinity" id="value-COS" value="0"></p>
+            <p class="formular__form__text">Cosplay <input class="formular__form__input-show" type="number" readonly name="cosplay_affinity" id="value-COS" value="<?php echo $user['cosplay_affinity']; ?>"></p>
             <div id="slider-COS"></div>
         </div>
 
         <div class="formular__form__slider-block">
             <!-- SLIDER Series -->
-            <p class="formular__form__text">Series <input class="formular__form__input-show" type="number" readonly name="series_affinity" id="value-SER" value="0"></p>
+            <p class="formular__form__text">Series <input class="formular__form__input-show" type="number" readonly name="series_affinity" id="value-SER" value="<?php echo $user['series_affinity']; ?>"></p>
             <div id="slider-SER"></div>
         </div>
 
         <div class="formular__form__slider-block">
             <!-- Movies -->
-            <p class="formular__form__text">Movies <input class="formular__form__input-show" type="number" readonly name="movies_affinity" id="value-MOV" value="0"></p>
+            <p class="formular__form__text">Movies <input class="formular__form__input-show" type="number" readonly name="movies_affinity" id="value-MOV" value="<?php echo $user['movies_affinity']; ?>"></p>
             <div id="slider-MOV"></div>
         </div>
 
         <div class="formular__form__slider-block">
             <!-- SLIDER Literature -->
-            <p class="formular__form__text">Literature <input class="formular__form__input-show" type="number" readonly name="literature_affinity" id="value-LIT" value="0"></p>
+            <p class="formular__form__text">Literature <input class="formular__form__input-show" type="number" readonly name="literature_affinity" id="value-LIT" value="<?php echo $user['literature_affinity']; ?>"></p>
             <div id="slider-LIT"></div>
         </div>
 
         <div class="formular__form__slider-block">
             <!-- SLIDER Science -->
-            <p class="formular__form__text">Science <input class="formular__form__input-show" type="number" readonly name="science_affinity" id="value-SC" value="0"></p>
+            <p class="formular__form__text">Science <input class="formular__form__input-show" type="number" readonly name="science_affinity" id="value-SC" value="<?php echo $user['science_affinity']; ?>"></p>
             <div id="slider-SC"></div>
         </div>
 
         <div class="formular__form__slider-block">
             <!-- SLIDER Musique -->
-            <p class="formular__form__text">Music <input class="formular__form__input-show" type="number" readonly name="music_affinity" id="value-MUS" value="0"></p>
+            <p class="formular__form__text">Music <input class="formular__form__input-show" type="number" readonly name="music_affinity" id="value-MUS" value="<?php echo $user['music_affinity']; ?>"></p>
             <div id="slider-MUS"></div>
         </div>
 
@@ -332,6 +328,7 @@ if (isset($_POST['edit-profile'])) {
 
 <link rel="stylesheet" href="src/css/style.min.css">
 <link href="src/js/nouislider/nouislider.min.css" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="src/js/nouislider/nouislider.min.js"></script>
 <script src="src/js/wNumb.min.js"></script>
 <script>
@@ -370,7 +367,7 @@ if (isset($_POST['edit-profile'])) {
         var attributeValue = valueVG.getAttribute('innerText');
 
         noUiSlider.create(sliderVG, {
-            start: <?php echo $user['videogame_affinity'];?>,
+            start: <?php echo $user['videogame_affinity']; ?>,
             step: 1,
             connect: 'lower',
             format: {
@@ -388,7 +385,7 @@ if (isset($_POST['edit-profile'])) {
         });
 
         noUiSlider.create(sliderRPG, {
-            start: <?php echo $user['rpg_affinity'];?>,
+            start: <?php echo $user['rpg_affinity']; ?>,
             step: 1,
             connect: 'lower',
             format: {
@@ -407,7 +404,7 @@ if (isset($_POST['edit-profile'])) {
         });
 
         noUiSlider.create(sliderAM, {
-            start: <?php echo $user['anime_affinity'];?>,
+            start: <?php echo $user['anime_affinity']; ?>,
             step: 1,
             connect: 'lower',
             format: {
@@ -426,7 +423,7 @@ if (isset($_POST['edit-profile'])) {
         });
 
         noUiSlider.create(sliderCOM, {
-            start: <?php echo $user['comics_affinity'];?>,
+            start: <?php echo $user['comics_affinity']; ?>,
             step: 1,
             connect: 'lower',
             format: {
@@ -445,7 +442,7 @@ if (isset($_POST['edit-profile'])) {
         });
 
         noUiSlider.create(sliderCOS, {
-            start: <?php echo $user['cosplay_affinity'];?>,
+            start: <?php echo $user['cosplay_affinity']; ?>,
             step: 1,
             connect: 'lower',
             format: {
@@ -464,7 +461,7 @@ if (isset($_POST['edit-profile'])) {
         });
 
         noUiSlider.create(sliderSER, {
-            start: <?php echo $user['series_affinity'];?>,
+            start: <?php echo $user['series_affinity']; ?>,
             step: 1,
             connect: 'lower',
             format: {
@@ -483,7 +480,7 @@ if (isset($_POST['edit-profile'])) {
         });
 
         noUiSlider.create(sliderMOV, {
-            start: <?php echo $user['movies_affinity'];?>,
+            start: <?php echo $user['movies_affinity']; ?>,
             step: 1,
             connect: 'lower',
             format: {
@@ -503,7 +500,7 @@ if (isset($_POST['edit-profile'])) {
 
 
         noUiSlider.create(sliderLIT, {
-            start: <?php echo $user['literature_affinity'];?>,
+            start: <?php echo $user['literature_affinity']; ?>,
             step: 1,
             connect: 'lower',
             format: {
@@ -522,7 +519,7 @@ if (isset($_POST['edit-profile'])) {
         });
 
         noUiSlider.create(sliderSC, {
-            start: <?php echo $user['science_affinity'];?>,
+            start: <?php echo $user['science_affinity']; ?>,
             step: 1,
             connect: 'lower',
             format: {
@@ -541,7 +538,7 @@ if (isset($_POST['edit-profile'])) {
         });
 
         noUiSlider.create(sliderMUS, {
-            start: <?php echo $user['music_affinity'];?>,
+            start: <?php echo $user['music_affinity']; ?>,
             step: 1,
             connect: 'lower',
             format: {
@@ -559,7 +556,34 @@ if (isset($_POST['edit-profile'])) {
 
         });
     });
+
+    /* Textarea showing numbers*/
+    $('textarea').keyup(function() {
+
+        var characterCount = $(this).val().length,
+            current = $('#current'),
+            maximum = $('#maximum'),
+            theCount = $('#the-count');
+
+        current.text(characterCount);
+
+        /*Changing color with text lenght*/
+        if (characterCount < 70) {
+            current.css('color', '#ffffff');
+        } else if (characterCount > 70 && characterCount < 100) {
+            current.css('color', '#fdb7b7')
+        } else if (characterCount > 100 && characterCount < 160) {
+            current.css('color', '#f89393')
+        } else if (characterCount > 160 && characterCount < 255) {
+            current.css('color', '#fa7272')
+        } else if (characterCount == 255) {
+            current.css('color', '#fa2222')
+        }
+
+
+    });
 </script>
+
 <?php
 include 'src/include/footer.php';
 ?>

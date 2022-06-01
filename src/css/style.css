@@ -800,6 +800,7 @@ a, ul {
   color: white;
   font-weight: 500;
   font-size: 1.8rem;
+  resize: none;
 }
 .formular__form__input::first-line {
   padding-left: 1rem;
@@ -835,6 +836,57 @@ a, ul {
 .formular__form__input__options {
   background-color: purple;
 }
+.formular__form__input-file {
+  margin-bottom: 2rem;
+}
+.formular__form__inputarea {
+  width: 73.4rem;
+  height: 12rem;
+  margin-bottom: 3rem;
+  padding-left: 1rem;
+  background: rgba(217, 217, 217, 0.1);
+  border: none;
+  border-radius: 15px;
+  color: white;
+  font-weight: 500;
+  font-size: 1.8rem;
+  resize: none;
+  padding-top: 1rem;
+}
+.formular__form__inputarea::first-line {
+  padding-left: 1rem;
+}
+.formular__form__inputarea::-webkit-input-placeholder {
+  font-weight: 500;
+  font-size: 1.8rem;
+  color: rgb(177, 177, 177);
+}
+.formular__form__inputarea::-moz-placeholder {
+  font-weight: 500;
+  font-size: 1.8rem;
+  color: rgb(177, 177, 177);
+}
+.formular__form__inputarea:-ms-input-placeholder {
+  font-weight: 500;
+  font-size: 1.8rem;
+  color: rgb(177, 177, 177);
+}
+.formular__form__inputarea::-ms-input-placeholder {
+  font-weight: 500;
+  font-size: 1.8rem;
+  color: rgb(177, 177, 177);
+}
+.formular__form__inputarea::placeholder {
+  font-weight: 500;
+  font-size: 1.8rem;
+  color: rgb(177, 177, 177);
+}
+.formular__form__inputarea:disabled {
+  opacity: 0.5;
+}
+.formular__form__inputarea__options {
+  background-color: purple;
+}
 .formular__form__slider-block {
   margin-bottom: 3rem;
 }
@@ -845,6 +897,7 @@ a, ul {
   font-size: 1.6rem;
   background-color: rgba(217, 217, 217, 0);
   border: none;
+  overflow: hidden;
 }
 .formular__form__input-show:focus {
   outline: none;
@@ -912,10 +965,16 @@ input[type=number] {
   -moz-appearance: textfield;
 }
 
+#the-count {
+  font-size: 1.2rem;
+  margin-top: -2.3rem;
+  margin-left: 68rem;
+}
+
 .alert-danger {
   padding-top: 5rem;
   font-size: 2rem;
-  color: red;
+  color: #fa7272;
 }
 
 .alert-sucess {
@@ -957,6 +1016,7 @@ input[type=number] {
           align-items: center;
 }
 .profile-header__block__image {
+  margin-top: 14rem;
   width: 35rem;
   height: 35rem;
   border-radius: 50%;

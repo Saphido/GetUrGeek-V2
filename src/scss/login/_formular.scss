@@ -104,8 +104,48 @@
             color: white;
             font-weight: 500;
             font-size: 1.8rem;
+            resize: none;
             &::first-line {
                 padding-left: 1rem;
+            }
+
+            &::placeholder {
+                font-weight: 500;
+                font-size: 1.8rem;
+                color: rgb(177, 177, 177);
+            }
+
+            &:disabled {
+                opacity: 0.5;
+            }
+
+            &__options {
+                background-color: purple;
+            }
+        }
+
+        &__input-file {
+            margin-bottom: 2rem;
+        }
+
+        &__inputarea {
+            width: 73.4rem;
+            height: 12rem;
+            margin-bottom: 3rem;
+            padding-left: 1rem;
+            background: rgba(217, 217, 217, 0.1);
+            border: none;
+            border-radius: 15px;
+
+            color: white;
+            font-weight: 500;
+            font-size: 1.8rem;
+            resize: none;
+            padding-top: 1rem;
+
+            &::first-line {
+                padding-left: 1rem;
+
             }
 
             &::placeholder {
@@ -134,6 +174,7 @@
             font-size: 1.6rem;
             background-color: rgba(217, 217, 217, 0.0);
             border: none;
+            overflow: hidden;
             
             &:focus {
                 outline: none;
@@ -196,10 +237,16 @@ input[type=number] {
   -moz-appearance: textfield;
 }
 
+#the-count {
+    font-size: 1.2rem;
+    margin-top: -2.3rem;
+    margin-left: 68rem;
+  }
+
 .alert-danger {
     padding-top: 5rem;
     font-size: 2rem;
-    color: red;
+    color: #fa7272;
 }
 
 .alert-sucess {
