@@ -1,5 +1,12 @@
 <?php 
-include 'src/include/header.php'
+include 'src/include/header.php';
+
+$req = selectInTable($pdo, 'user', ['user_id'], [], [], []);
+$data = 0;
+while ($lookingfor = $req->fetch()) {
+    $data++;
+}
+
 ?>
     <!-- MAIN -->
     <main>
@@ -56,7 +63,7 @@ include 'src/include/header.php'
                 <div class="community__blockarea__blocks">
                     <img class="community__blockarea__blocks__imageOne" alt="Members icon" src="src/img/index/member_icon.png">
                     <h3 class="community__blockarea__blocks__title">MEMBERS</h3>
-                    <p class="community__blockarea__blocks__number">0</p>
+                    <p class="community__blockarea__blocks__number"><?php echo $data; ?></p>
                 </div>
                 <div class="community__blockarea__blocks">
                     <img class="community__blockarea__blocks__imageTwo" alt="Matches icon" src="src/img/index/matches_icon.png">

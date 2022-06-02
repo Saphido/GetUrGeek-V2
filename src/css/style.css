@@ -984,7 +984,7 @@ input[type=number] {
 }
 
 /* PROFILE */
-.profile-header {
+.myprofile-hero {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -992,59 +992,176 @@ input[type=number] {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  padding-top: 5.3rem;
-  padding-bottom: 18.3rem;
-  background: url("../../../src/img/index/lights_background.png");
-  background-position: center;
-  background-size: cover;
+  width: 113.6rem;
+  height: 55rem;
+  background: rgba(217, 217, 217, 0.1);
+  border-radius: 25px;
+  margin: 0 auto 5rem auto;
 }
-.profile-header__block {
-  width: 64.8rem;
-  height: 49.4rem;
+
+.myprofile-attribute {
+  margin-left: 9rem;
+  margin-top: 2rem;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
+  -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  width: 40rem;
+  gap: 2rem;
+}
+.myprofile-attribute__text {
+  background: rgba(91, 8, 102, 0.4862745098);
+  padding-top: 0.2rem;
+  border: 1px solid rgba(255, 255, 255, 0.4392156863);
+  border-radius: 15px;
+  width: 8rem;
+  height: 2rem;
+  text-align: center;
+  font-family: "Chakra Petch", sans-serif;
+  font-weight: 700;
+  text-align: center;
+  color: #ffffff;
+  margin-bottom: 0.5rem;
+}
+
+.myprofile-header {
+  margin-top: 5rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  gap: 5rem;
 }
-.profile-header__block__image {
-  margin-top: 14rem;
-  width: 35rem;
-  height: 35rem;
-  border-radius: 50%;
-  margin-bottom: 5rem;
-  border: 2px solid #FC7BFF;
+.myprofile-header__image {
+  width: 42.6rem;
+  height: 38rem;
+  border-radius: 33px;
+  border: 3px solid rgba(255, 255, 255, 0.4392156863);
 }
-.profile-header__block__username {
+.myprofile-header__textarea {
+  width: 52.9rem;
+}
+.myprofile-header__textarea__title {
   font-family: "Chakra Petch", sans-serif;
   font-weight: 700;
   font-size: 4.4rem;
   text-align: center;
-  color: #7EFF7B;
+  color: #ffffff;
+  margin-bottom: 0.5rem;
 }
-.profile-header__block__infos {
+.myprofile-header__textarea__subtitle {
   font-family: "Chakra Petch", sans-serif;
   font-weight: 700;
-  font-size: 2.4rem;
+  font-size: 3.2rem;
   text-align: center;
-  color: white;
+  color: #ffffff;
+  margin-bottom: 1rem;
+}
+.myprofile-header__textarea__text {
+  font-family: "Chakra Petch", sans-serif;
+  font-weight: 400;
+  font-size: 2.4rem;
+  line-height: 3.6rem;
+  text-align: center;
+  color: rgb(202, 202, 202);
+  font-style: italic;
+}
+
+.myprofile-nav__title {
+  font-family: "Chakra Petch", sans-serif;
+  font-weight: 700;
+  font-size: 4.8rem;
+  text-align: center;
+  padding-bottom: 8rem;
+}
+.myprofile-nav__blockarea {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 7.1rem;
+}
+.myprofile-nav__blockarea__blocks {
+  width: 28.9rem;
+  height: 30.2rem;
+  background: rgba(217, 217, 217, 0.1);
+  border-radius: 25px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding-top: 3.8rem;
+}
+.myprofile-nav__blockarea__blocks:hover {
+  background: rgba(217, 217, 217, 0.2);
+  cursor: pointer;
+}
+.myprofile-nav__blockarea__blocks__imageOne {
+  margin-bottom: 3.6rem;
+  width: 40%;
+}
+.myprofile-nav__blockarea__blocks__imageTwo {
+  margin-bottom: 3.5rem;
+  margin-top: 0.5rem;
+  width: 30%;
+}
+.myprofile-nav__blockarea__blocks__imageThree {
+  margin-bottom: 4.3rem;
+  margin-top: 0.6rem;
+  width: 50%;
+}
+.myprofile-nav__blockarea__blocks__title {
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 42px;
+  font-family: "Chakra Petch", sans-serif;
+  padding-bottom: 3.1rem;
+}
+.myprofile-nav__blockarea__blocks__number {
+  font-weight: 700;
+  font-size: 42px;
+  line-height: 42px;
+  font-family: "Chakra Petch", sans-serif;
+  color: #7EFF7B;
 }
 
 .profile-info {
-  width: 107.3rem;
+  width: 73.1rem;
   height: auto;
-  padding-bottom: 70rem;
+  padding-bottom: 20rem;
+  border-radius: 25px;
   margin: 5rem auto;
-  -webkit-clip-path: polygon(100% 0, 100% 100%, 50% 68%, 0 100%, 0 0);
-          clip-path: polygon(100% 0, 100% 100%, 50% 68%, 0 100%, 0 0);
+  -webkit-clip-path: polygon(100% 0, 100% 77%, 50% 100%, 0 77%, 0 0);
+          clip-path: polygon(100% 0, 100% 77%, 50% 100%, 0 77%, 0 0);
   background-color: rgba(255, 255, 255, 0.1);
 }
 .profile-info__nav {
@@ -1075,8 +1192,17 @@ input[type=number] {
   cursor: pointer;
   opacity: 0.5;
 }
-.profile-info #nav_global {
-  color: #7EFF7B;
+.profile-info__titles {
+  font-family: "Chakra Petch", sans-serif;
+  font-weight: 700;
+  font-size: 34px;
+  text-align: center;
+  color: #FFFFFF;
+  background: rgba(91, 8, 102, 0.4862745098);
+  padding: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.4392156863);
+  border-radius: 15px;
+  margin-bottom: 5rem;
 }
 .profile-info__global {
   display: -webkit-box;
@@ -1115,21 +1241,49 @@ input[type=number] {
 }
 .profile-info__items {
   padding-bottom: 3rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  gap: 3rem;
 }
 .profile-info__title {
   font-family: "Exo 2", sans-serif;
   font-weight: 700;
-  font-size: 2.4rem;
-  text-align: center;
+  font-size: 2rem;
+  text-align: right;
   color: #7EFF7B;
   text-transform: uppercase;
   padding-bottom: 1.5rem;
+  width: 25rem;
 }
 .profile-info__text {
   font-family: "Exo 2", sans-serif;
   font-weight: 700;
   font-size: 2rem;
-  text-align: center;
+  text-align: left;
+  width: 25rem;
+}
+.profile-info__text__link {
+  font-family: "Exo 2", sans-serif;
+  font-weight: 700;
+  font-size: 2rem;
+  text-align: left;
+  width: 25rem;
+}
+.profile-info__text__link:hover {
+  color: rgba(255, 255, 255, 0.795);
+  cursor: pointer;
+}
+
+#nav_global {
+  color: #7EFF7B;
 }
 
 .footer {

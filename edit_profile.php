@@ -148,9 +148,6 @@ if (isset($_POST['edit-profile'])) {
     }
     ?>
     <form class="formular__form" method="POST" action="edit_profile.php" enctype="multipart/form-data" Append="?submit=true">
-
-        <!-- GLOBAL INFORMATION -->
-
         <h3 class="formular__form__title">Global informations</h3>
         <p class="formular__form__text">Profile Picture</p>
         <input class="formular__form__input-file" type="file" id="file" name="profile_picture">
@@ -325,12 +322,6 @@ if (isset($_POST['edit-profile'])) {
         <input class="formular__form__button" type="submit" name="edit-profile" value="SAVE">
     </form>
 </section>
-
-<link rel="stylesheet" href="src/css/style.min.css">
-<link href="src/js/nouislider/nouislider.min.css" rel="stylesheet">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="src/js/nouislider/nouislider.min.js"></script>
-<script src="src/js/wNumb.min.js"></script>
 <script>
     document.addEventListener("DOMContentLoaded", function(event) {
         var sliderVG = document.getElementById('slider-VG');
@@ -583,7 +574,6 @@ if (isset($_POST['edit-profile'])) {
 
     });
 </script>
-
 <?php
 include 'src/include/footer.php';
 ?>

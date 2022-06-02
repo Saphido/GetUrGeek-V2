@@ -1,10 +1,83 @@
-.profile-info {
-    width: 107.3rem;
-    height: auto;
-    padding-bottom: 70rem;
+.myprofile-nav {
+    &__title {
+        font-family: $chakra;
+        font-weight: 700;
+        font-size: 4.8rem;
+        text-align: center;
+        padding-bottom: 8rem;
+    }
 
+    &__blockarea {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        gap: 7.1rem;
+
+        &__blocks {
+            width: 28.9rem;
+            height: 30.2rem;
+
+            background: rgba(217, 217, 217, 0.1);
+            border-radius: 25px;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 3.8rem;
+
+            &:hover {
+                background: rgba(217, 217, 217, 0.2);
+                cursor: pointer;
+            }
+
+            &__imageOne {
+                margin-bottom: 3.6rem;
+                width: 40%;
+            }
+
+            &__imageTwo {
+                margin-bottom: 3.5rem;
+                margin-top: 0.5rem;
+                width: 30%;
+            }
+
+            &__imageThree {
+                margin-bottom: 4.3rem;
+                margin-top: 0.6rem;
+                width: 50%;
+            }
+
+            &__title {
+                font-weight: 700;
+                font-size: 32px;
+                line-height: 42px;
+                font-family: $chakra;
+                padding-bottom: 3.1rem;
+            }
+
+            &__number {
+                font-weight: 700;
+                font-size: 42px;
+                line-height: 42px;
+                font-family: $chakra;
+                color: #7EFF7B;
+            }
+        }
+    }
+}
+
+
+
+
+
+.profile-info {
+    width: 73.1rem;
+    height: auto;
+    padding-bottom: 20rem;
+    border-radius: 25px;
     margin: 5rem auto;
-    clip-path: polygon(100% 0, 100% 100%, 50% 68%, 0 100%, 0 0);
+    clip-path: polygon(100% 0, 100% 77%, 50% 100%, 0 77%, 0 0);
     background-color: rgba(255, 255, 255, 0.1);
 
     &__nav {
@@ -19,7 +92,7 @@
             justify-content: center;
             gap: 21.8rem;
         }
-        
+
         &__links {
 
             font-weight: 700;
@@ -33,9 +106,18 @@
 
         }
     }
-    
-    #nav_global {
-        color: #7EFF7B;
+
+    &__titles {
+        font-family: $chakra;
+        font-weight: 700;
+        font-size: 34px;
+        text-align: center;
+        color: #FFFFFF;
+        background: #5b08667c;
+        padding: 1rem;
+        border: 1px solid #ffffff70;
+        border-radius: 15px;
+        margin-bottom: 5rem;
     }
 
     &__global {
@@ -61,22 +143,45 @@
 
     &__items {
         padding-bottom: 3rem;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        gap: 3rem;
     }
 
     &__title {
         font-family: $exo;
         font-weight: 700;
-        font-size: 2.4rem;
-        text-align: center;
+        font-size: 2rem;
+        text-align: right;
         color: #7EFF7B;
         text-transform: uppercase;
         padding-bottom: 1.5rem;
+        width: 25rem;
     }
 
     &__text {
         font-family: $exo;
         font-weight: 700;
         font-size: 2rem;
-        text-align: center;
+        text-align: left;
+        width: 25rem;
+
+        &__link {
+            font-family: $exo;
+            font-weight: 700;
+            font-size: 2rem;
+            text-align: left;
+            width: 25rem;
+            &:hover {
+                color: rgba(255, 255, 255, 0.795);
+                cursor: pointer;
+            }
+        }
+
     }
+}
+
+#nav_global {
+    color: #7EFF7B;
 }
