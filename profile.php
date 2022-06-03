@@ -9,7 +9,7 @@ $req = selectInTable(
     $pdo,
     'user',
     [
-        'username', 'email', 'birthday', 'idgender', 'idcountry', 'zipcode',
+        'username', 'verified', 'email', 'birthday', 'idgender', 'idcountry', 'zipcode',
         'city', 'biography', 'id_here_for', 'id_looking_for', 'id_children',
         'id_drink', 'id_smoker', 'steam_username', 'battlenet_username', 'lol_username',
         'psn_username', 'xbox_username', 'twitch_username', 'youtube_username', 'discord_username',
@@ -52,7 +52,17 @@ $smoker = $req->fetch();
 $req = selectInTable($pdo, 'crop_images', ['title'], ['id'], ['4'], []);
 $image = $req->fetch();
 
-
+//ADJUSTING AFFINITY TO MATCH THE PROGRESSBAR SYSTEM
+$videogames = $user["videogame_affinity"] * 10 . "%";
+$rpg = $user["rpg_affinity"] * 10 . "%";
+$anime = $user["anime_affinity"] * 10 . "%";
+$comics = $user["comics_affinity"] * 10 . "%";
+$cosplay = $user["cosplay_affinity"] * 10 . "%";
+$series = $user["series_affinity"] * 10 . "%";
+$movies = $user["movies_affinity"] * 10 . "%";
+$literature = $user["literature_affinity"] * 10 . "%";
+$science = $user["science_affinity"] * 10 . "%";
+$music = $user["music_affinity"] * 10 . "%";
 
 ?>
 <!-- MAIN -->
@@ -66,12 +76,22 @@ $image = $req->fetch();
         <div class="myprofile-header">
             <img class="myprofile-header__image" alt="My profile picture" src="<?php echo 'src/img/users-img/user_' . $_SESSION['user_login'] . '/pp.png' ?>">
             <div class="myprofile-header__textarea">
-                <h3 class="myprofile-header__textarea__title"><span style="color: #7EFF7B;"><?php echo $user["username"]; ?></span></h3>
+                <h3 class="myprofile-header__textarea__title"><span style="color: #7EFF7B;">
+                        <?php echo $user["username"];
+                        if ($user["verified"] === 0) {
+                        } else {
+                            echo '<i style="padding-left:2rem;" class="fa-solid fa-circle-check"></i>';
+                        } ?>
+                    </span></h3>
                 <p class="myprofile-header__textarea__subtitle">(<?php echo $age; ?> ans)</p>
                 <p class="myprofile-header__textarea__subtitle"><?php echo $user['city'] . ', ' . $pays['nom_en_gb']; ?></p>
 
                 <p class="myprofile-header__textarea__text">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin vestibulum, tortor a auctor tincidunt, justo arcu malesuada velit, quis fringilla risus nisl et odio. Cras dapibus quam in elit venenatis rhoncus. Aliquam orci erat, tincidunt vel posuere nec.
+                    <?php if (empty($user["biography"])) {
+                        echo "User have not added his biography";
+                    } else {
+                        echo $user["biography"];
+                    } ?>
                 </p>
             </div>
         </div>
@@ -146,8 +166,71 @@ $image = $req->fetch();
                 } ?>
                     </p>
             </div>
-        </div>
+            <h3 class="profile-info__titles">Hobbies affinity</h3>
 
+            <div class="profile-info__wrapper">
+                <div class="profile-info__bar-items">
+                    <p class="profile-info__bar-title">Video games : <?php echo $videogames ?></p>
+                    <div class="meter">
+                        <span style="width: <?php echo $videogames ?>"></span>
+                    </div>
+                </div>
+                <div class="profile-info__bar-items">
+                    <p class="profile-info__bar-title">RPG/LARPG : <?php echo $rpg ?></p>
+                    <div class="meter">
+                        <span style="width: <?php echo $rpg ?>"></span>
+                    </div>
+                </div>
+                <div class="profile-info__bar-items">
+                    <p class="profile-info__bar-title">anime/manga : <?php echo $anime ?></p>
+                    <div class="meter">
+                        <span style="width: <?php echo $anime ?>"></span>
+                    </div>
+                </div>
+                <div class="profile-info__bar-items">
+                    <p class="profile-info__bar-title">Comics/BD : <?php echo $comics ?></p>
+                    <div class="meter">
+                        <span style="width: <?php echo $comics ?>"></span>
+                    </div>
+                </div>
+                <div class="profile-info__bar-items">
+                    <p class="profile-info__bar-title">Cosplay : <?php echo $cosplay ?></p>
+                    <div class="meter">
+                        <span style="width: <?php echo $cosplay ?>"></span>
+                    </div>
+                </div>
+                <div class="profile-info__bar-items">
+                    <p class="profile-info__bar-title">Series/Web series : <?php echo $series ?></p>
+                    <div class="meter">
+                        <span style="width: <?php echo $series ?>"></span>
+                    </div>
+                </div>
+                <div class="profile-info__bar-items">
+                    <p class="profile-info__bar-title">Movies : <?php echo $movies ?></p>
+                    <div class="meter">
+                        <span style="width: <?php echo $movies ?>"></span>
+                    </div>
+                </div>
+                <div class="profile-info__bar-items">
+                    <p class="profile-info__bar-title">Literature : <?php echo $literature ?></p>
+                    <div class="meter">
+                        <span style="width: <?php echo $literature ?>"></span>
+                    </div>
+                </div>
+                <div class="profile-info__bar-items">
+                    <p class="profile-info__bar-title">Science : <?php echo $science ?></p>
+                    <div class="meter">
+                        <span style="width: <?php echo $science ?>"></span>
+                    </div>
+                </div>
+                <div class="profile-info__bar-items margin-bottom">
+                    <p class="profile-info__bar-title">Musics : <?php echo $music ?></p>
+                    <div class="meter">
+                        <span style="width: <?php echo $music ?>"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="profile-info__skills" id="gamestag">
             <h3 class="profile-info__titles">Games Tag</h3>
             <div class="profile-info__items">
@@ -164,7 +247,7 @@ $image = $req->fetch();
                 if (empty($user['battlenet_username'])) {
                 } else { ?>
                     <p class="profile-info__title">BATTLE.NET ID :</p>
-                    <?php echo '<p class="profile-info__text"> ' .$user['battlenet_username'] . '</p>';
+                <?php echo '<p class="profile-info__text"> ' . $user['battlenet_username'] . '</p>';
                 } ?>
 
             </div>
@@ -173,7 +256,7 @@ $image = $req->fetch();
                 if (empty($user['lol_username'])) {
                 } else { ?>
                     <p class="profile-info__title">Riot Games ID :</p>
-                    <?php echo '<p class="profile-info__text"> ' .$user['lol_username'] . '</p>';
+                <?php echo '<p class="profile-info__text"> ' . $user['lol_username'] . '</p>';
                 } ?>
 
             </div>
@@ -182,7 +265,7 @@ $image = $req->fetch();
                 if (empty($user['psn_username'])) {
                 } else { ?>
                     <p class="profile-info__title">PSN ID :</p>
-                    <?php echo '<p class="profile-info__text"> ' .$user['psn_username'] . '</p>';
+                <?php echo '<p class="profile-info__text"> ' . $user['psn_username'] . '</p>';
                 } ?>
 
             </div>
@@ -191,7 +274,7 @@ $image = $req->fetch();
                 if (empty($user['xbox_username'])) {
                 } else { ?>
                     <p class="profile-info__title">XBOX ID :</p>
-                    <?php echo '<p class="profile-info__text"> ' .$user['xbox_username'] . '</p>';
+                <?php echo '<p class="profile-info__text"> ' . $user['xbox_username'] . '</p>';
                 } ?>
 
             </div>
@@ -200,7 +283,7 @@ $image = $req->fetch();
                 if (empty($user['twitch_username'])) {
                 } else { ?>
                     <p class="profile-info__title">Twitch channel :</p>
-                    <?php echo '<p class="profile-info__text"> ' .$user['twitch_username'] . '</p>';
+                <?php echo '<p class="profile-info__text"> ' . $user['twitch_username'] . '</p>';
                 } ?>
 
             </div>
@@ -209,7 +292,7 @@ $image = $req->fetch();
                 if (empty($user['youtube_username'])) {
                 } else { ?>
                     <p class="profile-info__title">Youtube channel :</p>
-                    <?php echo '<p class="profile-info__text"> ' .$user['youtube_username'] . '</p>';
+                <?php echo '<p class="profile-info__text"> ' . $user['youtube_username'] . '</p>';
                 } ?>
 
             </div>
@@ -230,6 +313,7 @@ $image = $req->fetch();
     </section>
 </main>
 
+<!-- NAVIGATION SCRIPT -->
 <script>
     var global = document.getElementById("global");
     var gamestag = document.getElementById("gamestag");
@@ -267,6 +351,20 @@ $image = $req->fetch();
         global.style.display = "none";
         nav_global.style.color = "white";
     }
+</script>
+
+<!-- AFFINITIES PROGRESS BAR -->
+<script>
+    $(".meter > span").each(function() {
+        $(this)
+            .data("origWidth", $(this).width())
+            .width(0)
+            .animate({
+                    width: $(this).data("origWidth")
+                },
+                1200
+            );
+    });
 </script>
 <?php
 include 'src/include/footer.php'

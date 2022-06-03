@@ -1,0 +1,48 @@
+.search-profile-filterbar {
+    width: 113.6rem;
+    height: 6.6rem;
+    background-color: rgba($color: #ffffff, $alpha: 0.1);
+    margin: 0 auto;
+}
+
+.search-profile-profiles {
+    width: 113.6rem;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin: 5rem auto;
+    gap: 3rem;
+
+    &__block {
+        border-radius: 25px;
+        width: 35.7rem;
+        height: 43.6rem;
+        background: rgba($color: #ffffff, $alpha: 0.1);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        &__image {
+            margin: 4rem 0 3rem 0;
+            max-width: 25.6rem;
+            max-height: 24rem;
+        }
+
+        &__username {
+            font-family: $chakra;
+            font-weight: 700;
+            font-size: 3.2rem;
+            text-align: center;
+            color: #7EFF7B;
+            margin-bottom: 1rem;
+        }
+
+        &__text {
+            font-family: $chakra;
+            font-weight: 700;
+            font-size: 2.8rem;
+            text-align: center;
+            color: #ffffff;
+        }
+    }
+}

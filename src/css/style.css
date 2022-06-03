@@ -1217,6 +1217,21 @@ input[type=number] {
           align-items: center;
   padding-top: 5rem;
 }
+.profile-info__wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  gap: 3rem;
+}
 .profile-info__skills {
   display: none;
   -webkit-box-orient: vertical;
@@ -1253,6 +1268,29 @@ input[type=number] {
           justify-content: center;
   gap: 3rem;
 }
+.profile-info__bar-items {
+  padding-bottom: 3rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 3rem;
+}
+.profile-info__bar-title {
+  font-family: "Exo 2", sans-serif;
+  font-weight: 700;
+  font-size: 2rem;
+  text-align: center;
+  color: #7EFF7B;
+  text-transform: uppercase;
+  width: 25rem;
+}
 .profile-info__title {
   font-family: "Exo 2", sans-serif;
   font-weight: 700;
@@ -1284,6 +1322,137 @@ input[type=number] {
 
 #nav_global {
   color: #7EFF7B;
+}
+
+.meter {
+  -webkit-box-sizing: content-box;
+          box-sizing: content-box;
+  height: 1rem;
+  position: relative;
+  margin-bottom: 2rem;
+  color: #FFFFFF;
+  background: rgba(255, 255, 255, 0.1098039216);
+  padding: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.4392156863);
+  border-radius: 25px;
+  padding: 0.5rem;
+  width: 30rem;
+}
+
+.meter > span {
+  display: block;
+  height: 100%;
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  background-color: #FC7BFF;
+  position: relative;
+  overflow: hidden;
+}
+
+.meter > span:after,
+.animate > span > span {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 1;
+  background-size: 50px 50px;
+  -webkit-animation: move 2s linear infinite;
+          animation: move 2s linear infinite;
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  overflow: hidden;
+}
+
+@-webkit-keyframes move {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 50px 50px;
+  }
+}
+
+@keyframes move {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 50px 50px;
+  }
+}
+.nostripes > span > span,
+.nostripes > span::after {
+  background-image: none;
+}
+
+.margin-bottom {
+  margin-bottom: 13rem;
+}
+
+/* SEARCH PROFILES */
+.search-profile-filterbar {
+  width: 113.6rem;
+  height: 6.6rem;
+  background-color: rgba(255, 255, 255, 0.1);
+  margin: 0 auto;
+}
+
+.search-profile-profiles {
+  width: 113.6rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  margin: 5rem auto;
+  gap: 3rem;
+}
+.search-profile-profiles__block {
+  border-radius: 25px;
+  width: 35.7rem;
+  height: 43.6rem;
+  background: rgba(255, 255, 255, 0.1);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+.search-profile-profiles__block__image {
+  margin: 4rem 0 3rem 0;
+  max-width: 25.6rem;
+  max-height: 24rem;
+}
+.search-profile-profiles__block__username {
+  font-family: "Chakra Petch", sans-serif;
+  font-weight: 700;
+  font-size: 3.2rem;
+  text-align: center;
+  color: #7EFF7B;
+  margin-bottom: 1rem;
+}
+.search-profile-profiles__block__text {
+  font-family: "Chakra Petch", sans-serif;
+  font-weight: 700;
+  font-size: 2.8rem;
+  text-align: center;
+  color: #ffffff;
 }
 
 .footer {

@@ -126,6 +126,14 @@
         align-items: center;
         padding-top: 5rem;
     }
+    
+    &__wrapper {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 3rem;
+    }
 
     &__skills {
         display: none;
@@ -147,6 +155,24 @@
         flex-direction: row;
         justify-content: center;
         gap: 3rem;
+    }
+
+    &__bar-items {
+        padding-bottom: 3rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 3rem;
+    }
+
+    &__bar-title {
+        font-family: $exo;
+        font-weight: 700;
+        font-size: 2rem;
+        text-align: center;
+        color: #7EFF7B;
+        text-transform: uppercase;
+        width: 25rem;
     }
 
     &__title {
@@ -173,6 +199,7 @@
             font-size: 2rem;
             text-align: left;
             width: 25rem;
+
             &:hover {
                 color: rgba(255, 255, 255, 0.795);
                 cursor: pointer;
@@ -184,4 +211,69 @@
 
 #nav_global {
     color: #7EFF7B;
+}
+
+
+//PROGRESS BAR FOR AFFINITIES
+
+.meter {
+    box-sizing: content-box;
+    height: 1rem;
+    position: relative;
+    margin-bottom: 2rem;
+    color: #FFFFFF;
+    background: #ffffff1c;
+    padding: 1rem;
+    border: 1px solid #ffffff70;
+    border-radius: 25px;
+    padding: 0.5rem;
+    width: 30rem;
+}
+
+.meter>span {
+    display: block;
+    height: 100%;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    background-color: #FC7BFF;
+    position: relative;
+    overflow: hidden;
+}
+
+.meter>span:after,
+.animate>span>span {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 1;
+    background-size: 50px 50px;
+    animation: move 2s linear infinite;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    overflow: hidden;
+}
+
+@keyframes move {
+    0% {
+        background-position: 0 0;
+    }
+
+    100% {
+        background-position: 50px 50px;
+    }
+}
+
+.nostripes>span>span,
+.nostripes>span::after {
+    background-image: none;
+}
+.margin-bottom {
+    margin-bottom: 13rem;
 }
