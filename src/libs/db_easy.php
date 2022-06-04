@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------------------------------------------
 /**
  *      Author : Julien Jacobs
- *      Modified by : Julien Gatisseur :3
+ *      Modified by : Julien Gatisseur
  */
 //-----------------------------------------------------------------------------------------------------------------
 
@@ -14,6 +14,7 @@
  */
 function selectInTable($pdo, $table, $elements, $wheresName, $wheresValue, $LogicOperator)
 {
+    echo $wheresValue[0];
     $sql = 'SELECT ';
     for ($i = 0; $i < count($elements); $i++) {
         $sql = $sql . '`' . $elements[$i] . '`';
@@ -151,9 +152,10 @@ function generateHTML($typeBalise, $textInside, $attributeName, $attributeValue)
 }
 
 
-function valeursEntre($valeur, $min, $max){
-    for($i = 0; $i < sizeof($valeur); $i++){
-        if($valeur[$i]> $max || $valeur[$i]<$min){
+function valeursEntre($valeur, $min, $max)
+{
+    for ($i = 0; $i < sizeof($valeur); $i++) {
+        if ($valeur[$i] > $max || $valeur[$i] < $min) {
             return false;
         }
     }

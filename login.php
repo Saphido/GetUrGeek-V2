@@ -30,6 +30,8 @@ include 'src/include/header.php';
                             $_SESSION["user_login"] = $row["user_id"];
                             echo $row["user_id"];
                             echo $_SESSION["user_login"];
+                            $request = updateInTable($pdo, 'user', ['isConnected'], ['1'], ['user_id'], [$_SESSION['user_login']]);
+
                             $loginMsg = "Successfully Login, redirecting...";
                             header("refresh:3; index.php");
                         }

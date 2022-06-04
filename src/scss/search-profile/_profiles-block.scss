@@ -3,6 +3,13 @@
     height: 6.6rem;
     background-color: rgba($color: #ffffff, $alpha: 0.1);
     margin: 0 auto;
+    border-radius: 25px;
+
+    &__list {
+        width: 90rem;
+        height: 5.6rem;
+        margin: 0 auto;
+    }
 }
 
 .search-profile-profiles {
