@@ -1,0 +1,43 @@
+.search-profile-filterbar {
+    width: 113.6rem;
+    height: 6.6rem;
+    background-color: rgba($color: #ffffff, $alpha: 0.1);
+    margin: 0 auto;
+    border-radius: 25px;
+
+    &__block {
+        width: 10rem;
+    }
+
+    &__list {
+        width: 90rem;
+        height: 5.6rem;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        gap: 10rem;
+    }
+
+    &__text {
+        margin-bottom: 0.8rem;
+        margin-left: 0.5rem;
+        font-weight: 400;
+        font-size: 1.6rem;
+        color: #7EFF7B;
+        width: 15rem;
+    }
+}
+
+.formular {
+
+    &__form {
+
+        &__checkbox-small {
+                width: 1.5rem;
+                height: 1.5rem;
+                border: none;
+        }
+    }
+}

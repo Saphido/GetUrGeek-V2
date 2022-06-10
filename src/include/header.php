@@ -21,6 +21,34 @@ include 'src/libs/pdo.php';
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.5.0/croppie.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.5.0/croppie.js"></script>
     <title>GetUrGeek - Dating website</title>
+
+    <script>
+        var inactivityTime = function() {
+            var time;
+            window.onload = resetTimer;
+
+            document.onmousemove = resetTimer;
+            document.onkeydown = resetTimer;
+
+            function logout() {
+                location.href = 'logout.php'
+            }
+
+            function resetTimer() {
+                clearTimeout(time);
+                time = setTimeout(logout, 1800000)
+            }
+        };
+
+        <?php
+        if (isset($_SESSION['user_login'])) {
+            echo 'window.onload = function() {
+                    inactivityTime();
+                }';
+        }
+        ?>
+    </script>
+
 </head>
 
 <body>
@@ -45,7 +73,7 @@ include 'src/libs/pdo.php';
                 } else {
                 ?>
                     <li class="header__nav__items"><a class="header__nav__links" href="index.php">MATCH</a></li>
-                    <li class="header__nav__items"><a class="header__nav__links" href="test.php">TEST</a></li>
+                    <li class="header__nav__items"><a class="header__nav__links" href="search_profile.php">SEARCH</a></li>
                     <li class="header__nav__items">
                         <div class="dropdown">
                             <p class="dropbtn">MY PROFILE <i class="drop-icon fa-solid fa-caret-down"></i></p>

@@ -14,7 +14,6 @@
  */
 function selectInTable($pdo, $table, $elements, $wheresName, $wheresValue, $LogicOperator)
 {
-    echo $wheresValue[0];
     $sql = 'SELECT ';
     for ($i = 0; $i < count($elements); $i++) {
         $sql = $sql . '`' . $elements[$i] . '`';
@@ -28,7 +27,7 @@ function selectInTable($pdo, $table, $elements, $wheresName, $wheresValue, $Logi
         for ($i = 0; $i < count($wheresName); $i++) {
             $sql = $sql . $wheresName[$i] . ' = ' . $wheresValue[$i];
             if ($i < count($wheresName) - 1) {
-                $sql = $sql . $LogicOperator . ' ';
+                $sql = $sql . ' ' . $LogicOperator . ' ';
             }
         }
     } else {
@@ -41,6 +40,51 @@ function selectInTable($pdo, $table, $elements, $wheresName, $wheresValue, $Logi
         die($e->getMessage());
     }
 
+    return $stmt;
+}
+
+/**
+ * 
+ */
+function selectInTableImproved($pdo, $table, $elements, $wheresName, $wheresValue)
+{
+
+    $sql = 'SELECT ';
+    if (count($elements) > 0) {
+        for ($i = 0; $i < count($elements); $i++) {
+            $sql = $sql . '`' . $elements[$i] . '`';
+            if ($i < count($elements) - 1) {
+                $sql = $sql . ', ';
+            }
+        }
+    } else {
+        $sql = $sql . '* ';
+    }
+    $sql = $sql . ' FROM `' . $table . '`';
+    if (count($wheresName) > 0) {
+        $sql = $sql . ' where ';
+        for ($i = 0; $i < count($wheresName); $i++) {
+            $sql = $sql . $wheresName[$i] . ' IN (';
+            for ($j = 0; $j < count($wheresValue[$i]); $j++) {
+                $sql = $sql . $wheresValue[$i][$j];
+                if ($j < count($wheresValue[$i]) - 1) {
+                    $sql = $sql . ', ';
+                }
+            }
+            $sql = $sql . ') ';
+            if ($i < count($wheresName) - 1) {
+                $sql = $sql . 'AND ';
+            }
+        }
+    } else {
+        $sql = $sql . ' WHERE 1';
+    }
+    try {
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute();
+    } catch (PDOException $e) {
+        die($e->getMessage());
+    }
     return $stmt;
 }
 
@@ -65,6 +109,7 @@ function insertInTable($pdo, $table, $elementsName, $elementsValue)
         }
     }
     $sql = $sql . ')';
+
     try {
         $stmt = $pdo->prepare($sql);
         $stmt->execute();

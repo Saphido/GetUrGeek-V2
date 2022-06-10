@@ -56,6 +56,13 @@
         margin-top: 5.3rem;
         display: flex;
         flex-direction: column;
+    
+    &__forms {
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
 
         &__title {
             margin-top: 5.2rem;
@@ -89,7 +96,7 @@
             font-weight: 400;
             font-size: 1.6rem;
             color: #7EFF7B;
-            width: 40rem;
+            width: 60rem;
         }
 
         &__input {
@@ -254,3 +261,54 @@ input[type=number] {
     font-size: 2rem;
     color: #7EFF7B;
 }
+
+$red: #ff5568;
+$green: #27b061;
+$trans: all 0.4s cubic-bezier(.55,-0.69,.33,1.38);
+
+.md-switch{
+
+    &-input{
+      display: none;
+    }
+
+    &-label{
+      position: relative;
+      cursor: pointer;
+      margin: 0;
+      &-rail{
+        transition: $trans;
+        position: absolute;
+        width: 8rem;
+        height: 3rem;
+        background: $red;
+        border-radius: 10rem;
+
+        &-slider{
+          transition: $trans;
+          position: absolute;
+          top: -0.5rem;
+          left: -0.125rem;
+          width: 4rem;
+          height: 4rem;
+          border-radius: 50%;
+          background: #fff;
+          box-shadow: 0 5px 10px -5px rgba(0, 0, 0, 0.1), 0 3px 5px -4px rgba(0, 0, 0, 0.175);
+        }
+      }
+    }
+    #switch:checked + .md-switch-label {
+      .md-switch-label-rail{
+        transition: $trans;
+        background: $green;
+        .md-switch-label-rail-slider{
+          transition: $trans;
+          transform: translateX(4.25rem);
+        } 
+      }        
+    }
+  }
+
+  .marginbottom {
+      margin-bottom: 5rem;
+  }

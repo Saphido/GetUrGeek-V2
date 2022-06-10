@@ -2,7 +2,7 @@
 include 'src/include/header.php';
 
     if(isset($_SESSION["user_login"])) { //Check if user session is open, redirect to index.php
-        header("location: index.php");
+        echo("<script>location.href = 'index.php';</script>");
     }
 
     if(isset($_POST['login'])) {
@@ -33,7 +33,7 @@ include 'src/include/header.php';
                             $request = updateInTable($pdo, 'user', ['isConnected'], ['1'], ['user_id'], [$_SESSION['user_login']]);
 
                             $loginMsg = "Successfully Login, redirecting...";
-                            header("refresh:3; index.php");
+                            echo("<script>location.href = 'index.php';</script>");
                         }
                         else {
                             $errorMsg[]="Wrong password";

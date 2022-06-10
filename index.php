@@ -3,7 +3,7 @@ include 'src/include/header.php';
 
 $req = selectInTable($pdo, 'user', ['user_id'], [], [], []);
 $data = 0;
-while ($lookingfor = $req->fetch()) {
+while ($req->fetch()) {
     $data++;
 }
 

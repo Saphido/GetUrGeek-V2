@@ -2,15 +2,15 @@
 
 include 'src/include/header.php';
 if (!isset($_SESSION["user_login"])) {
-    header("location: login.php");
+    echo("<script>location.href = 'login.php';</script>");
 }
 
 $req = selectInTable(
     $pdo,
     'user',
     [
-        'username', 'verified', 'email', 'birthday', 'idgender', 'idcountry', 'zipcode',
-        'city', 'biography', 'id_here_for', 'id_looking_for', 'id_children',
+        'username', 'verified', 'email', 'birthday', 'idgender', 'id_country', 'id_state',
+        'id_city', 'biography', 'id_here_for', 'id_looking_for', 'id_children',
         'id_drink', 'id_smoker', 'steam_username', 'battlenet_username', 'lol_username',
         'psn_username', 'xbox_username', 'twitch_username', 'youtube_username', 'discord_username',
         'videogame_affinity', 'rpg_affinity', 'anime_affinity', 'comics_affinity',
@@ -28,8 +28,14 @@ $aujourdhui = date("Y-m-d");
 $diff = date_diff(date_create($user['birthday']), date_create($aujourdhui));
 $age = $diff->format('%y');
 
-$req = selectInTable($pdo, 'pays', ['nom_en_gb'], ['id'], [$user['idcountry']], []);
-$pays = $req->fetch();
+$req = selectInTable($pdo, 'countries', ['name'], ['id'], [$user['id_country']], []);
+$countries = $req->fetch();
+
+$req = selectInTable($pdo, 'states', ['name'], ['id'], [$user['id_state']], []);
+$countries = $req->fetch();
+
+$req = selectInTable($pdo, 'cities', ['name'], ['id'], [$user['id_city']], []);
+$cities = $req->fetch();
 
 $req = selectInTable($pdo, 'gender', ['gender_en'], ['id'], [$user['idgender']], []);
 $gender = $req->fetch();
@@ -48,9 +54,6 @@ $drink = $req->fetch();
 
 $req = selectInTable($pdo, 'smoker', ['smoker_en'], ['id'], [$user['id_smoker']], []);
 $smoker = $req->fetch();
-
-$req = selectInTable($pdo, 'crop_images', ['title'], ['id'], ['4'], []);
-$image = $req->fetch();
 
 //ADJUSTING AFFINITY TO MATCH THE PROGRESSBAR SYSTEM
 $videogames = $user["videogame_affinity"] * 10 . "%";
@@ -84,7 +87,7 @@ $music = $user["music_affinity"] * 10 . "%";
                         } ?>
                     </span></h3>
                 <p class="myprofile-header__textarea__subtitle">(<?php echo $age; ?> ans)</p>
-                <p class="myprofile-header__textarea__subtitle"><?php echo $user['city'] . ', ' . $pays['nom_en_gb']; ?></p>
+                <p class="myprofile-header__textarea__subtitle"><?php echo $cities['name'] . ', ' . $countries['name']; ?></p>
 
                 <p class="myprofile-header__textarea__text">
                     <?php if (empty($user["biography"])) {

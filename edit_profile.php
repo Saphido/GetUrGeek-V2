@@ -2,15 +2,15 @@
 include 'src/include/header.php';
 
 if (!isset($_SESSION["user_login"])) { //Check if user session is not open, redirect to login.php
-    header("location: login.php");
+    echo("<script>location.href = 'index.php';</script>");
 }
 
 $req = selectInTable(
     $pdo,
     'user',
     [
-        'username', 'email', 'birthday', 'idgender', 'idcountry', 'zipcode',
-        'city', 'biography', 'id_here_for', 'id_looking_for', 'id_children',
+        'username', 'email', 'birthday', 'idgender', 'id_country', 'id_state',
+        'id_city', 'biography', 'id_here_for', 'id_looking_for', 'id_children',
         'id_drink', 'id_smoker', 'steam_username', 'battlenet_username', 'lol_username',
         'psn_username', 'xbox_username', 'twitch_username', 'youtube_username', 'discord_username',
         'videogame_affinity', 'rpg_affinity', 'anime_affinity', 'comics_affinity',
@@ -23,8 +23,14 @@ $req = selectInTable(
 );
 $user = $req->fetch();
 
-$req = selectInTable($pdo, 'pays', ['nom_en_gb'], ['id'], [$user['idcountry']], []);
-$pays = $req->fetch();
+$req = selectInTable($pdo, 'countries', ['name', 'id'], ['id'], [$user['id_country']], []);
+$countries = $req->fetch();
+
+$req = selectInTable($pdo, 'states', ['name', 'id'], ['id'], [$user['id_state']], []);
+$states = $req->fetch();
+
+$req = selectInTable($pdo, 'cities', ['name', 'id'], ['id'], [$user['id_city']], []);
+$cities = $req->fetch();
 
 $req = selectInTable($pdo, 'gender', ['gender_en'], ['id'], [$user['idgender']], []);
 $gender = $req->fetch();
@@ -92,7 +98,7 @@ if (isset($_POST['edit-profile'])) {
                     $pdo,
                     'user',
                     [
-                        'username', 'email', 'biography', 'id_here_for', 'id_looking_for', 'id_children',
+                        'username', 'email', 'id_country', 'id_state', 'id_city', 'biography', 'id_here_for', 'id_looking_for', 'id_children',
                         'id_drink', 'id_smoker', 'steam_username', 'battlenet_username', 'lol_username',
                         'psn_username', 'xbox_username', 'twitch_username', 'youtube_username', 'discord_username',
                         'videogame_affinity', 'rpg_affinity', 'anime_affinity', 'comics_affinity',
@@ -100,7 +106,7 @@ if (isset($_POST['edit-profile'])) {
                         'science_affinity', 'music_affinity'
                     ],
                     [
-                        $_POST['username'], $_POST['email'], $_POST['biography'], $_POST['herefor'], $_POST['lookingfor'], $_POST['children'],
+                        $_POST['username'], $_POST['email'], $_POST['country'], $_POST['state'], $_POST['city'], $_POST['biography'], $_POST['herefor'], $_POST['lookingfor'], $_POST['children'],
                         $_POST['drink'], $_POST['smoker'], $_POST['steam_username'], $_POST['battlenet_username'], $_POST['lol_username'],
                         $_POST['psn_username'], $_POST['xbox_username'], $_POST['twitch_username'], $_POST['youtube_username'], $_POST['discord_username'],
                         $_POST['videogame_affinity'], $_POST['rpg_affinity'], $_POST['anime_affinity'], $_POST['comics_affinity'],
@@ -112,6 +118,8 @@ if (isset($_POST['edit-profile'])) {
                 );
 
                 $successMsg = "Profile saved !";
+                echo("<script>location.href = 'profile.php';</script>");
+
             } catch (PDOException $e) {
                 echo $e->getMessage();
             }
@@ -239,7 +247,29 @@ if (isset($_POST['edit-profile'])) {
             }
             ?>
         </select>
-        <h3 class="formular__form__title">GAME TAGS*</h3>
+        <h3 class="formular__form__title">LOCATION</h3>
+        <p class="formular__form__text">Country</p>
+        <select name="country" class="countries formular__form__input" id="countryId">
+            <option class="formular__form__input__options" value="">Select Country</option>
+            <?php
+            echo '<option selected hidden class="formular__form__input__options" value="' . $countries['id'] . '">' . $countries['name'] . '</option>';
+            ?>
+        </select>
+        <p class="formular__form__text">State</p>
+        <select name="state" class="states formular__form__input" id="stateId">
+            <option class="formular__form__input__options" value="">Select Country first</option>
+            <?php
+            echo '<option selected hidden class="formular__form__input__options" value="' . $states['id'] . '">' . $states['name'] . '</option>';
+            ?>
+        </select>
+        <p class="formular__form__text">City</p>
+        <select name="city" class="cities formular__form__input" id="cityId">
+            <option class="formular__form__input__options" value="">Select State first</option>
+            <?php
+            echo '<option selected hidden class="formular__form__input__options" value="' . $cities['id'] . '">' . $cities['name'] . '</option>';
+            ?>
+        </select>
+        <h3 class="formular__form__title">GAME TAGS</h3>
         <p class="formular__form__text">Steam Profile</p>
         <input class="formular__form__input" type="text" name="steam_username" value="<?php echo $user['steam_username']; ?>" placeholder="URL to your profile">
         <p class="formular__form__text">Battle.net</p>
@@ -574,6 +604,8 @@ if (isset($_POST['edit-profile'])) {
 
     });
 </script>
+<script src="src/js/location.js"></script>
+
 <?php
 include 'src/include/footer.php';
 ?>
