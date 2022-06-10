@@ -80,8 +80,15 @@ include "src/include/header.php";
 
     ?>
             <div class="search-profile-profiles__block">
-            <img class="search-profile-profiles__block__image" alt="Profile picture" src="<?php echo 'src/img/users-img/user_' .$user['user_id'] . '/pp.png' ?>">
-                <p class="search-profile-profiles__block__username"><?php echo $user["username"]; ?></p>
+                <img class="search-profile-profiles__block__image" alt="Profile picture" src="
+                <?php
+                if (is_dir("src/img/users-img/user_" . $user["user_id"] . "/")) {
+                    echo 'src/img/users-img/user_' . $user['user_id'] . '/pp.png';
+                } else {
+                    echo 'src/img/profile/default.png';
+                }
+                ?>">
+                <p class=" search-profile-profiles__block__username"><?php echo $user["username"]; ?></p>
                 <p class="search-profile-profiles__block__text">(<?php echo $age; ?> ans)</p>
                 <p class="search-profile-profiles__block__text"><?php echo $city['name'] . ', ' . $country['name']; ?></p>
             </div>
@@ -160,7 +167,7 @@ include "src/include/header.php";
 
         ?>
             <div class="search-profile-profiles__block">
-                <img class="search-profile-profiles__block__image" alt="Profile picture" src="<?php echo 'src/img/users-img/user_' .$user['user_id'] . '/pp.png' ?>">
+                <img class="search-profile-profiles__block__image" alt="Profile picture" src="<?php echo 'src/img/users-img/user_' . $user['user_id'] . '/pp.png' ?>">
                 <p class="search-profile-profiles__block__username"><?php echo $user["username"]; ?></p>
                 <p class="search-profile-profiles__block__text">(<?php echo $age; ?> ans)</p>
                 <p class="search-profile-profiles__block__text"><?php echo $city['name'] . ', ' . $country['name']; ?></p>

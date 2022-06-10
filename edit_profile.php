@@ -2,7 +2,7 @@
 include 'src/include/header.php';
 
 if (!isset($_SESSION["user_login"])) { //Check if user session is not open, redirect to login.php
-    echo("<script>location.href = 'index.php';</script>");
+    echo ("<script>location.href = 'index.php';</script>");
 }
 
 $req = selectInTable(
@@ -51,22 +51,6 @@ $req = selectInTable($pdo, 'smoker', ['smoker_en'], ['id'], [$user['id_smoker']]
 $smoker = $req->fetch();
 
 if (isset($_POST['edit-profile'])) {
-
-    $filename = $_FILES["profile_picture"]["name"];
-    $tempname = $_FILES["profile_picture"]["tmp_name"];
-    $makefolder = "src/img/users-img/user_" . $_SESSION["user_login"] . "/";
-    $folder = "src/img/users-img/user_" . $_SESSION["user_login"] . "/" . $filename;
-    if (!is_dir($makefolder)) {
-        mkdir($makefolder, 0777, true);
-    }
-
-    // Now let's move the uploaded image into the folder: image
-    if (move_uploaded_file($tempname, $folder)) {
-        rename($folder, $makefolder . 'pp.png');
-        $msg = "Image uploaded successfully";
-    } else {
-        $msg = "Failed to upload image";
-    }
 
     if (empty($_POST['username'])) {
         $errorMsg[] = "Please enter an username"; //check username not empty
@@ -118,8 +102,7 @@ if (isset($_POST['edit-profile'])) {
                 );
 
                 $successMsg = "Profile saved !";
-                echo("<script>location.href = 'profile.php';</script>");
-
+                echo ("<script>location.href = 'profile.php';</script>");
             } catch (PDOException $e) {
                 echo $e->getMessage();
             }
@@ -127,6 +110,9 @@ if (isset($_POST['edit-profile'])) {
     }
 }
 ?>
+<script src="src/js/croppie.js"></script>
+<link rel="stylesheet" href="src/css/croppie.css" />
+
 
 <section class="login-hero">
     <h1 class="login-hero__title">Edit profile</h1>
@@ -158,7 +144,9 @@ if (isset($_POST['edit-profile'])) {
     <form class="formular__form" method="POST" action="edit_profile.php" enctype="multipart/form-data" Append="?submit=true">
         <h3 class="formular__form__title">Global informations</h3>
         <p class="formular__form__text">Profile Picture</p>
-        <input class="formular__form__input-file" type="file" id="file" name="profile_picture">
+        <input type="file" name="upload_image" id="upload_image" />
+        <br />
+        <div id="uploaded_image"></div>
         <p class="formular__form__text">Username</p>
         <input class="formular__form__input" type="text" name="username" value=<?php echo $user['username']; ?>>
         <p class="formular__form__text">Email</p>
@@ -352,6 +340,78 @@ if (isset($_POST['edit-profile'])) {
         <input class="formular__form__button" type="submit" name="edit-profile" value="SAVE">
     </form>
 </section>
+<div class="modal-overlay" id="uploadimageModal">
+    <div id="uploadimageModal" class="modal" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <h4 class="popup-formular__title"><span style="color: #7EFF7B;">Upload</span> & <span style="color: #7EFF7B;">Crop</span></h4>
+                <p class="popup-formular__text">Crop the part you like and save it</p>
+                <div id="image_demo" style="width:350px; margin-top:30px"></div>
+                <div class="modal-overlay__buttonarea">
+                    <button class="btn modal-overlay__buttonarea__button crop_image">Crop & Save</button>
+                    <button type="button" class="btn modal-overlay__buttonarea__button" onclick="closeModal()">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- CROP IMAGES -->
+<script>
+    function closeModal() {
+        $('#uploadimageModal').css("display", "none")
+    }
+    $(document).ready(function() {
+
+        $image_crop = $('#image_demo').croppie({
+            enableExif: true,
+            viewport: {
+                width: 300,
+                height: 300,
+                type: 'square' //circle
+            },
+            boundary: {
+                width: 300,
+                height: 300
+            }
+        });
+
+        $('#upload_image').on('change', function() {
+            var reader = new FileReader();
+            reader.onload = function(event) {
+                $image_crop.croppie('bind', {
+                    url: event.target.result
+                }).then(function() {
+                    console.log('jQuery bind complete');
+                });
+            }
+            reader.readAsDataURL(this.files[0]);
+            $('#uploadimageModal').css("display", "block")
+        });
+
+        $('.crop_image').click(function(event) {
+            $image_crop.croppie('result', {
+                type: 'canvas',
+                size: 'viewport'
+            }).then(function(response) {
+                $.ajax({
+                    url: "upload.php",
+                    type: "POST",
+                    data: {
+                        "image": response
+                    },
+                    success: function(data) {
+                        $('#uploadimageModal').css("display", "none");
+                        $('#uploaded_image').html(data);
+                    }
+                });
+            })
+        });
+
+    });
+</script>
+
+<!-- SLIDERS -->
 <script>
     document.addEventListener("DOMContentLoaded", function(event) {
         var sliderVG = document.getElementById('slider-VG');

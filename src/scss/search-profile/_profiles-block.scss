@@ -17,8 +17,11 @@
 
         &__image {
             margin: 4rem 0 3rem 0;
-            max-width: 25.6rem;
-            max-height: 24rem;
+            max-width: 20rem;
+            max-height: 20rem;
+            border-radius: 33px;
+            border: 3px solid #ffffff70;
+
         }
 
         &__username {

@@ -1,16 +1,14 @@
 .myprofile-hero {
     display: flex;
     flex-direction: column;
-    width: 113.6rem;
-    height: 55rem;
+    width: 80.6rem;
+    height: auto;
     background: rgba(217, 217, 217, 0.1);
     border-radius: 25px;
     margin: 0 auto 5rem auto;
 }
 
 .myprofile-attribute {
-    margin-left: 9rem;
-    margin-top: 2rem;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -40,20 +38,23 @@
 .myprofile-header {
     margin-top: 5rem;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     gap: 5rem;
 
     &__image {
-        width: 42.6rem;
-        height: 38rem;
+        width: 30rem;
+        height: 30rem;
         border-radius: 33px;
         border: 3px solid #ffffff70;
     }
 
     &__textarea {
         width: 52.9rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
 
         &__title {
             font-family: $chakra;
@@ -82,6 +83,8 @@
             text-align: center;
             color: rgb(202, 202, 202);
             font-style: italic;
+            width: 65rem;
+            margin-bottom: 5rem;
 
 
         }

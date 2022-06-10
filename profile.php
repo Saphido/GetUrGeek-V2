@@ -2,7 +2,7 @@
 
 include 'src/include/header.php';
 if (!isset($_SESSION["user_login"])) {
-    echo("<script>location.href = 'login.php';</script>");
+    echo ("<script>location.href = 'login.php';</script>");
 }
 
 $req = selectInTable(
@@ -77,7 +77,19 @@ $music = $user["music_affinity"] * 10 . "%";
 
     <section class="myprofile-hero">
         <div class="myprofile-header">
-            <img class="myprofile-header__image" alt="My profile picture" src="<?php echo 'src/img/users-img/user_' . $_SESSION['user_login'] . '/pp.png' ?>">
+            <img class="myprofile-header__image" alt="My profile picture" src="<?php
+            if(is_dir("src/img/users-img/user_" . $_SESSION["user_login"] . "/")) {
+                echo 'src/img/users-img/user_' . $_SESSION['user_login'] . '/pp.png';
+            } else {
+                echo 'src/img/profile/default.png';
+            }
+             ?>">
+            <div class="myprofile-attribute">
+                <p class="myprofile-attribute__text">#CALIN</p>
+                <p class="myprofile-attribute__text">#PATIENT</p>
+                <p class="myprofile-attribute__text">#GENTIL</p>
+                <p class="myprofile-attribute__text">#GENTIL</p>
+            </div>
             <div class="myprofile-header__textarea">
                 <h3 class="myprofile-header__textarea__title"><span style="color: #7EFF7B;">
                         <?php echo $user["username"];
@@ -97,12 +109,6 @@ $music = $user["music_affinity"] * 10 . "%";
                     } ?>
                 </p>
             </div>
-        </div>
-        <div class="myprofile-attribute">
-            <p class="myprofile-attribute__text">#CALIN</p>
-            <p class="myprofile-attribute__text">#PATIENT</p>
-            <p class="myprofile-attribute__text">#GENTIL</p>
-            <p class="myprofile-attribute__text">#GENTIL</p>
         </div>
     </section>
 
