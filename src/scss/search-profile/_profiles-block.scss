@@ -15,6 +15,11 @@
         flex-direction: column;
         align-items: center;
 
+        &:hover {
+            background: rgba($color: #ffffff, $alpha: 0.3);
+            cursor: pointer;
+        }
+
         &__image {
             margin: 4rem 0 3rem 0;
             max-width: 20rem;

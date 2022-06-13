@@ -8,41 +8,8 @@ include "src/include/header.php";
 </section>
 
 <section class="search-profile-filterbar">
-    <form class="search-profile-filterbar__list" action="search_profile.php" method="GET">
-        <div class="search-profile-filterbar__block">
-            <p class="search-profile-filterbar__text">User connected</p>
-            <input class="formular__form__checkbox-small" type="checkbox" name="connected">
-        </div>
-        <div class="search-profile-filterbar__block">
-            <p class="search-profile-filterbar__text">Gender</p>
-            <select name="gender">
-                <option value="0" selected>No specified</option>
-                <option value="1">Male</option>
-                <option value="2">Female</option>
-                <option value="3">No gender</option>
-            </select>
-        </div>
-        <div class="search-profile-filterbar__block">
-            <p class="search-profile-filterbar__text">here for</p>
-            <select class="" name="hereFor">
-                <option value="0" selected>No specified</option>
-                <option value="1">Chatting</option>
-                <option value="2">Meeting</option>
-                <option value="3">Find teammate</option>
-                <option value="4">We will see</option>
-            </select>
-        </div>
-        <!--         <div class="search-profile-filterbar__block">
-            <p class="search-profile-filterbar__text">Don't smoke</p>
-            <input type="checkbox" name="smoker">
-        </div>
-        <div class="search-profile-filterbar__block">
-            <p class="search-profile-filterbar__text">Don't drink</p>
-            <input type="checkbox" name="drink">
-        </div> -->
-        <input type="submit" name="search" value="Search">
-    </form>
-    <button onclick="openAdvancedSearch()">Advanced filters</button>
+    <p class="search-profile-filterbar__text">Check out our <span class="green">filters</span> and find your <span class="green">perfect</span> geek</p>
+    <button class="search-profile-filterbar__button" onclick="openAdvancedSearch()">GO</button>
 </section>
 
 <section class="search-profile-profiles">
@@ -79,7 +46,7 @@ include "src/include/header.php";
             $city = $request->fetch();
 
     ?>
-            <div class="search-profile-profiles__block">
+            <div class="search-profile-profiles__block" onclick="window.location.href='user_profile.php?userId=<?php echo $user['user_id'] ?>'">
                 <img class="search-profile-profiles__block__image" alt="Profile picture" src="
                 <?php
                 if (is_dir("src/img/users-img/user_" . $user["user_id"] . "/")) {
@@ -97,18 +64,17 @@ include "src/include/header.php";
 
         $whereName = [];
         $whereValue = [];
+        $sign = [];
 
-        if (isset($_GET['connected'])) {
-            array_push($whereName, 'isConnected');
-            array_push($whereValue, [1]);
-        }
         if ($_GET['gender'] != 0) {
             array_push($whereName, 'idgender');
             array_push($whereValue, [$_GET['gender']]);
+            array_push($sign, '=');
         }
         if ($_GET['hereFor'] != 0) {
             array_push($whereName, 'id_here_for');
             array_push($whereValue, [$_GET['hereFor']]);
+            array_push($sign, '=');
         }
 
         if ($_GET['smoker'] != 0) {
@@ -118,25 +84,80 @@ include "src/include/header.php";
             } else {
                 array_push($whereValue, [3]);
             }
+            array_push($sign, '=');
         }
         if ($_GET['alcohol'] != 0) {
             array_push($whereName, 'id_drink');
             array_push($whereValue, [3]);
+            array_push($sign, '=');
         }
         if ($_GET['country'] != 0) {
             array_push($whereName, 'id_country');
             array_push($whereValue, [$_GET['country']]);
+            array_push($sign, '=');
         }
         if ($_GET['state'] != 0) {
             array_push($whereName, 'id_state');
             array_push($whereValue, [$_GET['state']]);
+            array_push($sign, '=');
         }
         if ($_GET['city'] != 0) {
             array_push($whereName, 'id_city');
             array_push($whereValue, [$_GET['city']]);
+            array_push($sign, '=');
+        }
+        if ($_GET['videogame_affinity'] != 0) {
+            array_push($whereName, 'videogame_affinity');
+            array_push($whereValue, [$_GET['videogame_affinity']]);
+            array_push($sign, '>=');
+        }
+        if ($_GET['rpg_affinity'] != 0) {
+            array_push($whereName, 'rpg_affinity');
+            array_push($whereValue, [$_GET['rpg_affinity']]);
+            array_push($sign, '>=');
+        }
+        if ($_GET['anime_affinity'] != 0) {
+            array_push($whereName, 'anime_affinity');
+            array_push($whereValue, [$_GET['anime_affinity']]);
+            array_push($sign, '>=');
+        }
+        if ($_GET['comics_affinity'] != 0) {
+            array_push($whereName, 'comics_affinity');
+            array_push($whereValue, [$_GET['comics_affinity']]);
+            array_push($sign, '>=');
+        }
+        if ($_GET['cosplay_affinity'] != 0) {
+            array_push($whereName, 'cosplay_affinity');
+            array_push($whereValue, [$_GET['cosplay_affinity']]);
+            array_push($sign, '>=');
+        }
+        if ($_GET['series_affinity'] != 0) {
+            array_push($whereName, 'series_affinity');
+            array_push($whereValue, [$_GET['series_affinity']]);
+            array_push($sign, '>=');
+        }
+        if ($_GET['movies_affinity'] != 0) {
+            array_push($whereName, 'movies_affinity');
+            array_push($whereValue, [$_GET['movies_affinity']]);
+            array_push($sign, '>=');
+        }
+        if ($_GET['literature_affinity'] != 0) {
+            array_push($whereName, 'literature_affinity');
+            array_push($whereValue, [$_GET['literature_affinity']]);
+            array_push($sign, '>=');
+        }
+        if ($_GET['science_affinity'] != 0) {
+            array_push($whereName, 'science_affinity');
+            array_push($whereValue, [$_GET['science_affinity']]);
+            array_push($sign, '>=');
+        }
+        if ($_GET['music_affinity'] != 0) {
+            array_push($whereName, 'music_affinity');
+            array_push($whereValue, [$_GET['music_affinity']]);
+            array_push($sign, '>=');
         }
 
-        $req = selectInTableImproved(
+        $req = selectInTableImprovedSigned(
             $pdo,
             'user',
             [
@@ -149,7 +170,8 @@ include "src/include/header.php";
                 'science_affinity', 'music_affinity'
             ],
             $whereName,
-            $whereValue
+            $whereValue,
+            $sign
         );
 
         $exist = false;
@@ -166,8 +188,15 @@ include "src/include/header.php";
             $city = $request->fetch();
 
         ?>
-            <div class="search-profile-profiles__block">
-                <img class="search-profile-profiles__block__image" alt="Profile picture" src="<?php echo 'src/img/users-img/user_' . $user['user_id'] . '/pp.png' ?>">
+            <div class="search-profile-profiles__block" onclick="window.location.href='user_profile.php?userId=<?php echo $user['user_id'] ?>'">
+                <img class="search-profile-profiles__block__image" alt="Profile picture" src="
+                <?php
+                if (is_dir("src/img/users-img/user_" . $user["user_id"] . "/")) {
+                    echo 'src/img/users-img/user_' . $user['user_id'] . '/pp.png';
+                } else {
+                    echo 'src/img/profile/default.png';
+                }
+                ?>">
                 <p class="search-profile-profiles__block__username"><?php echo $user["username"]; ?></p>
                 <p class="search-profile-profiles__block__text">(<?php echo $age; ?> ans)</p>
                 <p class="search-profile-profiles__block__text"><?php echo $city['name'] . ', ' . $country['name']; ?></p>
@@ -189,16 +218,6 @@ include "src/include/header.php";
 
                     <form class="popup-formular__form" action="search_profile.php" method="GET">
                         <h3 class="popup-formular__form__title">Global filters</h3>
-                        <p class="popup-formular__form__text">Show users connected</p>
-                        <div class="md-switch">
-                            <input type="checkbox" id="switch" class="md-switch-input" name="connected" />
-                            <label for="switch" class="md-switch-label">
-                                <div class="md-switch-label-rail">
-                                    <div class="md-switch-label-rail-slider">
-                                    </div>
-                            </label>
-                        </div>
-                        <div class="marginbottom"></div>
                         <p class="popup-formular__form__text">Gender :</p>
                         <select class="formular__form__input" id="select" name="gender">
                             <option class="formular__form__input__options" value="0" selected>All</option>
@@ -253,63 +272,65 @@ include "src/include/header.php";
                         </select>
 
                         <h3 class="popup-formular__form__title">Hobbies filters</h3>
+                        <p class="popup-formular__form__subtitle">Select the <span style="color: #7EFF7B;">minimal</span> score you want</p>
+
                         <div class="formular__form__slider-block">
                             <!-- SLIDER VIDEO GAME -->
-                            <p class="popup-formular__form__text">Video games <input class="-show" type="number" readonly name="videogame_affinity" id="value-VG" value=""></p>
+                            <p class="popup-formular__form__text">Video games <input class="formular__form__input-show" type="number" readonly name="videogame_affinity" id="value-VG" value=""></p>
                             <div id="slider-VG"></div>
                         </div>
 
                         <div class="formular__form__slider-block">
                             <!-- SLIDER RPG/LARPG -->
-                            <p class="popup-formular__form__text">RPG/LARPG <input class="-show" type="number" readonly name="rpg_affinity" id="value-RPG" value=""></p>
+                            <p class="popup-formular__form__text">RPG/LARPG <input class="formular__form__input-show" type="number" readonly name="rpg_affinity" id="value-RPG" value=""></p>
                             <div id="slider-RPG"></div>
                         </div>
 
                         <div class="formular__form__slider-block">
                             <!-- SLIDER Anime/Manga -->
-                            <p class="popup-formular__form__text">Anime/Manga <input class="-show" type="number" readonly name="anime_affinity" id="value-AM" value=""></p>
+                            <p class="popup-formular__form__text">Anime/Manga <input class="formular__form__input-show" type="number" readonly name="anime_affinity" id="value-AM" value=""></p>
                             <div id="slider-AM"></div>
                         </div>
 
                         <div class="formular__form__slider-block">
                             <!-- SLIDER Comics -->
-                            <p class="popup-formular__form__text">Comics <input class="-show" type="number" readonly name="comics_affinity" id="value-COM" value=""></p>
+                            <p class="popup-formular__form__text">Comics <input class="formular__form__input-show" type="number" readonly name="comics_affinity" id="value-COM" value=""></p>
                             <div id="slider-COM"></div>
                         </div>
 
                         <div class="formular__form__slider-block">
                             <!-- SLIDER Cosplay -->
-                            <p class="popup-formular__form__text">Cosplay <input class="-show" type="number" readonly name="cosplay_affinity" id="value-COS" value=""></p>
+                            <p class="popup-formular__form__text">Cosplay <input class="formular__form__input-show" type="number" readonly name="cosplay_affinity" id="value-COS" value=""></p>
                             <div id="slider-COS"></div>
                         </div>
 
                         <div class="formular__form__slider-block">
                             <!-- SLIDER Series -->
-                            <p class="popup-formular__form__text">Series <input class="-show" type="number" readonly name="series_affinity" id="value-SER" value=""></p>
+                            <p class="popup-formular__form__text">Series <input class="formular__form__input-show" type="number" readonly name="series_affinity" id="value-SER" value=""></p>
                             <div id="slider-SER"></div>
                         </div>
 
                         <div class="formular__form__slider-block">
                             <!-- Movies -->
-                            <p class="popup-formular__form__text">Movies <input class="-show" type="number" readonly name="movies_affinity" id="value-MOV" value=""></p>
+                            <p class="popup-formular__form__text">Movies <input class="formular__form__input-show" type="number" readonly name="movies_affinity" id="value-MOV" value=""></p>
                             <div id="slider-MOV"></div>
                         </div>
 
                         <div class="formular__form__slider-block">
                             <!-- SLIDER Literature -->
-                            <p class="popup-formular__form__text">Literature <input class="-show" type="number" readonly name="literature_affinity" id="value-LIT" value=""></p>
+                            <p class="popup-formular__form__text">Literature <input class="formular__form__input-show" type="number" readonly name="literature_affinity" id="value-LIT" value=""></p>
                             <div id="slider-LIT"></div>
                         </div>
 
                         <div class="formular__form__slider-block">
                             <!-- SLIDER Science -->
-                            <p class="popup-formular__form__text">Science <input class="-show" type="number" readonly name="science_affinity" id="value-SC" value=""></p>
+                            <p class="popup-formular__form__text">Science <input class="formular__form__input-show" type="number" readonly name="science_affinity" id="value-SC" value=""></p>
                             <div id="slider-SC"></div>
                         </div>
 
                         <div class="formular__form__slider-block">
                             <!-- SLIDER Musique -->
-                            <p class="popup-formular__form__text">Music <input class="-show" type="number" readonly name="music_affinity" id="value-MUS" value=""></p>
+                            <p class="popup-formular__form__text">Music <input class="formular__form__input-show" type="number" readonly name="music_affinity" id="value-MUS" value=""></p>
                             <div id="slider-MUS"></div>
                         </div>
 
@@ -332,6 +353,234 @@ include "src/include/header.php";
             $("#advanced_search").fadeOut(1000);
         });
     };
+</script>
+
+<!-- SLIDERS -->
+<script>
+    document.addEventListener("DOMContentLoaded", function(event) {
+        var sliderVG = document.getElementById('slider-VG');
+        var valueVG = document.getElementById('value-VG');
+
+        var sliderRPG = document.getElementById('slider-RPG');
+        var valueRPG = document.getElementById('value-RPG');
+
+        var sliderAM = document.getElementById('slider-AM');
+        var valueAM = document.getElementById('value-AM');
+
+        var sliderCOM = document.getElementById('slider-COM');
+        var valueCOM = document.getElementById('value-COM');
+
+        var sliderCOS = document.getElementById('slider-COS');
+        var valueCOS = document.getElementById('value-COS');
+
+        var sliderSER = document.getElementById('slider-SER');
+        var valueSER = document.getElementById('value-SER');
+
+        var sliderMOV = document.getElementById('slider-MOV');
+        var valueMOV = document.getElementById('value-MOV');
+
+        var sliderLIT = document.getElementById('slider-LIT');
+        var valueLIT = document.getElementById('value-LIT');
+
+        var sliderSC = document.getElementById('slider-SC');
+        var valueSC = document.getElementById('value-SC');
+
+        var sliderMUS = document.getElementById('slider-MUS');
+        var valueMUS = document.getElementById('value-MUS');
+
+
+        var attributeValue = valueVG.getAttribute('innerText');
+
+        noUiSlider.create(sliderVG, {
+            start: 0,
+            step: 1,
+            connect: 'lower',
+            format: {
+                to: (v) => v | 0,
+                from: (v) => v | 0
+            },
+            range: {
+                'min': 0,
+                'max': 10
+            }
+        });
+
+        sliderVG.noUiSlider.on('update', function() {
+            valueVG.setAttribute('value', sliderVG.noUiSlider.get())
+        });
+
+        noUiSlider.create(sliderRPG, {
+            start: 0,
+            step: 1,
+            connect: 'lower',
+            format: {
+                to: (v) => v | 0,
+                from: (v) => v | 0
+            },
+            range: {
+                'min': 0,
+                'max': 10
+            }
+        });
+
+        sliderRPG.noUiSlider.on('update', function() {
+            valueRPG.setAttribute('value', sliderRPG.noUiSlider.get())
+
+        });
+
+        noUiSlider.create(sliderAM, {
+            start: 0,
+            step: 1,
+            connect: 'lower',
+            format: {
+                to: (v) => v | 0,
+                from: (v) => v | 0
+            },
+            range: {
+                'min': 0,
+                'max': 10
+            }
+        });
+
+        sliderAM.noUiSlider.on('update', function() {
+            valueAM.setAttribute('value', sliderAM.noUiSlider.get())
+
+        });
+
+        noUiSlider.create(sliderCOM, {
+            start: 0,
+            step: 1,
+            connect: 'lower',
+            format: {
+                to: (v) => v | 0,
+                from: (v) => v | 0
+            },
+            range: {
+                'min': 0,
+                'max': 10
+            }
+        });
+
+        sliderCOM.noUiSlider.on('update', function() {
+            valueCOM.setAttribute('value', sliderCOM.noUiSlider.get())
+
+        });
+
+        noUiSlider.create(sliderCOS, {
+            start: 0,
+            step: 1,
+            connect: 'lower',
+            format: {
+                to: (v) => v | 0,
+                from: (v) => v | 0
+            },
+            range: {
+                'min': 0,
+                'max': 10
+            }
+        });
+
+        sliderCOS.noUiSlider.on('update', function() {
+            valueCOS.setAttribute('value', sliderCOS.noUiSlider.get())
+
+        });
+
+        noUiSlider.create(sliderSER, {
+            start: 0,
+            step: 1,
+            connect: 'lower',
+            format: {
+                to: (v) => v | 0,
+                from: (v) => v | 0
+            },
+            range: {
+                'min': 0,
+                'max': 10
+            }
+        });
+
+        sliderSER.noUiSlider.on('update', function() {
+            valueSER.setAttribute('value', sliderSER.noUiSlider.get())
+
+        });
+
+        noUiSlider.create(sliderMOV, {
+            start: 0,
+            step: 1,
+            connect: 'lower',
+            format: {
+                to: (v) => v | 0,
+                from: (v) => v | 0
+            },
+            range: {
+                'min': 0,
+                'max': 10
+            }
+        });
+
+        sliderMOV.noUiSlider.on('update', function() {
+            valueMOV.setAttribute('value', sliderMOV.noUiSlider.get())
+
+        });
+
+
+        noUiSlider.create(sliderLIT, {
+            start: 0,
+            step: 1,
+            connect: 'lower',
+            format: {
+                to: (v) => v | 0,
+                from: (v) => v | 0
+            },
+            range: {
+                'min': 0,
+                'max': 10
+            }
+        });
+
+        sliderLIT.noUiSlider.on('update', function() {
+            valueLIT.setAttribute('value', sliderLIT.noUiSlider.get())
+
+        });
+
+        noUiSlider.create(sliderSC, {
+            start: 0,
+            step: 1,
+            connect: 'lower',
+            format: {
+                to: (v) => v | 0,
+                from: (v) => v | 0
+            },
+            range: {
+                'min': 0,
+                'max': 10
+            }
+        });
+
+        sliderSC.noUiSlider.on('update', function() {
+            valueSC.setAttribute('value', sliderSC.noUiSlider.get())
+
+        });
+
+        noUiSlider.create(sliderMUS, {
+            start: 0,
+            step: 1,
+            connect: 'lower',
+            format: {
+                to: (v) => v | 0,
+                from: (v) => v | 0
+            },
+            range: {
+                'min': 0,
+                'max': 10
+            }
+        });
+
+        sliderMUS.noUiSlider.on('update', function() {
+            valueMUS.setAttribute('value', sliderMUS.noUiSlider.get())
+
+        });
+    });
 </script>
 <script src="src/js/location.js"></script>
 <?php

@@ -15,11 +15,15 @@
 function selectInTable($pdo, $table, $elements, $wheresName, $wheresValue, $LogicOperator)
 {
     $sql = 'SELECT ';
-    for ($i = 0; $i < count($elements); $i++) {
-        $sql = $sql . '`' . $elements[$i] . '`';
-        if ($i < count($elements) - 1) {
-            $sql = $sql . ', ';
+    if (count($elements) > 0) {
+        for ($i = 0; $i < count($elements); $i++) {
+            $sql = $sql . '`' . $elements[$i] . '`';
+            if ($i < count($elements) - 1) {
+                $sql = $sql . ', ';
+            }
         }
+    } else {
+        $sql = $sql . ' * ';
     }
     $sql = $sql . ' FROM `' . $table . '`';
     if (count($wheresName) > 0) {
@@ -39,7 +43,89 @@ function selectInTable($pdo, $table, $elements, $wheresName, $wheresValue, $Logi
     } catch (PDOException $e) {
         die($e->getMessage());
     }
+    return $stmt;
+}
 
+function selectInTableOperator($pdo, $table, $elements, $wheresName, $wheresValue, $LogicOperator)
+{
+    $sql = 'SELECT ';
+    if (count($elements) > 0) {
+        for ($i = 0; $i < count($elements); $i++) {
+            $sql = $sql . '`' . $elements[$i] . '`';
+            if ($i < count($elements) - 1) {
+                $sql = $sql . ', ';
+            }
+        }
+    } else {
+        $sql = $sql . ' * ';
+    }
+    $sql = $sql . ' FROM `' . $table . '`';
+    if (count($wheresName) > 0) {
+        $sql = $sql . ' where ';
+        for ($i = 0; $i < count($wheresName); $i++) {
+            $sql = $sql . $wheresName[$i] . ' = ' . $wheresValue[$i];
+            if ($i < count($wheresName) - 1) {
+                $sql = $sql . ' ' . $LogicOperator[$i] . ' ';
+            }
+        }
+    } else {
+        $sql = $sql . ' WHERE 1';
+    }
+    try {
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute();
+    } catch (PDOException $e) {
+        die($e->getMessage());
+    }
+    return $stmt;
+}
+
+
+/**
+ * 
+ */
+function selectInTableImprovedSigned($pdo, $table, $elements, $wheresName, $wheresValue, $sign)
+{
+    $sql = 'SELECT ';
+    if (count($elements) > 0) {
+        for ($i = 0; $i < count($elements); $i++) {
+            $sql = $sql . '`' . $elements[$i] . '`';
+            if ($i < count($elements) - 1) {
+                $sql = $sql . ', ';
+            }
+        }
+    } else {
+        $sql = $sql . '* ';
+    }
+    $sql = $sql . ' FROM `' . $table . '`';
+    if (count($wheresName) > 0) {
+        $sql = $sql . ' where ';
+        for ($i = 0; $i < count($wheresName); $i++) {
+            if ($sign[$i] == '=') {
+                $sql = $sql . $wheresName[$i] . ' IN (';
+                for ($j = 0; $j < count($wheresValue[$i]); $j++) {
+                    $sql = $sql . $wheresValue[$i][$j];
+                    if ($j < count($wheresValue[$i]) - 1) {
+                        $sql = $sql . ', ';
+                    }
+                }
+                $sql = $sql . ') ';
+            } else {
+                $sql = $sql . $wheresName[$i] . $sign[$i] . $wheresValue[$i][0] . ' ';
+            }
+            if ($i < count($wheresName) - 1) {
+                $sql = $sql . 'AND ';
+            }
+        }
+    } else {
+        $sql = $sql . ' WHERE 1';
+    }
+    try {
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute();
+    } catch (PDOException $e) {
+        die($e->getMessage());
+    }
     return $stmt;
 }
 
@@ -87,6 +173,7 @@ function selectInTableImproved($pdo, $table, $elements, $wheresName, $wheresValu
     }
     return $stmt;
 }
+
 
 /**
  * INSERT INTO `joueur`(`id`, `pseudo`, `mail`, `pass`) VALUES ('[value-1]','[value-2]','[value-3]','[value-4]')
@@ -205,4 +292,15 @@ function valeursEntre($valeur, $min, $max)
         }
     }
     return true;
+}
+
+function verifyLiked($pdo, $userId, $userOtherId)
+{
+    $likes = selectInTable($pdo, 'liked', ['id'], ['idUserLike', 'idUserLiked'], [$userId, $userOtherId], 'AND');
+    return $likes->fetch() != null;
+}
+
+function verifyMatch($pdo, $id, $id2)
+{
+    return verifyLiked($pdo, $id, $id2) && verifyLiked($pdo, $id2, $id);
 }

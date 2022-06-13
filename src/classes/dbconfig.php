@@ -1,7 +1,7 @@
 <?php
 class dbconfig {
   // database hostname 
-  protected static $host = "localhost";
+  protected static $host = "127.0.0.1";
   // database username
   protected static $username = "root";
   // database password

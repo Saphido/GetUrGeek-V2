@@ -207,6 +207,17 @@
         }
 
     }
+
+    &__notadded {
+        font-family: $exo;
+        font-weight: 700;
+        font-size: 2rem;
+        text-align: center;
+        color: #7EFF7B;
+        text-transform: uppercase;
+        padding-bottom: 1.5rem;
+        width: 25rem;
+    }
 }
 
 #nav_global {

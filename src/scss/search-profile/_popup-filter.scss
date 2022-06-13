@@ -95,6 +95,18 @@
             background-clip: text;
             color: white;
             text-transform: uppercase;
+            padding-bottom: 2rem;
+            text-align: center;
+        }
+
+        
+        &__subtitle {
+            font-weight: 700;
+            font-size: 1.6rem;
+            line-height: 3.6rem;
+            background: linear-gradient(178.18deg, #030271 -13.56%, #00839E 74.16%, #5271FF 152.93%);
+            background-clip: text;
+            color: white;
             padding-bottom: 5rem;
             text-align: center;
         }

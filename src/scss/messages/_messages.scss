@@ -1,0 +1,124 @@
+.messages {
+    width: 111.9rem;
+    margin: 0 auto 5rem auto;
+    display: flex;
+    flex-direction: row;
+    gap: 1.9rem;
+
+
+    &__matches {
+        width: 36.9rem;
+        max-height: 85rem;
+        min-height: 85rem;
+        background-color: rgba($color: #ffffff, $alpha: 0.1);
+        border-radius: 25px 25px 25px 25px;
+        display: flex;
+        flex-direction: column;
+        gap: 5rem;
+
+        &__titlearea {
+            width: 36.9rem;
+            height: 6.6rem;
+            background-color: rgba($color: #ffffff, $alpha: 0.1);
+            border-radius: 25px 25px 0 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+            &__title {
+                font-family: $chakra;
+                font-weight: 700;
+                font-size: 32px;
+                text-align: center;
+                color: #7EFF7B;
+            }
+        }
+
+        &__element {
+            width: 33.5rem;
+            height: 4.8rem;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: row;
+            gap: 1rem;
+
+            &__image {
+                width: 5rem;
+                height: 5rem;
+                border-radius: 50%;
+            }
+
+            &__pseudo {
+                width: 26.4rem;
+                font-family: $chakra;
+                font-weight: 700;
+                font-size: 32px;
+                text-align: left;
+                color: #7EFF7B;
+            }
+        }
+    }
+
+    &__chat {
+        width: 73.1rem;
+        max-height: 85rem;
+        min-height: 85rem;
+        background-color: rgba($color: #ffffff, $alpha: 0.1);
+        border-radius: 25px 25px 25px 25px;
+        display: flex;
+        flex-direction: column;
+        gap: 3rem;
+
+        &__titlearea {
+            width: 73.1rem;
+            height: 6.6rem;
+            background-color: rgba($color: #ffffff, $alpha: 0.1);
+            border-radius: 25px 25px 0 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+            &__title {
+                font-family: $chakra;
+                font-weight: 700;
+                font-size: 32px;
+                text-align: center;
+                color: #7EFF7B;
+            }
+        }
+
+        &__element-me {
+            display: flex;
+            flex-direction: row-reverse;
+
+            &__image {
+                width: 5rem;
+                height: 5rem;
+                border-radius: 50%;
+            }
+
+            &__message {
+                max-width: 30rem;
+                background-color: rgba($color: #ffffff, $alpha: 0.1);
+            }
+        }
+
+        &__element-other {
+            display: flex;
+            flex-direction: row;
+
+            &__image {
+                width: 5rem;
+                height: 5rem;
+                border-radius: 50%;
+            }
+
+            &__message {
+                max-width: 30rem;
+                background-color: rgba($color: #ffffff, $alpha: 0.1);
+            }
+        }
+    }
+}
