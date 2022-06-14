@@ -22,7 +22,7 @@ include 'src/libs/pdo.php';
     <script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.5.0/croppie.js"></script>
     <title>GetUrGeek - Dating website</title>
 
-    <script>
+<!--     <script>
         var inactivityTime = function() {
             var time;
             window.onload = resetTimer;
@@ -47,7 +47,7 @@ include 'src/libs/pdo.php';
                 }';
         }
         ?>
-    </script>
+    </script> -->
 
 </head>
 
@@ -80,6 +80,7 @@ include 'src/libs/pdo.php';
                             <div class="dropdown-content">
                                 <a href="profile.php">SEE PROFILE</a>
                                 <a href="edit_profile.php">EDIT PROFILE</a>
+                                <a href="messages.php">My messages</a>
                                 <a href="logout.php">LOGOUT</a>
                             </div>
                         </div>

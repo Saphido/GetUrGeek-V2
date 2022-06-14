@@ -46,6 +46,49 @@ function selectInTable($pdo, $table, $elements, $wheresName, $wheresValue, $Logi
     return $stmt;
 }
 
+function selectInTableWithOrderAndLimit($pdo, $table, $elements, $wheresName, $wheresValue, $LogicOperator, $orderName, $limit)
+{
+    $sql = 'SELECT ';
+    if (count($elements) > 0) {
+        for ($i = 0; $i < count($elements); $i++) {
+            $sql = $sql . '`' . $elements[$i] . '`';
+            if ($i < count($elements) - 1) {
+                $sql = $sql . ', ';
+            }
+        }
+    } else {
+        $sql = $sql . ' * ';
+    }
+    $sql = $sql . ' FROM `' . $table . '`';
+    if (count($wheresName) > 0) {
+        $sql = $sql . ' where ';
+        for ($i = 0; $i < count($wheresName); $i++) {
+            $sql = $sql . $wheresName[$i] . ' = ' . $wheresValue[$i];
+            if ($i < count($wheresName) - 1) {
+                $sql = $sql . ' ' . $LogicOperator . ' ';
+            }
+        }
+    } else {
+        $sql = $sql . ' WHERE 1';
+    }
+
+    if(!empty($orderName)) {
+        $sql = $sql . ' ORDER BY ' . $orderName;
+    }
+
+    if(!empty($limit)) {
+        $sql = $sql . ' LIMIT ' . $limit;
+    }
+
+    try {
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute();
+    } catch (PDOException $e) {
+        die($e->getMessage());
+    }
+    return $stmt;
+}
+
 function selectInTableOperator($pdo, $table, $elements, $wheresName, $wheresValue, $LogicOperator)
 {
     $sql = 'SELECT ';
