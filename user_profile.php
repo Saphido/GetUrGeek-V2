@@ -5,6 +5,10 @@ if (!isset($_SESSION["user_login"])) {
     echo ("<script>location.href = 'login.php';</script>");
 }
 
+if(isset($_GET['userId']) === $_SESSION['user_login']){
+    echo ("<script>location.href = 'profile.php';</script>");
+}
+
 $req = selectInTable(
     $pdo,
     'user',

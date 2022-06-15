@@ -1,5 +1,6 @@
-<?php
+<?php 
 session_start();
+
 /**
  * Infos connexion BD
  */
@@ -27,5 +28,3 @@ try {
 } catch (PDOException $e) {
     die($e->getMessage());
 }
-
-?>

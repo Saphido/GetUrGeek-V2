@@ -148,7 +148,7 @@ if (isset($_POST['edit-profile'])) {
         <br />
         <div id="uploaded_image"></div>
         <p class="formular__form__text">Username</p>
-        <input class="formular__form__input" type="text" name="username" value=<?php echo $user['username']; ?>>
+        <input class="formular__form__input" type="text" name="username" value="<?php echo $user['username']; ?>">
         <p class="formular__form__text">Email</p>
         <input class="formular__form__input" type="text" name="email" value=<?php echo $user['email']; ?>>
         <p class="formular__form__text">Birthday</p>

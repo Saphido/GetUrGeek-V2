@@ -80,7 +80,7 @@ include 'src/libs/pdo.php';
                             <div class="dropdown-content">
                                 <a href="profile.php">SEE PROFILE</a>
                                 <a href="edit_profile.php">EDIT PROFILE</a>
-                                <a href="messages.php">My messages</a>
+                                <a href="messages.php">MY MESSAGES</a>
                                 <a href="logout.php">LOGOUT</a>
                             </div>
                         </div>

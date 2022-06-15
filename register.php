@@ -3,7 +3,6 @@ include 'src/include/header.php';
 
 if (isset($_SESSION["user_login"])) { //Check if user session is open, redirect to index.php
     echo("<script>location.href = 'index.php';</script>");
-
 }
 
 if (isset($_POST['register'])) {

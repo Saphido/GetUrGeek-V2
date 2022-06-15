@@ -1,6 +1,6 @@
 <?php
-include_once 'src/libs/pdo.php';
-include_once 'src/libs/db_easy.php';
+include_once '../libs/pdo.php';
+include_once '../libs/db_easy.php';
 
 if (!isset($_SESSION['user_login'])) {
     exit;
@@ -25,7 +25,7 @@ updateInTable($pdo, 'messages', ['lu'], ['0'], ['idUserReceiver', 'idUserSender'
 
 foreach ($showMessages as $sm) {
         echo '<div class="messages__chat__element-other">';
-    if (is_dir("src/img/users-img/user_" . $get_id . "/")) {
+    if (is_dir("../img/users-img/user_" . $get_id . "/")) {
         $src = 'src/img/users-img/user_' . $get_id . '/pp.png';
     } else {
         $src = 'src/img/profile/default.png';

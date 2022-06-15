@@ -46,6 +46,30 @@ function selectInTable($pdo, $table, $elements, $wheresName, $wheresValue, $Logi
     return $stmt;
 }
 
+function selectInTableWithCount($pdo, $table, $count, $as, $wheresName, $wheresValue, $LogicOperator)
+{
+    $sql = 'SELECT COUNT(' . $count . ') as ' . $as . ' ';
+    $sql = $sql . ' FROM `' . $table . '`';
+    if (count($wheresName) > 0) {
+        $sql = $sql . ' where ';
+        for ($i = 0; $i < count($wheresName); $i++) {
+            $sql = $sql . $wheresName[$i] . ' = ' . $wheresValue[$i];
+            if ($i < count($wheresName) - 1) {
+                $sql = $sql . ' ' . $LogicOperator . ' ';
+            }
+        }
+    } else {
+        $sql = $sql . ' WHERE 1';
+    }
+    try {
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute();
+    } catch (PDOException $e) {
+        die($e->getMessage());
+    }
+    return $stmt;
+}
+
 function selectInTableWithOrderAndLimit($pdo, $table, $elements, $wheresName, $wheresValue, $LogicOperator, $orderName, $limit)
 {
     $sql = 'SELECT ';
@@ -72,14 +96,13 @@ function selectInTableWithOrderAndLimit($pdo, $table, $elements, $wheresName, $w
         $sql = $sql . ' WHERE 1';
     }
 
-    if(!empty($orderName)) {
+    if (!empty($orderName)) {
         $sql = $sql . ' ORDER BY ' . $orderName;
     }
 
-    if(!empty($limit)) {
+    if (!empty($limit)) {
         $sql = $sql . ' LIMIT ' . $limit;
     }
-
     try {
         $stmt = $pdo->prepare($sql);
         $stmt->execute();
@@ -346,4 +369,9 @@ function verifyLiked($pdo, $userId, $userOtherId)
 function verifyMatch($pdo, $id, $id2)
 {
     return verifyLiked($pdo, $id, $id2) && verifyLiked($pdo, $id2, $id);
+}
+
+function convertStringToDB($string)
+{
+    return str_replace("'", "\'", $string);
 }
