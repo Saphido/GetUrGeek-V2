@@ -1,10 +1,22 @@
 <?php
 include 'src/include/header.php';
 
-$req = selectInTable($pdo, 'user', ['user_id'], [], [], []);
-$data = 0;
-while ($req->fetch()) {
-    $data++;
+$req_account = selectInTable($pdo, 'user', ['user_id'], [], [], []);
+$data_account = 0;
+while ($req_account->fetch()) {
+    $data_account++;
+}
+
+$req_matches = selectInTable($pdo, 'matches', ['id'], [], [], []);
+$data_matches = 0;
+while ($req_matches->fetch()) {
+    $data_matches++;
+}
+
+$req_messages = selectInTable($pdo, 'messages', ['id'], [], [], []);
+$data_messages = 0;
+while ($req_messages->fetch()) {
+    $data_messages++;
 }
 
 ?>
@@ -63,17 +75,17 @@ while ($req->fetch()) {
             <div class="community__blockarea__blocks">
                 <img class="community__blockarea__blocks__imageOne" alt="Members icon" src="src/img/index/member_icon.png">
                 <h3 class="community__blockarea__blocks__title">MEMBERS</h3>
-                <p class="community__blockarea__blocks__number"><?php echo $data; ?></p>
+                <p class="community__blockarea__blocks__number"><?php echo $data_account; ?></p>
             </div>
             <div class="community__blockarea__blocks">
                 <img class="community__blockarea__blocks__imageTwo" alt="Matches icon" src="src/img/index/matches_icon.png">
                 <h3 class="community__blockarea__blocks__title">MATCHES</h3>
-                <p class="community__blockarea__blocks__number">0</p>
+                <p class="community__blockarea__blocks__number"><?php echo $data_matches; ?></p>
             </div>
             <div class="community__blockarea__blocks">
                 <img class="community__blockarea__blocks__imageThree" alt="Message icon" src="src/img/index/message_icon.png">
                 <h3 class="community__blockarea__blocks__title">MESSAGES</h3>
-                <p class="community__blockarea__blocks__number">0</p>
+                <p class="community__blockarea__blocks__number"><?php echo $data_messages; ?></p>
             </div>
         </div>
     </section>

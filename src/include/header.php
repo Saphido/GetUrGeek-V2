@@ -20,6 +20,8 @@ include 'src/libs/pdo.php';
     <script src="src/js/wNumb.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.5.0/croppie.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.5.0/croppie.js"></script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5208337092315292"
+     crossorigin="anonymous"></script>
     <title>GetUrGeek - Dating website</title>
 
 <!--     <script>

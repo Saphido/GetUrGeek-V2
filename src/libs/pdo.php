@@ -4,7 +4,7 @@ session_start();
 /**
  * Infos connexion BD
  */
-$host    = '127.0.0.1';
+$host    = 'localhost';
 $db      = 'geturgeek';
 $user    = 'root';
 $pass    = '';

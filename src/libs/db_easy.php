@@ -70,7 +70,7 @@ function selectInTableWithCount($pdo, $table, $count, $as, $wheresName, $wheresV
     return $stmt;
 }
 
-function selectInTableWithOrderAndLimit($pdo, $table, $elements, $wheresName, $wheresValue, $LogicOperator, $orderName, $limit)
+function selectInTableWithOrderAndLimit($pdo, $table, $elements, $wheresName, $wheresValue, $LogicOperator, $orderName, $limitNumber)
 {
     $sql = 'SELECT ';
     if (count($elements) > 0) {
@@ -96,12 +96,12 @@ function selectInTableWithOrderAndLimit($pdo, $table, $elements, $wheresName, $w
         $sql = $sql . ' WHERE 1';
     }
 
+
     if (!empty($orderName)) {
         $sql = $sql . ' ORDER BY ' . $orderName;
     }
-
-    if (!empty($limit)) {
-        $sql = $sql . ' LIMIT ' . $limit;
+    if (!empty($limitNumber)) {
+        $sql = $sql . ' LIMIT ' . $limitNumber;
     }
     try {
         $stmt = $pdo->prepare($sql);
@@ -371,7 +371,83 @@ function verifyMatch($pdo, $id, $id2)
     return verifyLiked($pdo, $id, $id2) && verifyLiked($pdo, $id2, $id);
 }
 
+function verifyAlreadyMatched($pdo, $userId, $userOtherId) {
+    $verifyMatch = selectInTableOperator($pdo, 'matches', ['id'], ['idUser1', 'idUser2', 'idUser1', 'idUser2'], [$userId, $userOtherId, $userOtherId, $userId], ['AND', 'OR', 'AND']);
+    return $verifyMatch->fetch() != null;
+}
 function convertStringToDB($string)
 {
     return str_replace("'", "\'", $string);
+}
+
+function calculDateToString($datediff)
+{
+    $years = $datediff->format('%Y');
+
+    $month = $datediff->format('%m');
+    $day = $datediff->format('%d');
+
+    $hours = $datediff->format('%H');
+    $minutes = $datediff->format('%i');
+    $seconds = $datediff->format('%s');
+
+    if ($years != '0') {
+        if ($years == '1') {
+            return "Match " . $years . " year ago";
+        }
+        return "Match " . $years . " years ago";
+    }
+
+    if ($month != '0') {
+        if ($month == '1') {
+            return "Match " . $month . " month ago";
+        }
+        return "Match " . $month . " months ago";
+    }
+
+    if ($day != '0') {
+        if ($day == '1') {
+            return "Match " . $day . " day ago";
+        }
+        return "Match " . $day . " days ago";
+    }
+
+    if ($hours != '0') {
+        if ($hours == '1') {
+            return "Match " . $hours . " hour ago";
+        }
+        return "Match " . $hours . " hours ago";
+    }
+    if ($minutes != '0') {
+        if ($minutes == '1') {
+            return "Match " . $minutes . " minute ago";
+        }
+        return "Match " . $minutes . " minutes ago";
+    }
+
+    if ($seconds != '0') {
+        if ($seconds == '1') {
+            return "Match " . $seconds . " second ago";
+        }
+        return "Match " . $seconds . " seconds ago";
+    }
+}
+
+function dateMessage($date)
+{
+    $aujourdhui = date("Y-m-d H:i:s");
+    $dates = date_create($date);
+    $datediff = date_diff($dates, date_create($aujourdhui));
+
+    $years = $datediff->format('%Y');
+    $month = $datediff->format('%m');
+    $day = $datediff->format('%d');
+
+    if ($years == '0' && $month == '0' && $day == '0') {
+        return $dates->format('H:i') . ', Today';
+    } else if ($years == '0' && $month == '0' && $day == '1') {
+        return $dates->format('H:i') . ', Yesterday';
+    } else {
+        return $dates->format('H:i d-m-Y');
+    }
 }

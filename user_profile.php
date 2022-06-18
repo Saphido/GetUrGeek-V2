@@ -5,7 +5,7 @@ if (!isset($_SESSION["user_login"])) {
     echo ("<script>location.href = 'login.php';</script>");
 }
 
-if(isset($_GET['userId']) === $_SESSION['user_login']){
+if (isset($_GET['userId']) === $_SESSION['user_login']) {
     echo ("<script>location.href = 'profile.php';</script>");
 }
 
@@ -27,9 +27,16 @@ $req = selectInTable(
 );
 
 if (isset($_POST['like'])) {
-    insertInTable($pdo, 'liked', ['idUserLike', 'idUserLiked'], [$_SESSION['user_login'], $_GET['userId']]);
+    if (verifyLiked($pdo, $_SESSION['user_login'], $_GET['userId'])) {
+    } else {
+        insertInTable($pdo, 'liked', ['idUserLike', 'idUserLiked'], [$_SESSION['user_login'], $_GET['userId']]);
+    }
     if (verifyMatch($pdo, $_SESSION['user_login'], $_GET['userId'])) {
-        insertInTable($pdo, 'matches', ['idUser1', 'idUser2'], [$_SESSION['user_login'], $_GET['userId']]);
+        if (verifyAlreadyMatched($pdo, $_SESSION['user_login'], $_GET['userId'])) {
+        } else {
+            insertInTable($pdo, 'matches', ['idUser1', 'idUser2'], [$_SESSION['user_login'], $_GET['userId']]);
+            //AFFICHER LE POPUP DES MATCHS
+        }
     }
 }
 
@@ -103,6 +110,7 @@ $music = $user["music_affinity"] * 10 . "%";
                 <p class="myprofile-attribute__text">#GENTIL</p>
             </div>
             <form method="POST" action="user_profile.php?userId=<?php echo $_GET["userId"]; ?>">
+
                 <button type="submit" class="formular__form__button" <?php if (verifyLiked($pdo, $_SESSION['user_login'], $_GET['userId'])) {
                                                                             echo ' disabled ';
                                                                         }
@@ -393,6 +401,13 @@ $music = $user["music_affinity"] * 10 . "%";
                 1200
             );
     });
+</script>
+
+<!-- HEART BUTTON -->
+<script>
+    document.body.onkeypress = function() {
+        document.body.classList.toggle('liked')
+    }
 </script>
 <?php
 include 'src/include/footer.php'

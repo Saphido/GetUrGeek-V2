@@ -20,18 +20,25 @@ if (!verifyMatch($pdo, $_SESSION['user_login'], $get_id)) {
 $req = selectInTable($pdo, 'messages', [], ['idUserReceiver', 'idUserSender', 'lu'], [$_SESSION['user_login'], $get_id, '1'], 'AND');
 $showMessages = $req->fetchAll();
 
+$req_username = selectInTable($pdo, 'user', ['username'], ['user_id'], [$get_id], []);
+$username = $req_username->fetch();
+
 
 updateInTable($pdo, 'messages', ['lu'], ['0'], ['idUserReceiver', 'idUserSender'], [$_SESSION['user_login'], $get_id]);
 
+
 foreach ($showMessages as $sm) {
-        echo '<div class="messages__chat__element-other">';
-    if (is_dir("../img/users-img/user_" . $get_id . "/")) {
-        $src = 'src/img/users-img/user_' . $get_id . '/pp.png';
-    } else {
-        $src = 'src/img/profile/default.png';
-    }
-    echo '<img class="messages__chat__element-other__image" src="' . $src . '">
-<p class="messages__chat__element-other__message">' . nl2br($sm['message']) . '</p>
-</div>';
+    ?>
+    <li>
+    <div class="message-data">
+        <span class="message-data-name"><i class="fa fa-circle online"></i><?php echo $username['username']; ?></span>
+        <span class="message-data-time"><?php echo dateMessage($message['date'])?></span>
+    </div>
+    <div class="message my-message">
+        <?php echo nl2br($sm['message']); ?>
+    </div>
+</li>
+
+<?php
 }
 ?>

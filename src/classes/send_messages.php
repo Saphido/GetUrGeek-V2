@@ -19,19 +19,20 @@ if (!verifyMatch($pdo, $_SESSION['user_login'], $get_id)) {
 }
 $match =  selectInTableOperator($pdo, 'matches', [], ['idUser1', 'idUser2', 'idUser1', 'idUser2'], [$_SESSION['user_login'], $get_id, $get_id, $_SESSION['user_login']], ['AND', 'OR', 'AND']);
 $match = $match->fetch();
+
+
+$req_myusername = selectInTable($pdo, 'user', ['username'], ['user_id'], [$_SESSION['user_login']], []);
+$myusername = $req_myusername->fetch();
 insertInTable($pdo, 'messages', ['idUserSender', 'idUserReceiver', 'idMatch', 'message', 'lu'], [$_SESSION['user_login'], $get_id, $match['id'], $message, '1']);
 
 ?>
 
-
-<div class="messages__chat__element-me">
-    <?php
-    if (is_dir("../img/users-img/user_" . $_SESSION["user_login"] . "/")) {
-        $src = 'src/img/users-img/user_' . $_SESSION["user_login"] . '/pp.png';
-    } else {
-        $src = 'src/img/profile/default.png';
-    }
-    ?>
-    <img class="messages__chat__element-me__image" src="<?php echo $src; ?>">
-    <p class="messages__chat__element-me__message"><?php echo nl2br($get_message) ?></p>
-</div>
+<li class="clearfix">
+    <div class="message-data align-right">
+        <span class="message-data-time"><?php echo dateMessage(date("Y-m-d H:i:s"))?></span> &nbsp; &nbsp;
+        <span class="message-data-name"><?php echo $myusername['username']; ?></span> <i class="fa fa-circle me"></i>
+    </div>
+    <div class="message other-message float-right">
+        <?php echo nl2br($get_message); ?>
+    </div>
+</li>
