@@ -1,6 +1,20 @@
 <?php
 include 'src/libs/db_easy.php';
 include 'src/libs/pdo.php';
+
+if (isset($_SESSION['user_login'])) {
+
+    //COUNT UNREAD MESSAGES
+    $sql =
+        'SELECT COUNT(id) 
+as unreadMessages 
+FROM `messages` 
+where lu = 1 
+AND idUserReceiver = ' . $_SESSION['user_login'];
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute();
+    $count_unreadMessage = $stmt->fetch();
+}
 ?>
 
 <!DOCTYPE html>
@@ -20,11 +34,10 @@ include 'src/libs/pdo.php';
     <script src="src/js/wNumb.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.5.0/croppie.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.5.0/croppie.js"></script>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5208337092315292"
-     crossorigin="anonymous"></script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5208337092315292" crossorigin="anonymous"></script>
     <title>GetUrGeek - Dating website</title>
 
-<!--     <script>
+    <!--     <script>
         var inactivityTime = function() {
             var time;
             window.onload = resetTimer;
@@ -59,10 +72,6 @@ include 'src/libs/pdo.php';
     <header class="header">
         <a class="logo-link" href="index.php"><img class="header__logo" alt="Logo of Get Ur Geek" src="src/img/global/Logo.png"></a>
         <nav class="header__nav__url">
-            <ul class="header__nav__list__link">
-                <li class="header__nav__items"><a class="header__nav__links" href="index.php">HOME</a></li>
-                <li class="header__nav__items"><a class="header__nav__links" href="index.php">CONTACT US</a></li>
-            </ul>
         </nav>
         <nav class="header__nav_button">
             <ul class="header__nav__list__button">
@@ -82,7 +91,18 @@ include 'src/libs/pdo.php';
                             <div class="dropdown-content">
                                 <a href="profile.php">SEE PROFILE</a>
                                 <a href="edit_profile.php">EDIT PROFILE</a>
-                                <a href="messages.php">MY MESSAGES</a>
+                                <a href="messages.php">MESSAGES
+                                    <?php
+                                    if ($count_unreadMessage['unreadMessages'] == 0) {
+                                        //ON FAIT RIEN
+                                    } else if ($count_unreadMessage['unreadMessages'] >= 1 && $count_unreadMessage['unreadMessages'] <= 10) {
+                                        echo '(' . $count_unreadMessage['unreadMessages'] . ')';
+                                    } else if ($count_unreadMessage['unreadMessages'] > 10) {
+                                        echo '(10+)';
+                                    }
+                                    ?>
+
+                                </a>
                                 <a href="logout.php">LOGOUT</a>
                             </div>
                         </div>

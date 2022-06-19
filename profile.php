@@ -78,12 +78,12 @@ $music = $user["music_affinity"] * 10 . "%";
     <section class="myprofile-hero">
         <div class="myprofile-header">
             <img class="myprofile-header__image" alt="My profile picture" src="<?php
-            if(is_dir("src/img/users-img/user_" . $_SESSION["user_login"] . "/")) {
-                echo 'src/img/users-img/user_' . $_SESSION['user_login'] . '/pp.png';
-            } else {
-                echo 'src/img/profile/default.png';
-            }
-             ?>">
+                                                                                if (is_dir("src/img/users-img/user_" . $_SESSION["user_login"] . "/")) {
+                                                                                    echo 'src/img/users-img/user_' . $_SESSION['user_login'] . '/pp.png';
+                                                                                } else {
+                                                                                    echo 'src/img/profile/default.png';
+                                                                                }
+                                                                                ?>">
             <div class="myprofile-attribute">
                 <p class="myprofile-attribute__text">#CALIN</p>
                 <p class="myprofile-attribute__text">#PATIENT</p>
@@ -241,70 +241,71 @@ $music = $user["music_affinity"] * 10 . "%";
             </div>
         </div>
         <div class="profile-info__skills" id="gamestag">
-            <h3 class="profile-info__titles">Games Tag</h3>
-            <div class="profile-info__items">
+            <h3 class="profile-info__titles">Games Tags</h3>
+            <?php
+            if (empty($user['steam_username']) && empty($user['battlenet_username']) && empty($user['lol_username']) && empty($user['psn_username']) && empty($user['xbox_username']) && empty($user['twitch_username']) && empty($user['youtube_username'])) {
+                echo
+                '<div class="profile-info__items">
+                <p class="profile-info__title" style="text-align:center">No games tags found.</p>
+                </div>';
+            } else {
+                if (!empty($user['steam_username'])) { ?>
+                    <div class="profile-info__items">
+                        <p class="profile-info__title">Steam profile :</p>
+                        <?php echo '<a class="profile-info__text__link" target="_blank" href=" ' . $user['steam_username'] . '"> Link to steam profile</a>';
+                        ?>
+                    </div>
+                <?php } ?>
                 <?php
-                if (empty($user['steam_username'])) {
-                } else { ?>
-                    <p class="profile-info__title">Steam profile :</p>
-                <?php echo '<a class="profile-info__text__link" target="_blank" href=" ' . $user['steam_username'] . '"> Link to steam profile</a>';
-                } ?>
-
-            </div>
-            <div class="profile-info__items">
+                if (!empty($user['battlenet_username'])) { ?>
+                    <div class="profile-info__items">
+                        <p class="profile-info__title">BATTLE.NET ID :</p>
+                        <?php echo '<p class="profile-info__text"> ' . $user['battlenet_username'] . '</p>';
+                        ?>
+                    </div>
+                <?php } ?>
                 <?php
-                if (empty($user['battlenet_username'])) {
-                } else { ?>
-                    <p class="profile-info__title">BATTLE.NET ID :</p>
-                <?php echo '<p class="profile-info__text"> ' . $user['battlenet_username'] . '</p>';
-                } ?>
-
-            </div>
-            <div class="profile-info__items">
+                if (!empty($user['lol_username'])) { ?>
+                    <div class="profile-info__items">
+                        <p class="profile-info__title">Riot Games ID :</p>
+                        <?php echo '<p class="profile-info__text"> ' . $user['lol_username'] . '</p>';
+                        ?>
+                    </div>
+                <?php } ?>
                 <?php
-                if (empty($user['lol_username'])) {
-                } else { ?>
-                    <p class="profile-info__title">Riot Games ID :</p>
-                <?php echo '<p class="profile-info__text"> ' . $user['lol_username'] . '</p>';
-                } ?>
-
-            </div>
-            <div class="profile-info__items">
+                if (!empty($user['psn_username'])) { ?>
+                    <div class="profile-info__items">
+                        <p class="profile-info__title">PSN ID :</p>
+                        <?php echo '<p class="profile-info__text"> ' . $user['psn_username'] . '</p>';
+                        ?>
+                    </div>
+                <?php } ?>
                 <?php
-                if (empty($user['psn_username'])) {
-                } else { ?>
-                    <p class="profile-info__title">PSN ID :</p>
-                <?php echo '<p class="profile-info__text"> ' . $user['psn_username'] . '</p>';
-                } ?>
-
-            </div>
-            <div class="profile-info__items">
+                if (!empty($user['xbox_username'])) { ?>
+                    <div class="profile-info__items">
+                        <p class="profile-info__title">XBOX ID :</p>
+                        <?php echo '<p class="profile-info__text"> ' . $user['xbox_username'] . '</p>';
+                        ?>
+                    </div>
+                <?php } ?>
                 <?php
-                if (empty($user['xbox_username'])) {
-                } else { ?>
-                    <p class="profile-info__title">XBOX ID :</p>
-                <?php echo '<p class="profile-info__text"> ' . $user['xbox_username'] . '</p>';
-                } ?>
-
-            </div>
-            <div class="profile-info__items">
+                if (!empty($user['twitch_username'])) { ?>
+                    <div class="profile-info__items">
+                        <p class="profile-info__title">Twitch channel :</p>
+                        <?php echo '<p class="profile-info__text"> ' . $user['twitch_username'] . '</p>';
+                        ?>
+                    </div>
+                <?php } ?>
                 <?php
-                if (empty($user['twitch_username'])) {
-                } else { ?>
-                    <p class="profile-info__title">Twitch channel :</p>
-                <?php echo '<p class="profile-info__text"> ' . $user['twitch_username'] . '</p>';
-                } ?>
+                if (!empty($user['youtube_username'])) { ?>
+                    <div class="profile-info__items">
+                        <p class="profile-info__title">Youtube channel :</p>
+                        <?php echo '<p class="profile-info__text"> ' . $user['youtube_username'] . '</p>';
+                        ?>
+                    </div>
+            <?php }
+            } ?>
 
-            </div>
-            <div class="profile-info__items">
-                <?php
-                if (empty($user['youtube_username'])) {
-                } else { ?>
-                    <p class="profile-info__title">Youtube channel :</p>
-                <?php echo '<p class="profile-info__text"> ' . $user['youtube_username'] . '</p>';
-                } ?>
-
-            </div>
         </div>
 
         <div class="profile-info__gallery" id="gallery">

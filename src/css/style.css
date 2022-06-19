@@ -1110,7 +1110,7 @@ input[type=number] {
 .myprofile-header__image {
   width: 30rem;
   height: 30rem;
-  border-radius: 33px;
+  border-radius: 50%;
   border: 3px solid rgba(255, 255, 255, 0.4392156863);
 }
 .myprofile-header__textarea {
@@ -1622,6 +1622,72 @@ input[type=number] {
   width: 60rem;
 }
 
+.popup-content-matched {
+  margin: 0 auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  max-height: 70rem;
+}
+.popup-content-matched__title {
+  margin-top: 5.2rem;
+  font-weight: 700;
+  font-size: 3rem;
+  line-height: 3.6rem;
+  background: linear-gradient(178.18deg, #030271 -13.56%, #00839E 74.16%, #5271FF 152.93%);
+  -webkit-background-clip: text;
+          background-clip: text;
+  color: #7EFF7B;
+  text-transform: uppercase;
+  padding-bottom: 2rem;
+  text-align: center;
+}
+.popup-content-matched__text {
+  margin-bottom: 3rem;
+  text-align: center;
+  font-weight: 400;
+  font-size: 1.6rem;
+  color: white;
+  width: 60rem;
+}
+.popup-content-matched__picturesarea {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  gap: 3rem;
+}
+.popup-content-matched__picturesarea__image {
+  width: 20rem;
+  height: 20rem;
+  border-radius: 50%;
+  border: 3px solid rgba(255, 255, 255, 0.4392156863);
+}
+.popup-content-matched__buttonarea {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  gap: 3rem;
+}
 .search-profile-filterbar {
   width: 105.6rem;
   background-color: rgba(255, 255, 255, 0.1);
@@ -1710,7 +1776,7 @@ input[type=number] {
   margin: 4rem 0 3rem 0;
   max-width: 20rem;
   max-height: 20rem;
-  border-radius: 33px;
+  border-radius: 50%;
   border: 3px solid rgba(255, 255, 255, 0.4392156863);
 }
 .search-profile-profiles__block__username {
@@ -2139,6 +2205,15 @@ input[type=number] {
 
 #btnSend, .is-hidden {
   display: none;
+}
+
+.latest-message {
+  width: 25rem;
+  overflow: hidden;
+}
+
+.unread {
+  font-weight: 700;
 }
 
 .footer {

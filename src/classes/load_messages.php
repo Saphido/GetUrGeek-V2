@@ -32,7 +32,7 @@ foreach ($showMessages as $sm) {
     <li>
     <div class="message-data">
         <span class="message-data-name"><i class="fa fa-circle online"></i><?php echo $username['username']; ?></span>
-        <span class="message-data-time"><?php echo dateMessage($message['date'])?></span>
+        <span class="message-data-time"><?php echo dateMessage($sm['date'])?></span>
     </div>
     <div class="message my-message">
         <?php echo nl2br($sm['message']); ?>

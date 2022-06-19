@@ -22,24 +22,43 @@ if (isset($_GET['userId'])) {
             $verify_numberOfMessages = ($numberOfMessages['NbMessage'] - $totalMessageToDisplay);
         }
 
-        $messages = selectInTableWithOrderAndLimit($pdo, 'messages', [], ['idMatch'], [$match['id']], [], 'date', '' . $verify_numberOfMessages . ', ' . $totalMessageToDisplay . '');
+        //SELECT MESSAGES TO DISPLAY IN CONVERSATION WITH A LIMIT OF 15
+        $messages = selectInTableWithOrderAndLimit($pdo, 'messages', [], ['idMatch'], [$match['id']], [], 'date', 'ASC', '' . $verify_numberOfMessages . ', ' . $totalMessageToDisplay . '');
+
+        //SELECT MATCH USERNAME
         $req_username = selectInTable($pdo, 'user', ['username'], ['user_id'], [$_GET['userId']], []);
         $username = $req_username->fetch();
 
+        //SELECT MY USERNAME
         $req_myusername = selectInTable($pdo, 'user', ['username'], ['user_id'], [$_SESSION['user_login']], []);
         $myusername = $req_myusername->fetch();
 
+
+        //IF USER CLICK ON CONV, SET MESSAGES TO 'READ' status
         updateInTable($pdo, 'messages', ['lu'], ['0'], ['idUserReceiver', 'idUserSender'], [$_SESSION['user_login'], $_GET['userId']]);
 
+        //CALCULATE THE NUMBERS OF DAY, MONTH, YEARS OF THE MATCH DATE
         $aujourdhui = date("Y-m-d H:i:s");
         $diff = date_diff(date_create($match['date']), date_create($aujourdhui));
         $datematch = $diff->format('%Y-%m-%d %H:%i:%s %Y');
 
+        //COUNT UNREAD MESSAGES
+        $sql =
+            'SELECT COUNT(id) 
+        as unreadMessages 
+        FROM `messages` 
+        where lu = 1 
+        AND idUserReceiver = ' . $_SESSION['user_login'];
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute();
+        $count_unreadMessage = $stmt->fetch();
+
+
 ?>
 
         <section class="login-hero">
-            <h1 class="login-hero__title">My messages</h1>
-            <p class="login-hero__text">HOME - My messages</p>
+            <h1 class="login-hero__title">Messages</h1>
+            <p class="login-hero__text">HOME - Messages</p>
         </section>
         <div class="container clearfix">
             <div class="people-list" id="people-list">
@@ -54,9 +73,13 @@ if (isset($_GET['userId'])) {
                         if ($nbConversation['idUser1'] != $_SESSION['user_login']) {
                             $req = selectInTable($pdo, 'user', ['username', 'user_id', 'isConnected'], ['user_id'], [$nbConversation['idUser1']], ['']);
                             $convUsername = $req->fetch();
+                            $req_lastMessage = selectInTableWithOrderAndLimit($pdo, 'messages', ['message'], ['idMatch'], [$nbConversation['id']], [], 'date', 'DESC', '1');
+                            $lastMessage = $req_lastMessage->fetch();
                         } else if ($nbConversation['idUser2'] != $_SESSION['user_login']) {
                             $req = selectInTable($pdo, 'user', ['username', 'user_id', 'isConnected'], ['user_id'], [$nbConversation['idUser2']], ['']);
                             $convUsername = $req->fetch();
+                            $req_lastMessage = selectInTableWithOrderAndLimit($pdo, 'messages', ['message'], ['idMatch'], [$nbConversation['id']], [], 'date', 'DESC', '1');
+                            $lastMessage = $req_lastMessage->fetch();
                         }
 
                     ?>
@@ -84,6 +107,25 @@ if (isset($_GET['userId'])) {
                                     }
                                     ?>
                                 </div>
+                                <?php
+                                if ($req_lastMessage->rowCount() > 0) {
+                                    if ($count_unreadMessage['unreadMessages'] === 0) {
+                                        if (strlen($lastMessage['message']) > 42) {
+                                            echo '<p class="latest-message">' . substr($lastMessage['message'], 0, 42) . '...</p>';
+                                        } else {
+                                            echo '<p class="latest-message">' . $lastMessage['message'] . '</p>';
+                                        }
+                                    } else {
+                                        if (strlen($lastMessage['message']) > 42) {
+                                            echo '<p class="latest-message unread"><span style="color:#7EFF7B">NEW :</span> ' . substr($lastMessage['message'], 0, 42) . '...</p>';
+                                        } else {
+                                            echo '<p class="latest-message unread"><span style="color:#7EFF7B">NEW :</span> ' . $lastMessage['message'] . '</p>';
+                                        }
+                                    }
+                                } else {
+                                    echo '<p class="latest-message unread"><span style="color:#7EFF7B">NEW MATCH : </span>Send the first messages...</p>';
+                                }
+                                ?>
                             </div>
                         </li>
                     <?php
@@ -183,10 +225,20 @@ if (isset($_GET['userId'])) {
         echo ("<script>location.href = 'messages.php';</script>");
     }
 } else {
+    //COUNT UNREAD MESSAGES
+    $sql =
+        'SELECT COUNT(id) 
+as unreadMessages 
+FROM `messages` 
+where lu = 1 
+AND idUserReceiver = ' . $_SESSION['user_login'];
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute();
+    $count_unreadMessage = $stmt->fetch();
     ?>
     <section class="login-hero">
-        <h1 class="login-hero__title">My messages</h1>
-        <p class="login-hero__text">HOME - My messages</p>
+        <h1 class="login-hero__title">Messages</h1>
+        <p class="login-hero__text">HOME - Messages</p>
     </section>
     <div class="container clearfix">
         <div class="people-list" id="people-list">
@@ -201,9 +253,15 @@ if (isset($_GET['userId'])) {
                     if ($nbConversation['idUser1'] != $_SESSION['user_login']) {
                         $req = selectInTable($pdo, 'user', ['username', 'user_id', 'isConnected'], ['user_id'], [$nbConversation['idUser1']], ['']);
                         $convUsername = $req->fetch();
+                        //SELECT LAST MESSAGE SEND FROM THE CONV
+                        $req_lastMessage = selectInTableWithOrderAndLimit($pdo, 'messages', ['message'], ['idMatch'], [$nbConversation['id']], [], 'date', 'DESC', '1');
+                        $lastMessage = $req_lastMessage->fetch();
                     } else if ($nbConversation['idUser2'] != $_SESSION['user_login']) {
                         $req = selectInTable($pdo, 'user', ['username', 'user_id', 'isConnected'], ['user_id'], [$nbConversation['idUser2']], ['']);
                         $convUsername = $req->fetch();
+                        //SELECT LAST MESSAGE SEND FROM THE CONV
+                        $req_lastMessage = selectInTableWithOrderAndLimit($pdo, 'messages', ['message'], ['idMatch'], [$nbConversation['id']], [], 'date', 'DESC', '1');
+                        $lastMessage = $req_lastMessage->fetch();
                     }
 
                 ?>
@@ -217,7 +275,7 @@ if (isset($_GET['userId'])) {
                         }
                         ?>">
                         <div class="about">
-                            <div class="name"><?php echo $convUsername['username']; ?></div>
+                            <div class="name" id="test"><?php echo $convUsername['username']; ?></div>
                             <div class="status">
                                 <?php
                                 if ($convUsername['isConnected'] === 1) {
@@ -231,6 +289,25 @@ if (isset($_GET['userId'])) {
                                 }
                                 ?>
                             </div>
+                            <?php
+                            if ($req_lastMessage->rowCount() > 0) {
+                                if ($count_unreadMessage['unreadMessages'] === 0) {
+                                    if (strlen($lastMessage['message']) > 42) {
+                                        echo '<p class="latest-message">' . substr($lastMessage['message'], 0, 42) . '...</p>';
+                                    } else {
+                                        echo '<p class="latest-message">' . $lastMessage['message'] . '</p>';
+                                    }
+                                } else {
+                                    if (strlen($lastMessage['message']) > 42) {
+                                        echo '<p class="latest-message unread"><span style="color:#7EFF7B">NEW :</span> ' . substr($lastMessage['message'], 0, 42) . '...</p>';
+                                    } else {
+                                        echo '<p class="latest-message unread"><span style="color:#7EFF7B">NEW :</span> ' . $lastMessage['message'] . '</p>';
+                                    }
+                                }
+                            } else {
+                                echo '<p class="latest-message unread"><span style="color:#7EFF7B">NEW MATCH : </span>Send the first messages...</p>';
+                            }
+                            ?>
                         </div>
                     </li>
                 <?php
@@ -253,7 +330,6 @@ if (isset($_GET['userId'])) {
             <div class="chat-message clearfix">
                 <form method="POST" id="send">
                     <textarea name="message-to-send" id="message" name="message" placeholder="Type your message" rows="3"></textarea>
-                    <input type="submit" name="send" value="Send" />
                 </form>
                 <i class="fa fa-file-o"></i>
                 <i class="fa fa-file-image-o"></i>

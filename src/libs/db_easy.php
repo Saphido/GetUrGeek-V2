@@ -55,7 +55,7 @@ function selectInTableWithCount($pdo, $table, $count, $as, $wheresName, $wheresV
         for ($i = 0; $i < count($wheresName); $i++) {
             $sql = $sql . $wheresName[$i] . ' = ' . $wheresValue[$i];
             if ($i < count($wheresName) - 1) {
-                $sql = $sql . ' ' . $LogicOperator . ' ';
+                $sql = $sql . ' ' . $LogicOperator[$i] . ' ';
             }
         }
     } else {
@@ -70,7 +70,7 @@ function selectInTableWithCount($pdo, $table, $count, $as, $wheresName, $wheresV
     return $stmt;
 }
 
-function selectInTableWithOrderAndLimit($pdo, $table, $elements, $wheresName, $wheresValue, $LogicOperator, $orderName, $limitNumber)
+function selectInTableWithOrderAndLimit($pdo, $table, $elements, $wheresName, $wheresValue, $LogicOperator, $orderName, $sortBy, $limitNumber)
 {
     $sql = 'SELECT ';
     if (count($elements) > 0) {
@@ -98,7 +98,7 @@ function selectInTableWithOrderAndLimit($pdo, $table, $elements, $wheresName, $w
 
 
     if (!empty($orderName)) {
-        $sql = $sql . ' ORDER BY ' . $orderName;
+        $sql = $sql . ' ORDER BY ' . $orderName . ' ' . $sortBy;
     }
     if (!empty($limitNumber)) {
         $sql = $sql . ' LIMIT ' . $limitNumber;

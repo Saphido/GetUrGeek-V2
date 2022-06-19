@@ -346,3 +346,12 @@ $gray: #dadada;
 #btnSend, .is-hidden {
     display: none;
 }
+
+.latest-message {
+    width: 25rem;
+    overflow: hidden;
+}
+
+.unread {
+    font-weight: 700;
+}

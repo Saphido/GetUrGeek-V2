@@ -368,7 +368,7 @@ if (isset($_POST['edit-profile'])) {
             viewport: {
                 width: 300,
                 height: 300,
-                type: 'square' //circle
+                type: 'circle' //circle
             },
             boundary: {
                 width: 300,

@@ -5,7 +5,7 @@ if (!isset($_SESSION["user_login"])) {
     echo ("<script>location.href = 'login.php';</script>");
 }
 
-if (isset($_GET['userId']) === $_SESSION['user_login']) {
+if ($_GET['userId'] == $_SESSION['user_login']) {
     echo ("<script>location.href = 'profile.php';</script>");
 }
 
@@ -89,20 +89,55 @@ $music = $user["music_affinity"] * 10 . "%";
 ?>
 <!-- MAIN -->
 <main>
+
+    <div class="popup_overlay" id="matched">
+        <div class="popup-block">
+            <div class="popup-matched">
+                <div class="popup-content-matched">
+                    <h3 class="popup-content-matched__title">It's a match !</h3>
+                    <p class="popup-content-matched__text">You and <?php echo $user["username"]; ?> have liked each other.</p>
+                    <div class="popup-content-matched__picturesarea">
+                        <img class="popup-content-matched__picturesarea__image" alt="Matched user profile picture" src="<?php
+                                                                                                                        if (is_dir("src/img/users-img/user_" . $_GET["userId"] . "/")) {
+                                                                                                                            echo 'src/img/users-img/user_' . $_GET["userId"] . '/pp.png';
+                                                                                                                        } else {
+                                                                                                                            echo 'src/img/profile/default.png';
+                                                                                                                        }
+                                                                                                                        ?>">
+                        <img class="popup-content-matched__picturesarea__image" alt="My profile picture" src="<?php
+                                                                                                                if (is_dir("src/img/users-img/user_" . $_SESSION['user_login'] . "/")) {
+                                                                                                                    echo 'src/img/users-img/user_' . $_SESSION['user_login'] . '/pp.png';
+                                                                                                                } else {
+                                                                                                                    echo 'src/img/profile/default.png';
+                                                                                                                }
+                                                                                                                ?>">
+                    </div>
+                    <div class="popup-content-matched__buttonarea">
+                        <button class="popup-content-matched__buttonarea__button">Send message</button>
+                        <button class="popup-content-matched__buttonarea__button">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <section class="login-hero">
-        <h1 class="login-hero__title">My profile</h1>
+        <h1 class="login-hero__title"><?php echo $user["username"]; ?>'s profile</h1>
         <p class="login-hero__text">HOME - <?php echo $user["username"]; ?>'s profile</p>
+        <a href="#" onclick="openMatched()">
+            <li>MATCHED</li>
+        </a>
     </section>
 
     <section class="myprofile-hero">
         <div class="myprofile-header">
-            <img class="myprofile-header__image" alt="My profile picture" src="<?php
-                                                                                if (is_dir("src/img/users-img/user_" . $_GET["userId"] . "/")) {
-                                                                                    echo 'src/img/users-img/user_' . $_GET["userId"] . '/pp.png';
-                                                                                } else {
-                                                                                    echo 'src/img/profile/default.png';
-                                                                                }
-                                                                                ?>">
+            <img class="myprofile-header__image" alt="<?php echo $user["username"]; ?>'s profile picture" src="<?php
+                                                                                                                if (is_dir("src/img/users-img/user_" . $_GET["userId"] . "/")) {
+                                                                                                                    echo 'src/img/users-img/user_' . $_GET["userId"] . '/pp.png';
+                                                                                                                } else {
+                                                                                                                    echo 'src/img/profile/default.png';
+                                                                                                                }
+                                                                                                                ?>">
             <div class="myprofile-attribute">
                 <p class="myprofile-attribute__text">#CALIN</p>
                 <p class="myprofile-attribute__text">#PATIENT</p>
@@ -271,66 +306,70 @@ $music = $user["music_affinity"] * 10 . "%";
             </div>
         </div>
         <div class="profile-info__skills" id="gamestag">
-            <h3 class="profile-info__titles">Games Tag</h3>
+            <h3 class="profile-info__titles">Games Tags</h3>
             <?php
             if (empty($user['steam_username']) && empty($user['battlenet_username']) && empty($user['lol_username']) && empty($user['psn_username']) && empty($user['xbox_username']) && empty($user['twitch_username']) && empty($user['youtube_username'])) {
-                echo '<p class="profile-info__notadded">User have not added his games tags</p>';
-            }
-            if (!empty($user['steam_username'])) { ?>
-                <div class="profile-info__items">
-                    <p class="profile-info__title">Steam profile :</p>
-                    <?php echo '<a class="profile-info__text__link" target="_blank" href=" ' . $user['steam_username'] . '"> Link to steam profile</a>';
-                    ?>
-                </div>
-            <?php } ?>
-            <?php
-            if (!empty($user['battlenet_username'])) { ?>
-                <div class="profile-info__items">
-                    <p class="profile-info__title">BATTLE.NET ID :</p>
-                    <?php echo '<p class="profile-info__text"> ' . $user['battlenet_username'] . '</p>';
-                    ?>
-                </div>
-            <?php } ?>
-            <?php
-            if (!empty($user['lol_username'])) { ?>
-                <div class="profile-info__items">
-                    <p class="profile-info__title">Riot Games ID :</p>
-                    <?php echo '<p class="profile-info__text"> ' . $user['lol_username'] . '</p>';
-                    ?>
-                </div>
-            <?php } ?>
-            <?php
-            if (!empty($user['psn_username'])) { ?>
-                <div class="profile-info__items">
-                    <p class="profile-info__title">PSN ID :</p>
-                    <?php echo '<p class="profile-info__text"> ' . $user['psn_username'] . '</p>';
-                    ?>
-                </div>
-            <?php } ?>
-            <?php
-            if (!empty($user['xbox_username'])) { ?>
-                <div class="profile-info__items">
-                    <p class="profile-info__title">XBOX ID :</p>
-                    <?php echo '<p class="profile-info__text"> ' . $user['xbox_username'] . '</p>';
-                    ?>
-                </div>
-            <?php } ?>
-            <?php
-            if (!empty($user['twitch_username'])) { ?>
-                <div class="profile-info__items">
-                    <p class="profile-info__title">Twitch channel :</p>
-                    <?php echo '<p class="profile-info__text"> ' . $user['twitch_username'] . '</p>';
-                    ?>
-                </div>
-            <?php } ?>
-            <?php
-            if (!empty($user['youtube_username'])) { ?>
-                <div class="profile-info__items">
-                    <p class="profile-info__title">Youtube channel :</p>
-                    <?php echo '<p class="profile-info__text"> ' . $user['youtube_username'] . '</p>';
-                    ?>
-                </div>
-            <?php } ?>
+                echo
+                '<div class="profile-info__items">
+                <p class="profile-info__title" style="text-align:center">No games tags found.</p>
+                </div>';
+            } else {
+                if (!empty($user['steam_username'])) { ?>
+                    <div class="profile-info__items">
+                        <p class="profile-info__title">Steam profile :</p>
+                        <?php echo '<a class="profile-info__text__link" target="_blank" href=" ' . $user['steam_username'] . '"> Link to steam profile</a>';
+                        ?>
+                    </div>
+                <?php } ?>
+                <?php
+                if (!empty($user['battlenet_username'])) { ?>
+                    <div class="profile-info__items">
+                        <p class="profile-info__title">BATTLE.NET ID :</p>
+                        <?php echo '<p class="profile-info__text"> ' . $user['battlenet_username'] . '</p>';
+                        ?>
+                    </div>
+                <?php } ?>
+                <?php
+                if (!empty($user['lol_username'])) { ?>
+                    <div class="profile-info__items">
+                        <p class="profile-info__title">Riot Games ID :</p>
+                        <?php echo '<p class="profile-info__text"> ' . $user['lol_username'] . '</p>';
+                        ?>
+                    </div>
+                <?php } ?>
+                <?php
+                if (!empty($user['psn_username'])) { ?>
+                    <div class="profile-info__items">
+                        <p class="profile-info__title">PSN ID :</p>
+                        <?php echo '<p class="profile-info__text"> ' . $user['psn_username'] . '</p>';
+                        ?>
+                    </div>
+                <?php } ?>
+                <?php
+                if (!empty($user['xbox_username'])) { ?>
+                    <div class="profile-info__items">
+                        <p class="profile-info__title">XBOX ID :</p>
+                        <?php echo '<p class="profile-info__text"> ' . $user['xbox_username'] . '</p>';
+                        ?>
+                    </div>
+                <?php } ?>
+                <?php
+                if (!empty($user['twitch_username'])) { ?>
+                    <div class="profile-info__items">
+                        <p class="profile-info__title">Twitch channel :</p>
+                        <?php echo '<p class="profile-info__text"> ' . $user['twitch_username'] . '</p>';
+                        ?>
+                    </div>
+                <?php } ?>
+                <?php
+                if (!empty($user['youtube_username'])) { ?>
+                    <div class="profile-info__items">
+                        <p class="profile-info__title">Youtube channel :</p>
+                        <?php echo '<p class="profile-info__text"> ' . $user['youtube_username'] . '</p>';
+                        ?>
+                    </div>
+            <?php }
+            } ?>
 
         </div>
 
@@ -402,12 +441,11 @@ $music = $user["music_affinity"] * 10 . "%";
             );
     });
 </script>
-
-<!-- HEART BUTTON -->
+<!-- Matched popup -->
 <script>
-    document.body.onkeypress = function() {
-        document.body.classList.toggle('liked')
-    }
+    function openMatched() {
+        $("#matched").hide().fadeIn(1000);
+    };
 </script>
 <?php
 include 'src/include/footer.php'
