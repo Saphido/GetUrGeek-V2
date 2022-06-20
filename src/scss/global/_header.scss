@@ -1,123 +1,168 @@
 /* Custom dropdown for lang button */
 
 .header {
-    width: 101.3rem;
-    height: 13.2rem;
-    margin: 0 auto;
+  width: 101.3rem;
+  height: 13.2rem;
+  margin: 0 auto;
 
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
 
-    border-bottom: 1px solid #4543A9;
+  border-bottom: 1px solid #4543A9;
 
-    &__logo {
-        margin: 0 13.3rem 0 0;
-        width: 11.5rem;
+  &__logo {
+    margin: 0 13.3rem 0 0;
+    width: 11.5rem;
+  }
+
+  &__nav {
+
+    &__list {
+
+      &__link {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        gap: 4rem;
+
+        margin-right: 13.5rem;
+      }
+
+      &__button {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        margin-left: 15rem;
+        gap: 0rem;
+      }
     }
 
-    &__nav {
+    &__links {
+      font-size: 2rem;
+      font-weight: 700;
+      text-align: center;
 
-        &__list {
-
-            &__link {
-                display: flex;
-                flex-direction: row;
-                justify-content: center;
-                align-items: center;
-                gap: 4rem;
-
-                margin-right: 13.5rem;
-            }
-
-            &__button {
-                display: flex;
-                flex-direction: row;
-                justify-content: center;
-                align-items: center;
-                gap: 4rem;
-            }
-        }
-
-        &__links {
-            font-size: 2rem;
-            font-weight: 700;
-            text-align: center;
-
-            @include hoverLinks;
-        }
-
-        &__buttons {
-            width: 14.4rem;
-            height: 5.3rem;
-            background: #5518EC;
-            border-radius: 25px;
-            border: none;
-
-            color: white;
-            font-weight: 700;
-            font-size: 2rem;
-            text-align: center;
-
-            @include hoverButton;
-
-            #circle {
-                width: 0%;
-                height: 0%;
-                opacity: 0;
-                line-height: 40px;
-                border-radius: 50%;
-                background: #BFC0C0;
-                position: absolute;
-                transition: all .5s ease-Out;
-                top: 20px;
-                left: 70px;
-              }
-        }
+      @include hoverLinks;
     }
+
+    &__button-register {
+      width: 17.4rem;
+      height: 5.3rem;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 25px 0 0 25px;
+      border: none;
+
+      color: white;
+      font-weight: 700;
+      font-size: 2rem;
+      text-align: center;
+      letter-spacing: 1.5px;
+
+      @include hoverButton;
+
+      #circle {
+        width: 0%;
+        height: 0%;
+        opacity: 0;
+        line-height: 40px;
+        border-radius: 50%;
+        background: #BFC0C0;
+        position: absolute;
+        transition: all .5s ease-Out;
+        top: 20px;
+        left: 70px;
+      }
+    }
+
+    &__button-login {
+      width: 14.4rem;
+      height: 5.3rem;
+      background: rgba(255, 255, 255, 0.4);
+      border-radius: 0 25px 25px 0;
+      border: none;
+
+      color: white;
+      font-weight: 700;
+      font-size: 2rem;
+      letter-spacing: 1.5px;
+      text-align: center;
+
+      @include hoverButton;
+
+      #circle {
+        width: 0%;
+        height: 0%;
+        opacity: 0;
+        line-height: 40px;
+        border-radius: 50%;
+        background: #BFC0C0;
+        position: absolute;
+        transition: all .5s ease-Out;
+        top: 20px;
+        left: 70px;
+      }
+    }
+  }
 
 
 }
 
 .dropbtn {
-    font-size: 2rem;
-    font-weight: 700;
-    text-align: center;
+  font-size: 2rem;
+  font-weight: 700;
+  text-align: center;
 
-    @include hoverLinks;
-  }
+  @include hoverLinks;
+}
 
 .drop-icon {
   padding-left: 0.5rem;
+  cursor: pointer;
 }
-  
-  .dropdown {
-    position: relative;
-    display: inline-block;
-  }
-  
-  .dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #3F1A81;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-  }
-  
-  .dropdown-content a {
-    color: white;
-    padding: 12px 16px;
-    font-size: 1.2rem;
-    font-weight: 700;
-    text-align: center;
-    text-decoration: none;
-    display: block;
-  }
-  
-  .dropdown-content a:hover {color:#7EFF7B;
-    ;}
-  
-  .dropdown:hover .dropdown-content {display: block;}
-  
+
+.dropdown {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 5rem 0;
+}
+
+.dropdown-img {
+  border-radius: 50%; 
+  width: 80px; 
+  height: 80px;
+  border: 3px solid #ffffff70;
+  cursor: pointer;
+}
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #3F1A81;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  margin-top: 25rem;
+  margin-left: 2.5rem;
+}
+.profile-dropdown-icon {
+  margin-right: 1rem;
+}
+.dropdown-content a {
+  color: white;
+  padding: 12px 16px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  text-align: center;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {
+  color: #7EFF7B;
+}

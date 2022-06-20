@@ -72,22 +72,35 @@ AND idUserReceiver = ' . $_SESSION['user_login'];
     <header class="header">
         <a class="logo-link" href="index.php"><img class="header__logo" alt="Logo of Get Ur Geek" src="src/img/global/Logo.png"></a>
         <nav class="header__nav__url">
+            <ul class="header__nav__list__link">
+                <?php
+                if (!isset($_SESSION["user_login"])) {
+                ?>
+                    <li class="header__nav__items"><a href="index.php" class="header__nav__links">HOME</a></li>
+                    <li class="header__nav__items"><a href="contact.php" class="header__nav__links">CONTACT</a></li>
+                <?php
+                } else {
+                ?>
+                    <li class="header__nav__items"><a class="header__nav__links" href="index.php">MATCH</a></li>
+                    <li class="header__nav__items"><a class="header__nav__links" href="search_profile.php">SEARCH PROFILE</a></li>
+                <?php
+                }
+                ?>
+            </ul>
         </nav>
         <nav class="header__nav_button">
             <ul class="header__nav__list__button">
                 <?php
                 if (!isset($_SESSION["user_login"])) {
                 ?>
-                    <li class="header__nav__items"><button class="header__nav__buttons" onclick="window.location.href='register.php'">REGISTER</button></li>
-                    <li class="header__nav__items"><button class="header__nav__buttons " onclick="window.location.href='login.php'">LOGIN</button></li>
+                    <li class="header__nav__items"><button class="header__nav__button-register" onclick="window.location.href='register.php'"><i class="fa-solid fa-user-plus"></i> REGISTER</button></li>
+                    <li class="header__nav__items"><button class="header__nav__button-login " onclick="window.location.href='login.php'">LOGIN <i class="fa-solid fa-lock"></i></button></li>
                 <?php
                 } else {
                 ?>
-                    <li class="header__nav__items"><a class="header__nav__links" href="index.php">MATCH</a></li>
-                    <li class="header__nav__items"><a class="header__nav__links" href="search_profile.php">SEARCH</a></li>
                     <li class="header__nav__items">
                         <div class="dropdown">
-                            <p class="dropbtn">MY PROFILE <i class="drop-icon fa-solid fa-caret-down"></i></p>
+                            <i class="drop-icon fa-solid fa-caret-down fa-2x profile-dropdown-icon"></i><img class="dropdown-img" src="../../src/img/users-img/user_15/pp.png">
                             <div class="dropdown-content">
                                 <a href="profile.php">SEE PROFILE</a>
                                 <a href="edit_profile.php">EDIT PROFILE</a>
@@ -113,3 +126,18 @@ AND idUserReceiver = ' . $_SESSION['user_login'];
             </ul>
         </nav>
     </header>
+    <script>
+        var isOpen = false;
+        $(document).ready(function() {
+            $(".dropdown").click(function() {
+                if (isOpen) {
+                    $(".dropdown-content").css("display", "none");
+                    isOpen = false;
+                } else {
+                    $(".dropdown-content").css("display", "block");
+                    isOpen = true;
+                }
+
+            });
+        });
+    </script>

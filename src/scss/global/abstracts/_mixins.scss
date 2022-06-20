@@ -10,7 +10,7 @@
 @mixin hoverButton {
     &:hover {
         transition: all .25s ease-in-out;
-        background: #7EFF7B;
+        background: #7dff7bd3;
         cursor: pointer;
     }
 }
