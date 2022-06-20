@@ -82,7 +82,7 @@ AND idUserReceiver = ' . $_SESSION['user_login'];
                 } else {
                 ?>
                     <li class="header__nav__items"><a class="header__nav__links" href="index.php">MATCH</a></li>
-                    <li class="header__nav__items"><a class="header__nav__links" href="search_profile.php">SEARCH PROFILE</a></li>
+                    <li class="header__nav__items"><a class="header__nav__links" href="search_profile.php">PROFILES</a></li>
                 <?php
                 }
                 ?>
@@ -98,24 +98,46 @@ AND idUserReceiver = ' . $_SESSION['user_login'];
                 <?php
                 } else {
                 ?>
+                    <!--                     <li class="header__nav__items">
+                        <i class="fa-solid fa-bell fa-3x notification-icon"></i>
+                        <span class="notification-bubble">6</span>
+                    </li> -->
+
+                    <li class="header__nav__items">
+                        <div class="button-notification">
+                            <i class="fa-solid fa-bell fa-3x notification-icon"></i>
+                            <span class="button__badge">9+</span>
+                        </div>
+                    </li>
+                    <li class="header__nav__items">
+                        <div class="button-message">
+                            <a href="messages.php"><i class="fa-solid fa-comments fa-3x notification-icon"></i></a>
+                            <?php
+                            if ($count_unreadMessage['unreadMessages'] == 0) {
+                                //ON FAIT RIEN
+                            } else if ($count_unreadMessage['unreadMessages'] >= 1 && $count_unreadMessage['unreadMessages'] <= 9) {
+                            ?>
+                                <span class="button__badge">
+                                    <?php
+                                    echo $count_unreadMessage['unreadMessages'];
+                                    ?>
+                                </span>
+                            <?php
+                            } else if ($count_unreadMessage['unreadMessages'] > 9) {
+                            ?>
+                                <span class="button__badge">9+</span>
+                            <?php
+                            }
+                            ?>
+                            </span>
+                        </div>
+                    </li>
                     <li class="header__nav__items">
                         <div class="dropdown">
-                            <i class="drop-icon fa-solid fa-caret-down fa-2x profile-dropdown-icon"></i><img class="dropdown-img" src="../../src/img/users-img/user_15/pp.png">
+                            <i id="dropdown-icon" class="drop-icon fa-solid fa-caret-down fa-2x profile-dropdown-icon"></i><img class="dropdown-img" src="../../src/img/users-img/user_15/pp.png">
                             <div class="dropdown-content">
                                 <a href="profile.php">SEE PROFILE</a>
                                 <a href="edit_profile.php">EDIT PROFILE</a>
-                                <a href="messages.php">MESSAGES
-                                    <?php
-                                    if ($count_unreadMessage['unreadMessages'] == 0) {
-                                        //ON FAIT RIEN
-                                    } else if ($count_unreadMessage['unreadMessages'] >= 1 && $count_unreadMessage['unreadMessages'] <= 10) {
-                                        echo '(' . $count_unreadMessage['unreadMessages'] . ')';
-                                    } else if ($count_unreadMessage['unreadMessages'] > 10) {
-                                        echo '(10+)';
-                                    }
-                                    ?>
-
-                                </a>
                                 <a href="logout.php">LOGOUT</a>
                             </div>
                         </div>
@@ -129,15 +151,32 @@ AND idUserReceiver = ' . $_SESSION['user_login'];
     <script>
         var isOpen = false;
         $(document).ready(function() {
-            $(".dropdown").click(function() {
-                if (isOpen) {
+            $('#dropdown-icon').mouseenter(function() {
+                $('.dropdown-img').addClass("hover-img");
+            });
+            $('#dropdown-icon').mouseleave(function() {
+                $('.dropdown-img').removeClass("hover-img");
+            });
+            $('.dropdown-img').mouseenter(function() {
+                $('#dropdown-icon').addClass("hover-icon");
+            });
+            $('.dropdown-img').mouseleave(function() {
+                $('#dropdown-icon').removeClass("hover-icon");
+            });
+
+            $(document).click(function(e) {
+                if (e.target.id === "dropdown-icon" || e.target.className === "dropdown-img") {
+                    if (isOpen) {
+                        $(".dropdown-content").css("display", "none");
+                        isOpen = false;
+                    } else {
+                        $(".dropdown-content").css("display", "block");
+                        isOpen = true;
+                    }
+                } else {
                     $(".dropdown-content").css("display", "none");
                     isOpen = false;
-                } else {
-                    $(".dropdown-content").css("display", "block");
-                    isOpen = true;
                 }
-
             });
         });
     </script>

@@ -3,8 +3,8 @@ include "src/include/header.php";
 ?>
 
 <section class="login-hero">
-    <h1 class="login-hero__title">Search profiles</h1>
-    <p class="login-hero__text">HOME - Search profiles</p>
+    <h1 class="login-hero__title">Profiles</h1>
+    <p class="login-hero__text">HOME - Profiles</p>
 </section>
 
 <section class="search-profile-filterbar">

@@ -176,6 +176,9 @@ a, ul {
   padding-left: 0.5rem;
   cursor: pointer;
 }
+.drop-icon:hover {
+  color: #7EFF7B;
+}
 
 .dropdown {
   position: relative;
@@ -201,6 +204,9 @@ a, ul {
   height: 80px;
   border: 3px solid rgba(255, 255, 255, 0.4392156863);
   cursor: pointer;
+}
+.dropdown-img:hover {
+  border: 3px solid #7EFF7B;
 }
 
 .dropdown-content {
@@ -231,6 +237,82 @@ a, ul {
 
 .dropdown-content a:hover {
   color: #7EFF7B;
+}
+
+.notification-icon {
+  margin-right: 5rem;
+  cursor: pointer;
+}
+.notification-icon:hover {
+  color: #7EFF7B;
+}
+
+.notification-bubble {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 1.8rem;
+  height: 1.8rem;
+  background-color: rgb(201, 45, 45);
+  border-radius: 50%;
+  border: 1px solid rgba(125, 255, 123, 0.5960784314);
+  color: white;
+  text-align: center;
+  font-size: 1.2rem;
+}
+
+.hover-img {
+  border: 3px solid #7EFF7B;
+}
+
+.hover-icon {
+  color: #7EFF7B;
+}
+
+.button-notification {
+  width: 38px;
+  color: white;
+  display: inline-block;
+  position: relative;
+  padding: 2px 0;
+  margin-right: 3rem;
+}
+
+.button-message {
+  width: 45px;
+  color: white;
+  display: inline-block;
+  position: relative;
+  padding: 2px 0;
+  margin-right: 3rem;
+}
+
+.button__badge {
+  background-color: #fa3e3e;
+  border-radius: 50%;
+  font-family: "Exo 2", sans-serif;
+  font-weight: 700;
+  color: white;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  font-size: 10px;
+  position: absolute;
+  /* Position the badge within the relatively positioned button */
+  top: 0;
+  right: 0;
 }
 
 /* INDEX */
