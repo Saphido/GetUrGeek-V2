@@ -157,7 +157,7 @@ if (isset($_GET['userId'])) {
 
                         if ($numberOfMessages['NbMessage'] > $totalMessageToDisplay) {
                         ?>
-                            <button id="seeMore" class="buttonSeeMoreMessages">Voir plus</button>
+                            <button id="seeMore" class="buttonSeeMoreMessages">See more</button>
 
                         <?php
                         }
@@ -486,7 +486,7 @@ AND idUserReceiver = ' . $_SESSION['user_login'];
     });
 
     let cards = document.querySelectorAll('#element');
-    let test = document.querySelectorAll('#test')
+    let test = document.querySelectorAll('#test');
 
     function liveSearch() {
         let search_query = document.getElementById("searchbox").value;

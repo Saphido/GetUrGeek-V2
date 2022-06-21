@@ -7,14 +7,27 @@ if (isset($_SESSION['user_login'])) {
     //COUNT UNREAD MESSAGES
     $sql =
         'SELECT COUNT(id) 
-as unreadMessages 
-FROM `messages` 
-where lu = 1 
-AND idUserReceiver = ' . $_SESSION['user_login'];
+        as unreadMessages 
+        FROM `messages` 
+        where lu = 1 
+        AND idUserReceiver = ' . $_SESSION['user_login'];
     $stmt = $pdo->prepare($sql);
     $stmt->execute();
     $count_unreadMessage = $stmt->fetch();
+
+    //COUNT UNREAD NOTIFICATIONS
+    $req =
+        'SELECT COUNT(id) 
+        as unreadNotifications 
+        FROM `notifications` 
+        where lu = 0 
+        AND id_user = ' . $_SESSION['user_login'];
+    $stmt = $pdo->prepare($req);
+    $stmt->execute();
+    $count_unreadNotifications = $stmt->fetch();
 }
+
+
 ?>
 
 <!DOCTYPE html>
@@ -26,9 +39,9 @@ AND idUserReceiver = ' . $_SESSION['user_login'];
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="GetUrGeek is the first totally free chatting, meeting and dating website made for the Geek community. Let’s create your account and join us, it’s totally free and no subscription needed to message each others. ">
+    <link rel="stylesheet" href="src/css/style.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <link rel="stylesheet" href="src/css/style.min.css">
     <link href="src/js/nouislider/nouislider.min.css" rel="stylesheet">
     <script src="src/js/nouislider/nouislider.min.js"></script>
     <script src="src/js/wNumb.min.js"></script>
@@ -104,10 +117,25 @@ AND idUserReceiver = ' . $_SESSION['user_login'];
                     </li> -->
 
                     <li class="header__nav__items">
-                        <div class="button-notification">
-                            <i class="fa-solid fa-bell fa-3x notification-icon"></i>
-                            <span class="button__badge">9+</span>
-                        </div>
+                        <div class="button-notification dropdown">
+                            <a href="notifications.php"><i id="notification-dropdown-icon" class="fa-solid fa-bell fa-3x notification-icon"></i></a>
+                            <?php
+                            if ($count_unreadNotifications['unreadNotifications'] == 0) {
+                                //ON FAIT RIEN
+                            } else if ($count_unreadNotifications['unreadNotifications'] >= 1 && $count_unreadNotifications['unreadNotifications'] <= 9) {
+                            ?>
+                                <span class="button__badge">
+                                    <?php
+                                    echo $count_unreadNotifications['unreadNotifications'];
+                                    ?>
+                                </span>
+                            <?php
+                            } else if ($count_unreadNotifications['unreadNotifications'] > 9) {
+                            ?>
+                                <span class="button__badge">9+</span>
+                            <?php
+                            }
+                            ?>
                     </li>
                     <li class="header__nav__items">
                         <div class="button-message">
@@ -129,7 +157,6 @@ AND idUserReceiver = ' . $_SESSION['user_login'];
                             <?php
                             }
                             ?>
-                            </span>
                         </div>
                     </li>
                     <li class="header__nav__items">
@@ -151,6 +178,8 @@ AND idUserReceiver = ' . $_SESSION['user_login'];
     <script>
         var isOpen = false;
         $(document).ready(function() {
+
+            //DROPDOWN SYSTEM
             $('#dropdown-icon').mouseenter(function() {
                 $('.dropdown-img').addClass("hover-img");
             });

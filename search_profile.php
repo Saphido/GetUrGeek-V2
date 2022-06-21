@@ -1,6 +1,10 @@
 <?php
 include "src/include/header.php";
+if (!isset($_SESSION["user_login"])) {
+    echo ("<script>location.href = 'login.php';</script>");
+}
 ?>
+
 
 <section class="login-hero">
     <h1 class="login-hero__title">Profiles</h1>

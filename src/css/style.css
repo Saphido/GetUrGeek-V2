@@ -221,6 +221,50 @@ a, ul {
   margin-left: 2.5rem;
 }
 
+.notification-dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #3F1A81;
+  width: 200px;
+  height: 20rem;
+  border-radius: 10px;
+  -webkit-box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+          box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  margin-top: 1.4rem;
+  margin-left: -8.5rem;
+  overflow-y: scroll;
+}
+.notification-dropdown-content::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+  margin-right: 1rem;
+}
+.notification-dropdown-content::-webkit-scrollbar-track {
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.1);
+}
+.notification-dropdown-content::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.2);
+}
+.notification-dropdown-content::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.4);
+}
+.notification-dropdown-content::-webkit-scrollbar-thumb:active {
+  background: rgba(0, 0, 0, 0.9);
+}
+.notification-dropdown-content__title {
+  width: 140px;
+  margin: 1rem auto;
+  color: #7EFF7B;
+  font-size: 1.4rem;
+  font-weight: 700;
+  text-align: center;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #4543A9;
+}
+
 .profile-dropdown-icon {
   margin-right: 1rem;
 }
@@ -236,6 +280,20 @@ a, ul {
 }
 
 .dropdown-content a:hover {
+  color: #7EFF7B;
+}
+
+.notification-dropdown-content a {
+  color: white;
+  padding: 12px 16px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  text-align: center;
+  text-decoration: none;
+  display: block;
+}
+
+.notification-dropdown-content a:hover {
   color: #7EFF7B;
 }
 
@@ -313,6 +371,41 @@ a, ul {
   /* Position the badge within the relatively positioned button */
   top: 0;
   right: 0;
+}
+
+.notification_items {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin: 1rem auto;
+}
+
+.notification-title {
+  color: #7EFF7B;
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.notification-text {
+  color: white;
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.notification-date {
+  color: #BFC0C0;
 }
 
 /* INDEX */

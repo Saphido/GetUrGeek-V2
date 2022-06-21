@@ -9,8 +9,8 @@ use PHPMailer\PHPMailer\Exception;
 //Load Composer's autoloader
 require 'src/vendor/autoload.php';
 
-if (isset($_SESSION["user_login"])) { //Check if user session is open, redirect to index.php
-    header("location: index.php");
+if (isset($_SESSION["user_login"])) {
+    echo ("<script>location.href = 'index.php';</script>");
 }
 
 if (isset($_POST['reset'])) {

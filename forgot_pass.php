@@ -32,5 +32,6 @@ if(empty($requestInfo)){
 $_SESSION['user_id_reset_pass'] = $userId;
 
 //Redirect them to your reset password form.
-header('Location: change_password.php');
+
+echo "<script>location.href = 'change_password.php';</script>";
 exit;

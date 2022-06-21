@@ -50,7 +50,7 @@ $username = $req_username->fetch();
 $req_myusername = selectInTable($pdo, 'user', ['username'], ['user_id'], [$_SESSION['user_login']], []);
 $myusername = $req_myusername->fetch();
 
-$req_messages = selectInTableWithOrderAndLimit($pdo, 'messages', [], ['idMatch'], [$matchId], [], 'date', $limit_min  . ', ' . $limit_max);
+$req_messages = selectInTableWithOrderAndLimit($pdo, 'messages', [], ['idMatch'], [$matchId], [], 'date', '', $limit_min  . ', ' . $limit_max);
 
 if ($limit_min <= 0) {
 ?>
