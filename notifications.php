@@ -103,7 +103,7 @@ if (isset($_POST['deleteAll'])) {
                     } else if ($sn['subject'] == 'YOU GET LIKED') {
 
                         //IF USER HAVE PERM TO SEE LIKE
-                        if ($userlogin['user_rank'] === 2 || $userlogin['user_rank'] === 3) {
+                        if ($userlogin['user_rank'] === 2 || $userlogin['user_rank'] === 3 || $userlogin['user_rank'] === 4 || $userlogin['user_rank'] === 5) {
 
                         ?>
                             <li class="notification-container__notifarea__items">
@@ -146,8 +146,29 @@ if (isset($_POST['deleteAll'])) {
                                     </div>
                                 </div>
                             </li>
-            <?php
+                        <?php
                         }
+                    } else if ($sn['subject'] == 'YOU GET OVERLIKED') {
+                        ?>
+                        <li class="notification-container__notifarea__items">
+                            <div class="notification-container__notifarea__items__block">
+                                <a href="https://geturgeek.com/user_profile.php?userId=<?php echo $sn['relation_id'] ?>">
+                                    <div class="notification-container__notifarea__items__flexcollumn">
+                                        <p class="notification-container__notifarea__items__title"><?php echo $sn['subject']; ?></p>
+                                        <p class="notification-container__notifarea__items__date"><?php echo $sn['date']; ?></p>
+                                        <p class="notification-container__notifarea__items__text"><?php echo $sn['text']; ?></p>
+                                    </div>
+                                </a>
+                                <div class="notification-container__notifarea__items__buttonarea">
+                                    <form action="notifications.php" method="POST">
+                                        <input hidden type="number" name="notifId" value="<?php echo $sn['id']; ?>">
+                                        <button class="hiddenBtn" type="submit" name="deleteOne"><i class="fa-solid fa-trash fa-3x notif-delete"></i></button>
+                                    </form>
+                                </div>
+                            </div>
+                        </li>
+            <?php
+
                     }
                 }
             }

@@ -853,6 +853,7 @@ a, ul {
   line-height: 42px;
   font-family: "Chakra Petch", sans-serif;
   color: #7EFF7B;
+  padding-bottom: 2rem;
 }
 
 .features {

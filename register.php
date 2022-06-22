@@ -90,11 +90,11 @@ if (isset($_POST['register'])) {
     ?>
     <form class="formular__form" method="POST" action="register.php" Append="?submit=true">
         <p class="formular__form__text">Username *</p>
-        <input class="formular__form__input" type="text" name="username" placeholder="Username">
+        <input class="formular__form__input" type="text" name="username" value="<?php echo isset($_POST["username"]) ? $_POST["username"] : ''; ?>" placeholder="Username">
         <p class="formular__form__text">Email *</p>
-        <input class="formular__form__input" type="text" name="email" placeholder="Email">
+        <input class="formular__form__input" type="text" name="email" value="<?php echo isset($_POST["email"]) ? $_POST["email"] : ''; ?>" placeholder="Email">
         <p class="formular__form__text">Birthday * </p>
-        <input class="formular__form__input" type="date" name="birth" placeholder="dd-mm-yyyy" placeholder="dd-mm-yyyy">
+        <input class="formular__form__input" type="date" name="birth" value="<?php echo isset($_POST["birth"]) ? $_POST["birth"] : ''; ?>" placeholder="dd-mm-yyyy" placeholder="dd-mm-yyyy">
         <p class="formular__form__text">Gender *</p>
         <select class="formular__form__input" id="select" name="gender" required>
             <option value="" selected disabled hidden>Gender...</option>

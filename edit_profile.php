@@ -2,7 +2,7 @@
 include 'src/include/header.php';
 
 if (!isset($_SESSION["user_login"])) { //Check if user session is not open, redirect to login.php
-    echo ("<script>location.href = 'index.php';</script>");
+    echo ("<script>location.href = 'login.php';</script>");
 }
 
 $req = selectInTable(

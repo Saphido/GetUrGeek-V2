@@ -171,6 +171,7 @@ if (isset($_SESSION['user_login'])) {
                             <div class="dropdown-content">
                                 <a href="profile.php">SEE PROFILE</a>
                                 <a href="edit_profile.php">EDIT PROFILE</a>
+                                <a href="profile_data.php">ACCOUNT DATA</a>
                                 <a href="logout.php">LOGOUT</a>
                             </div>
                         </div>

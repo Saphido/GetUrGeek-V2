@@ -32,7 +32,7 @@ $req_userlogin = selectInTable(
     $pdo,
     'user',
     [
-        'username', 'verified', 'email', 'birthday', 'idgender', 'id_country', 'id_state',
+        'username', 'superLike', 'verified', 'email', 'birthday', 'idgender', 'id_country', 'id_state',
         'id_city', 'biography', 'id_here_for', 'id_looking_for', 'id_children',
         'id_drink', 'id_smoker', 'steam_username', 'battlenet_username', 'lol_username',
         'psn_username', 'xbox_username', 'twitch_username', 'youtube_username', 'discord_username',
@@ -64,6 +64,29 @@ if (isset($_POST['like'])) {
     }
 }
 
+if (isset($_POST['superlike'])) {
+    if ($userlogin['superLike'] >= 1) {
+        $newSuperLikeValue = $userlogin['superLike'] - 1;
+        if (verifyLiked($pdo, $_SESSION['user_login'], $_GET['userId'])) {
+        } else {
+            insertInTable($pdo, 'liked', ['idUserLike', 'idUserLiked'], [$_SESSION['user_login'], $_GET['userId']]);
+            insertInTable($pdo, 'notifications', ['id_user', 'relation_id', 'subject', 'text'], [$_GET['userId'], $_SESSION['user_login'], 'YOU GET OVERLIKED', 'It seems that you please a lot to <span style="color: #7EFF7B;">' . $userlogin['username'] . '</span> ! ']);
+            updateInTable($pdo, 'user', ['superLike'], [$newSuperLikeValue], ['user_id'], [$_SESSION['user_login']]);
+        }
+        if (verifyMatch($pdo, $_SESSION['user_login'], $_GET['userId'])) {
+            if (verifyAlreadyMatched($pdo, $_SESSION['user_login'], $_GET['userId'])) {
+            } else {
+                insertInTable($pdo, 'matches', ['idUser1', 'idUser2'], [$_SESSION['user_login'], $_GET['userId']]);
+                insertInTable($pdo, 'notifications', ['id_user', 'relation_id', 'subject', 'text'], [$_SESSION['user_login'], $_GET['userId'], 'NEW MATCH', '<span style="color: #7EFF7B;">You</span> and <span style="color: #7EFF7B;">' . $user['username'] . ' </span> have just matched. You can now chat together ! ']);
+                insertInTable($pdo, 'notifications', ['id_user', 'relation_id', 'subject', 'text'], [$_GET['userId'], $_SESSION['user_login'], 'NEW MATCH', '<span style="color: #7EFF7B;">You</span> and <span style="color: #7EFF7B;">' . $userlogin['username'] . '</span> have just matched. You can now chat together ! ']);
+
+                //AFFICHER LE POPUP DES MATCHS
+            }
+        }
+    } else {
+        $errorMsg = 'It seems that you don\'t have any more overlike, you can stock up in our store';
+    }
+}
 
 //CALCULATE THE AGE OF THE USER
 $aujourdhui = date("Y-m-d");
@@ -167,11 +190,27 @@ $music = $user["music_affinity"] * 10 . "%";
                 <p class="myprofile-attribute__text">#GENTIL</p>
                 <p class="myprofile-attribute__text">#GENTIL</p>
             </div>
+            <?php
+            if (isset($errorMsg)) {
+            ?>
+                <div class="alert alert-danger">
+                    <strong><?php echo $errorMsg; ?> </strong>
+                </div>
+            <?php
+            }
+            ?>
             <form method="POST" action="user_profile.php?userId=<?php echo $_GET["userId"]; ?>">
                 <button type="submit" class="like-btn" <?php if (verifyLiked($pdo, $_SESSION['user_login'], $_GET['userId'])) {
-                                                                            echo ' disabled ';
-                                                                        }
-                                                                        ?> name="like" value="<?php echo $_GET["userId"]; ?>">LIKE</button>
+                                                            echo ' disabled ';
+                                                        }
+                                                        ?> name="like" value="<?php echo $_GET["userId"]; ?>">LIKE</button>
+            </form>
+
+            <form method="POST" action="user_profile.php?userId=<?php echo $_GET["userId"]; ?>">
+                <button type="submit" class="like-btn" <?php if (verifyLiked($pdo, $_SESSION['user_login'], $_GET['userId'])) {
+                                                            echo ' disabled ';
+                                                        }
+                                                        ?> name="superlike" value="<?php echo $_GET["userId"]; ?>">LIKE</button>
             </form>
             <div class="myprofile-header__textarea">
                 <h3 class="myprofile-header__textarea__title"><span style="color: #7EFF7B;">
