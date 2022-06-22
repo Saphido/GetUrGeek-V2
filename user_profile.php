@@ -26,6 +26,26 @@ $req = selectInTable(
     []
 );
 
+$user = $req->fetch();
+
+$req_userlogin = selectInTable(
+    $pdo,
+    'user',
+    [
+        'username', 'verified', 'email', 'birthday', 'idgender', 'id_country', 'id_state',
+        'id_city', 'biography', 'id_here_for', 'id_looking_for', 'id_children',
+        'id_drink', 'id_smoker', 'steam_username', 'battlenet_username', 'lol_username',
+        'psn_username', 'xbox_username', 'twitch_username', 'youtube_username', 'discord_username',
+        'videogame_affinity', 'rpg_affinity', 'anime_affinity', 'comics_affinity',
+        'cosplay_affinity', 'series_affinity', 'movies_affinity', 'literature_affinity',
+        'science_affinity', 'music_affinity'
+    ],
+    ['user_id'],
+    [$_SESSION["user_login"]],
+    []
+);
+
+$userlogin = $req_userlogin->fetch();
 if (isset($_POST['like'])) {
     if (verifyLiked($pdo, $_SESSION['user_login'], $_GET['userId'])) {
     } else {
@@ -35,12 +55,14 @@ if (isset($_POST['like'])) {
         if (verifyAlreadyMatched($pdo, $_SESSION['user_login'], $_GET['userId'])) {
         } else {
             insertInTable($pdo, 'matches', ['idUser1', 'idUser2'], [$_SESSION['user_login'], $_GET['userId']]);
+            insertInTable($pdo, 'notifications', ['id_user', 'subject', 'text'], [$_SESSION['user_login'], 'NEW MATCH', 'You and <span style="color: 7EFF7B;">'.$user['username'] .' </span> have just matched. You can now chat together ! ']);
+            insertInTable($pdo, 'notifications', ['id_user', 'subject', 'text'], [$_GET['userId'], 'NEW MATCH', 'You and <span style="color: 7EFF7B;">'.$userlogin['username'] .'</span> have just matched. You can now chat together ! ']);
+
             //AFFICHER LE POPUP DES MATCHS
         }
     }
 }
 
-$user = $req->fetch();
 
 //CALCULATE THE AGE OF THE USER
 $aujourdhui = date("Y-m-d");
