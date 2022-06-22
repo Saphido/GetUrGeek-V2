@@ -91,4 +91,26 @@
     }
 }
 
-/* LIKE BUTTON */
+.like-btn {
+    background: #3498db;
+    border-radius: 20px;
+    padding: 0.5rem 2rem;
+    color: white;
+    border: 0;
+    outline: none !important;
+    margin: 1rem auto;
+    display: flex;
+    box-shadow: 2px 2px 4px rgba(33, 33, 33, 0.4);
+    transition: all .5s ease;
+    cursor: pointer;
+
+    &:hover {
+        transition: all .5s ease;
+        box-shadow: 2px 2px 4px rgba(33, 33, 33, 0.1);
+    }
+
+    &:disabled {
+        transition: all .5s ease;
+        box-shadow: 2px 2px 4px rgba(33, 33, 33, 0.1);
+    }
+}

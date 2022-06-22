@@ -161,7 +161,13 @@ if (isset($_SESSION['user_login'])) {
                     </li>
                     <li class="header__nav__items">
                         <div class="dropdown">
-                            <i id="dropdown-icon" class="drop-icon fa-solid fa-caret-down fa-2x profile-dropdown-icon"></i><img class="dropdown-img" src="../../src/img/users-img/user_15/pp.png">
+                            <i id="dropdown-icon" class="drop-icon fa-solid fa-caret-down fa-2x profile-dropdown-icon"></i><img class="dropdown-img" src="<?php
+                                                                                                                        if (is_dir("src/img/users-img/user_" . $_SESSION['user_login'] . "/")) {
+                                                                                                                            echo 'src/img/users-img/user_' . $_SESSION['user_login'] . '/pp.png';
+                                                                                                                        } else {
+                                                                                                                            echo 'src/img/profile/default.png';
+                                                                                                                        }
+                                                                                                                        ?>">
                             <div class="dropdown-content">
                                 <a href="profile.php">SEE PROFILE</a>
                                 <a href="edit_profile.php">EDIT PROFILE</a>

@@ -50,13 +50,14 @@ if (isset($_POST['like'])) {
     if (verifyLiked($pdo, $_SESSION['user_login'], $_GET['userId'])) {
     } else {
         insertInTable($pdo, 'liked', ['idUserLike', 'idUserLiked'], [$_SESSION['user_login'], $_GET['userId']]);
+        insertInTable($pdo, 'notifications', ['id_user', 'relation_id', 'subject', 'text'], [$_GET['userId'], $_SESSION['user_login'], 'YOU GET LIKED', 'It looks like you made a good impression, <span style="color: #7EFF7B;">' . $userlogin['username'] . ' </span> just liked you ! ']);
     }
     if (verifyMatch($pdo, $_SESSION['user_login'], $_GET['userId'])) {
         if (verifyAlreadyMatched($pdo, $_SESSION['user_login'], $_GET['userId'])) {
         } else {
             insertInTable($pdo, 'matches', ['idUser1', 'idUser2'], [$_SESSION['user_login'], $_GET['userId']]);
-            insertInTable($pdo, 'notifications', ['id_user', 'subject', 'text'], [$_SESSION['user_login'], 'NEW MATCH', 'You and <span style="color: 7EFF7B;">'.$user['username'] .' </span> have just matched. You can now chat together ! ']);
-            insertInTable($pdo, 'notifications', ['id_user', 'subject', 'text'], [$_GET['userId'], 'NEW MATCH', 'You and <span style="color: 7EFF7B;">'.$userlogin['username'] .'</span> have just matched. You can now chat together ! ']);
+            insertInTable($pdo, 'notifications', ['id_user', 'relation_id', 'subject', 'text'], [$_SESSION['user_login'], $_GET['userId'], 'NEW MATCH', '<span style="color: #7EFF7B;">You</span> and <span style="color: #7EFF7B;">' . $user['username'] . ' </span> have just matched. You can now chat together ! ']);
+            insertInTable($pdo, 'notifications', ['id_user', 'relation_id', 'subject', 'text'], [$_GET['userId'], $_SESSION['user_login'], 'NEW MATCH', '<span style="color: #7EFF7B;">You</span> and <span style="color: #7EFF7B;">' . $userlogin['username'] . '</span> have just matched. You can now chat together ! ']);
 
             //AFFICHER LE POPUP DES MATCHS
         }
@@ -167,11 +168,10 @@ $music = $user["music_affinity"] * 10 . "%";
                 <p class="myprofile-attribute__text">#GENTIL</p>
             </div>
             <form method="POST" action="user_profile.php?userId=<?php echo $_GET["userId"]; ?>">
-
-                <button type="submit" class="formular__form__button" <?php if (verifyLiked($pdo, $_SESSION['user_login'], $_GET['userId'])) {
+                <button type="submit" class="like-btn" <?php if (verifyLiked($pdo, $_SESSION['user_login'], $_GET['userId'])) {
                                                                             echo ' disabled ';
                                                                         }
-                                                                        ?> name="like" value="<?php echo $_GET["userId"]; ?>">LIKE !</button>
+                                                                        ?> name="like" value="<?php echo $_GET["userId"]; ?>">LIKE</button>
             </form>
             <div class="myprofile-header__textarea">
                 <h3 class="myprofile-header__textarea__title"><span style="color: #7EFF7B;">
@@ -468,6 +468,83 @@ $music = $user["music_affinity"] * 10 . "%";
     function openMatched() {
         $("#matched").hide().fadeIn(1000);
     };
+</script>
+<script src="https://unpkg.com/@mojs/core"></script>
+
+<script>
+    $(document).ready(function() {
+        var scaleCurve = mojs.easing.path('M0,100 L25,99.9999983 C26.2328835,75.0708847 19.7847843,0 100,0');
+        var el = document.querySelector('.button'),
+            // mo.js timeline obj
+            timeline = new mojs.Timeline(),
+
+            // tweens for the animation:
+
+            // burst animation
+            tween1 = new mojs.Burst({
+                parent: el,
+                radius: {
+                    0: 100
+                },
+                angle: {
+                    0: 45
+                },
+                y: -10,
+                count: 10,
+                radius: 100,
+                children: {
+                    shape: 'circle',
+                    radius: 30,
+                    fill: ['red', 'white'],
+                    strokeWidth: 15,
+                    duration: 500,
+                }
+            });
+
+
+        tween2 = new mojs.Tween({
+            duration: 900,
+            onUpdate: function(progress) {
+                var scaleProgress = scaleCurve(progress);
+                el.style.WebkitTransform = el.style.transform = 'scale3d(' + scaleProgress + ',' + scaleProgress + ',1)';
+            }
+        });
+        tween3 = new mojs.Burst({
+            parent: el,
+            radius: {
+                0: 100
+            },
+            angle: {
+                0: -45
+            },
+            y: -10,
+            count: 10,
+            radius: 125,
+            children: {
+                shape: 'circle',
+                radius: 30,
+                fill: ['white', 'red'],
+                strokeWidth: 15,
+                duration: 400,
+            }
+        });
+
+        // add tweens to timeline:
+        timeline.add(tween1, tween2, tween3);
+
+
+        // when clicking the button start the timeline/animation:
+        $(".button").click(function() {
+            if ($(this).hasClass('active')) {
+                $(this).removeClass('active');
+            } else {
+                timeline.play();
+                $(this).addClass('active');
+            }
+        });
+
+
+    });
 </script>
 <?php
 include 'src/include/footer.php'
